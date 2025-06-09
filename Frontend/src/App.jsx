@@ -4,6 +4,7 @@ import Layout from './Layout/Layout'
 import Home from './Pages/Home'
 import About from './Pages/About'
 import OurTeam from './Pages/OurTeam'
+import VolunteerPage from './Pages/VolunteerPage'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path='about' element={<About/>}/>
         <Route path='ourTeam' element={<OurTeam/>}/>
+        <Route path='volunteer' element={<VolunteerPage/>}/>
       </Route>
     </Routes>
   )
