@@ -353,15 +353,6 @@ function VolunteerPage() {
                         </div>
                         
                     </div>
-
-                    <div className="text-center mt-16">
-                        <button className="group px-10 py-4 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105">
-                            <span className="flex items-center justify-center">
-                                View More Memories
-                                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                            </span>
-                        </button>
-                    </div>
                     
                 </div>
             </section>
