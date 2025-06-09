@@ -3,7 +3,9 @@ import React, { useState, useEffect } from 'react';
 function OurTeam() {
     const [hoveredMember, setHoveredMember] = useState(null);
     const [hoveredTestimonial, setHoveredTestimonial] = useState(null);
-    const [scrollY, setScrollY] = useState(0);
+    // const [scrollY, setScrollY] = useState(0);
+    const [expandedTestimonial, setExpandedTestimonial] = useState(null);
+  const scrollY = useScrollPosition();
 
     useEffect(() => {
         const handleScroll = () => setScrollY(window.scrollY);
@@ -95,49 +97,115 @@ function OurTeam() {
         }
     ];
 
-    const TestimonialCard = ({ testimonial, isExpanded, onHover, onLeave }) => {
-        if (isExpanded) {
-            return (
-                <div
-                    className="bg-gradient-to-br from-orange-500 via-red-500 to-pink-500 rounded-3xl p-8 shadow-2xl transition-all duration-700 transform scale-110 border border-white/20 backdrop-blur-sm w-72 min-h-80 cursor-pointer"
-                    onMouseLeave={onLeave}
-                    style={{
-                        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 30px rgba(255, 165, 0, 0.3)'
-                    }}
-                >
-                    <div className="flex flex-col items-center space-y-4 h-full">
-                        <div className="relative flex-shrink-0">
-                            <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-white/30 shadow-xl">
-                                <img
-                                    src={testimonial.photo}
-                                    alt={testimonial.name}
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
-                            <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center border-2 border-white shadow-lg">
-                                <span className="text-white text-xs font-bold">★</span>
-                            </div>
-                        </div>
-                        <div className="flex-1 flex flex-col justify-center text-center">
-                            <div className="text-5xl text-white/20 leading-none mb-2 font-serif">"</div>
-                            <p className="text-white text-base leading-relaxed mb-4 font-medium">
-                                {testimonial.quote}
-                            </p>
-                            <div className="mt-auto">
-                                <div className="text-white font-bold text-lg">{testimonial.name}</div>
-                                <div className="text-white/80 text-sm font-medium">{testimonial.position}</div>
-                                <div className="text-white/70 text-sm">{testimonial.company}</div>
-                                <div className="flex justify-center space-x-1 mt-2">
-                                    {[...Array(testimonial.rating)].map((_, i) => (
-                                        <span key={i} className="text-yellow-300 text-lg">★</span>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            );
+    // const TestimonialCard = ({ testimonial, isExpanded, onHover, onLeave }) => {
+    //     if (isExpanded) {
+    //         return (
+    //             <div
+    //                 className="bg-gradient-to-br from-orange-500 via-red-500 to-pink-500 rounded-3xl p-8 shadow-2xl transition-all duration-700 transform scale-110 border border-white/20 backdrop-blur-sm w-72 min-h-80 cursor-pointer"
+    //                 onMouseLeave={onLeave}
+    //                 style={{
+    //                     boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 30px rgba(255, 165, 0, 0.3)'
+    //                 }}
+    //             >
+    //                 <div className="flex flex-col items-center space-y-4 h-full">
+    //                     <div className="relative flex-shrink-0">
+    //                         <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-white/30 shadow-xl">
+    //                             <img
+    //                                 src={testimonial.photo}
+    //                                 alt={testimonial.name}
+    //                                 className="w-full h-full object-cover"
+    //                             />
+    //                         </div>
+    //                         <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center border-2 border-white shadow-lg">
+    //                             <span className="text-white text-xs font-bold">★</span>
+    //                         </div>
+    //                     </div>
+    //                     <div className="flex-1 flex flex-col justify-center text-center">
+    //                         <div className="text-5xl text-white/20 leading-none mb-2 font-serif">"</div>
+    //                         <p className="text-white text-base leading-relaxed mb-4 font-medium">
+    //                             {testimonial.quote}
+    //                         </p>
+    //                         <div className="mt-auto">
+    //                             <div className="text-white font-bold text-lg">{testimonial.name}</div>
+    //                             <div className="text-white/80 text-sm font-medium">{testimonial.position}</div>
+    //                             <div className="text-white/70 text-sm">{testimonial.company}</div>
+    //                             <div className="flex justify-center space-x-1 mt-2">
+    //                                 {[...Array(testimonial.rating)].map((_, i) => (
+    //                                     <span key={i} className="text-yellow-300 text-lg">★</span>
+    //                                 ))}
+    //                             </div>
+    //                         </div>
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //         );
+    //     }
+
+        function useScrollPosition() {
+        const [scrollY, setScrollY] = useState(0);
+        useEffect(() => {
+            const handleScroll = () => setScrollY(window.scrollY);
+            window.addEventListener('scroll', handleScroll);
+            handleScroll();
+            return () => window.removeEventListener('scroll', handleScroll);
+        }, []);
+        return scrollY;
         }
+
+        function TestimonialCard({ testimonial, expanded, onExpand, onCollapse }) {
+        // For accessibility: allow keyboard expansion
+        const handleKeyDown = (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+            expanded ? onCollapse() : onExpand();
+            }
+        };
+
+        return (
+            <div
+            tabIndex={0}
+            role="button"
+            aria-pressed={expanded}
+            className={`transition-all duration-900 ease-in-out cursor-pointer 
+                ${expanded ? 'scale-105 z-20 shadow-2xl' : 'hover:scale-105 shadow-lg'}
+                bg-white/90 rounded-2xl border border-orange-100 p-6 w-72
+                `}
+            onMouseEnter={onExpand}
+            onMouseLeave={onCollapse}
+            onFocus={onExpand}
+            onBlur={onCollapse}
+            onClick={expanded ? onCollapse : onExpand}
+            onKeyDown={handleKeyDown}
+            style={{
+                minHeight: expanded ? 320 : 192,
+                outline: expanded ? '2px solid #fb923c' : 'none',
+                position: 'relative',
+            }}
+            >
+            <div className="flex flex-col items-center text-center space-y-3 h-full">
+                <div className="relative">
+                <div className={`rounded-full overflow-hidden border-4 ${expanded ? 'w-20 h-20' : 'w-16 h-16'} border-orange-200 shadow-lg`}>
+                    <img src={testimonial.photo} alt={testimonial.name} className="w-full h-full object-cover" />
+                </div>
+                <div className={`absolute ${expanded ? '-top-2 -right-2 w-8 h-8' : '-bottom-1 -right-1 w-6 h-6'} bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center border-2 border-white shadow-lg`}>
+                    <span className="text-white text-xs font-bold">{expanded ? '★' : '✓'}</span>
+                </div>
+                </div>
+                <div className="flex-1 flex flex-col justify-center">
+                <div className="text-gray-800 font-bold text-sm">{testimonial.name}</div>
+                <div className="text-gray-600 text-xs font-medium">{testimonial.position}</div>
+                <div className="text-gray-500 text-xs">{testimonial.company}</div>
+                </div>
+                <div className="flex space-x-1">
+                {[...Array(testimonial.rating)].map((_, i) => (
+                    <span key={i} className={`text-${expanded ? 'yellow' : 'orange'}-500 text-${expanded ? 'lg' : 'sm'}`}>★</span>
+                ))}
+                </div>
+                {expanded && (
+                <div className="mt-4 text-orange-700 text-base font-medium leading-relaxed">{testimonial.quote}</div>
+                )}
+            </div>
+            </div>
+        );
 
         return (
             <div
@@ -333,17 +401,17 @@ function OurTeam() {
                     </div>
 
                     {/* Testimonials Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16 justify-items-center" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(288px, 1fr))' }}>
-                        {testimonials.map((testimonial) => (
-                            <TestimonialCard
-                                key={testimonial.id}
-                                testimonial={testimonial}
-                                isExpanded={hoveredTestimonial === testimonial.id}
-                                onHover={() => setHoveredTestimonial(testimonial.id)}
-                                onLeave={() => setHoveredTestimonial(null)}
-                            />
-                        ))}
-                    </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {testimonials.map((t) => (
+          <TestimonialCard
+            key={t.id}
+            testimonial={t}
+            expanded={expandedTestimonial === t.id}
+            onExpand={() => setExpandedTestimonial(t.id)}
+            onCollapse={() => setExpandedTestimonial(null)}
+          />
+        ))}
+      </div>
 
                     {/* Stats Section */}
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
