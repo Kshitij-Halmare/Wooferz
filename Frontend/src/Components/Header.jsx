@@ -11,7 +11,7 @@ const Header = () => {
       <div className="flex items-center">
         <Link to="/">
           <img
-            src="/logo.png" // Update this path
+            src="/src/assets/nsd-logo.jpg"
             alt="Logo"
             className="h-12 w-auto"
           />
