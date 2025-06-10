@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react'; // install lucide-react or use SVGs directly
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -8,22 +9,26 @@ const Header = () => {
     <header className="bg-white shadow-sm px-6 py-4 flex items-center justify-between relative">
       {/* Logo */}
       <div className="flex items-center">
-        <img
-          src="/logo.png" // Update this path
-          alt="Logo"
-          className="h-12 w-auto"
-        />
+        <Link to="/">
+          <img
+            src="/logo.png" // Update this path
+            alt="Logo"
+            className="h-12 w-auto"
+          />
+        </Link>
       </div>
 
       {/* Desktop Nav */}
       <nav className="hidden md:flex items-center space-x-8 text-lg font-semibold text-black">
-        <a href="#about" className="hover:text-blue-600 flex items-center">
+        <Link to="/about" className="hover:text-blue-600 flex items-center">
           About<span className="ml-1 text-lg">{'>'}</span>
-        </a>
-        <a href="#donate" className="hover:text-blue-600">Donate</a>
-        <a href="#adopt" className="hover:text-blue-600">Adopt</a>
-        <a href="#blog" className="hover:text-blue-600">Blog</a>
-        <a href="#volunteer" className="hover:text-blue-600">Volunteer</a>
+        </Link>
+        <Link to="/donate" className="hover:text-blue-600">Donate</Link>
+        <Link to="/adopt" className="hover:text-blue-600">Adopt</Link>
+        <Link to="/blog" className="hover:text-blue-600">Blog</Link>
+        <Link to="/volunteer" className="hover:text-blue-600">Volunteer</Link>
+        <Link to="/founder" className="hover:text-blue-600">Founder</Link>
+        <Link to="/ourTeam" className="hover:text-blue-600">Our Team</Link>
       </nav>
 
       {/* Shop Button + User Avatar */}
@@ -52,11 +57,13 @@ const Header = () => {
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="absolute top-full left-0 w-full bg-white shadow-md md:hidden z-50 px-6 py-4 space-y-4 font-medium text-black">
-          <a href="#about" className="block hover:text-blue-600">About</a>
-          <a href="#donate" className="block hover:text-blue-600">Donate</a>
-          <a href="#adopt" className="block hover:text-blue-600">Adopt</a>
-          <a href="#blog" className="block hover:text-blue-600">Blog</a>
-          <a href="#volunteer" className="block hover:text-blue-600">Volunteer</a>
+          <Link to="/about" className="block hover:text-blue-600">About</Link>
+          <Link to="/donate" className="block hover:text-blue-600">Donate</Link>
+          <Link to="/adopt" className="block hover:text-blue-600">Adopt</Link>
+          <Link to="/blog" className="block hover:text-blue-600">Blog</Link>
+          <Link to="/volunteer" className="block hover:text-blue-600">Volunteer</Link>
+          <Link to="/founder" className="block hover:text-blue-600">Founder</Link>
+          <Link to="/ourTeam" className="block hover:text-blue-600">Our Team</Link>
         </div>
       )}
     </header>
