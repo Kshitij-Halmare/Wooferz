@@ -9,11 +9,13 @@ const Header = () => {
     <header className="bg-white shadow-sm px-6 py-4 flex items-center justify-between relative">
       {/* Logo */}
       <div className="flex items-center">
-        <img
-          src="/logo.png" // Update this path
-          alt="Logo"
-          className="h-12 w-auto"
-        />
+        <Link to="/">
+          <img
+            src="/logo.png" // Update this path
+            alt="Logo"
+            className="h-12 w-auto"
+          />
+        </Link>
       </div>
 
       {/* Desktop Nav */}
