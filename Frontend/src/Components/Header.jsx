@@ -25,6 +25,8 @@ const Header = () => {
         <Link to="/adopt" className="hover:text-blue-600">Adopt</Link>
         <Link to="/blog" className="hover:text-blue-600">Blog</Link>
         <Link to="/volunteer" className="hover:text-blue-600">Volunteer</Link>
+        <Link to="/founder" className="hover:text-blue-600">Founder</Link>
+        <Link to="/ourTeam" className="hover:text-blue-600">Our Team</Link>
       </nav>
 
       {/* Shop Button + User Avatar */}
@@ -58,6 +60,8 @@ const Header = () => {
           <Link to="/adopt" className="block hover:text-blue-600">Adopt</Link>
           <Link to="/blog" className="block hover:text-blue-600">Blog</Link>
           <Link to="/volunteer" className="block hover:text-blue-600">Volunteer</Link>
+          <Link to="/founder" className="block hover:text-blue-600">Founder</Link>
+          <Link to="/ourTeam" className="block hover:text-blue-600">Our Team</Link>
         </div>
       )}
     </header>

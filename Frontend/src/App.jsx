@@ -5,6 +5,7 @@ import Home from './Pages/Home'
 import About from './Pages/About'
 import OurTeam from './Pages/OurTeam'
 import VolunteerPage from './Pages/VolunteerPage'
+import Founder from './Pages/Founder'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path='/about' element={<About/>}/>
         <Route path='/ourTeam' element={<OurTeam/>}/>
         <Route path='/volunteer' element={<VolunteerPage/>}/>
+        <Route path='/founder' element={<Founder />} />
       </Route>
     </Routes>
   )
