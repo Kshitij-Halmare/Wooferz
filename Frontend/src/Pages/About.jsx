@@ -60,6 +60,7 @@ const initiatives = [
 const AboutUs = () => {
   const [activeIndex, setActiveIndex] = useState(null);
   const [expandedSection, setExpandedSection] = useState(null);
+  const [showFullStory, setShowFullStory] = useState(false);
 
   const toggleSection = (section) => {
     setExpandedSection(expandedSection === section ? "null" : section);
@@ -73,12 +74,12 @@ const AboutUs = () => {
     vision: {
       icon: <Target className="w-5 h-5" />,
       title: 'Our Vision',
-      content: 'To create a world where every stray dog has a loving home and no animal suffers on the streets. We envision communities where compassion for animals is the norm, and every dog is valued as a cherished companion.'
+      content: 'A city where every street animal is safe, respected, and cared for—living in harmony with the community'
     },
     mission: {
       icon: <Heart className="w-5 h-5" />,
       title: 'Our Mission',
-      content: 'To rescue, rehabilitate, and rehome stray dogs through community engagement, volunteer support, and sustainable practices. We provide comprehensive care while educating the public about responsible pet ownership.'
+      content: 'To protect, rescue, and care for street animals in Nagpur through community-driven efforts, promoting compassion, responsible ownership, and sustainable welfare initiatives.'
     },
     volunteers: {
       icon: <Users className="w-5 h-5" />,
@@ -116,7 +117,26 @@ const AboutUs = () => {
               </h2>
               <div className="space-y-4">
                 <p className="text-gray-700 text-lg leading-relaxed">
-                  Founded in 2015, our organization began with a simple act of kindness - rescuing a single injured stray from the streets. Today, we've grown into a comprehensive rescue network that has saved over 5,000 dogs.
+                  {showFullStory ? (
+                    <>
+
+Nagpur Street Dogs was founded by 16 year boy in 2020 it is a self-funded youth-driven community dedicated to the welfare, protection, and dignity of street animals across Nagpur. Founded with compassion and driven by action, our mission is to give a voice to the voiceless and build a more humane world—one paw at a time.
+
+We work actively on the streets to rescue, rehabilitate, and care for injured, abandoned, and sick dogs. Beyond rescue, we focus on long-term impact through sterilization, vaccination drives, feeding programs, and awareness campaigns.
+NSD is the 1st group in Nagpur city to distribute free water pots every summer.Every summer, we run free water pot distribution drives across Nagpur to ensure that animals have access to clean drinking water during scorching heatwaves-a life-saving initiative supported by our incredible team and community collaborators.
+
+NSD is the only group to provide Radium belts to the street dogs to reduce the accident cases in Nagpur.
+
+Our strength lies in our passionate volunteers, everyday heroes who believe in kindness without conditions. We proudly collaborate with local cafés, small businesses, influencers, educational institutions, and socially conscious brands to build a better environment for our furry friends.
+
+ At Nagpur Street Dogs, we believe that street animals are not a problem to be solved but lives to be protected. Join us in making Nagpur a safer, kinder place for all beings.</>
+                  ) : (
+                    <>
+
+Nagpur Street Dogs was founded by 16 year boy in 2020 it is a self-funded youth-driven community dedicated to the welfare, protection, and dignity of street animals across Nagpur. Founded with compassion and driven by action, our mission is to give a voice to the voiceless and build a more humane world—one paw at a time.
+
+<button onClick={() => setShowFullStory(true)} className="ml-2 text-orange-600 underline hover:text-orange-800 font-semibold">Read more</button></>
+                  )}
                 </p>
                 <p className="text-gray-600 leading-relaxed">
                   What started as a small group of animal lovers has blossomed into a professional operation with veterinary partners, foster networks across 3 states, and an adoption success rate of 98%.
@@ -205,7 +225,8 @@ const AboutUs = () => {
               <h3 className="text-2xl font-bold text-gray-800">Our Vision</h3>
             </div>
             <p className="text-gray-700 leading-relaxed">
-              We envision a future where no dog suffers on the streets, where every abandoned pet finds a loving forever home, and where communities prioritize animal welfare as a fundamental value.
+              A city where every street animal is safe, respected, and cared for—living in harmony with the community
+
             </p>
             <div className="mt-6 pt-6 border-t border-orange-100">
               <ul className="space-y-2 text-gray-600">
@@ -233,7 +254,7 @@ const AboutUs = () => {
               <h3 className="text-2xl font-bold text-gray-800">Our Mission</h3>
             </div>
             <p className="text-gray-700 leading-relaxed">
-              Through direct action, education, and community partnerships, we rescue abandoned dogs, provide comprehensive medical care and rehabilitation, and facilitate loving adoptions while promoting responsible pet ownership.
+              To protect, rescue, and care for street animals in Nagpur through community-driven efforts, promoting compassion, responsible ownership, and sustainable welfare initiatives.
             </p>
             <div className="mt-6 pt-6 border-t border-orange-100">
               <ul className="space-y-2 text-gray-600">
