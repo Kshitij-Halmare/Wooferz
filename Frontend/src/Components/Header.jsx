@@ -11,7 +11,7 @@ const Header = () => {
       <div className="flex items-center">
         <Link to="/">
           <img
-            src="/Wooferz Logo.jpg"
+            src="/Wooferz Logo.jpg" // Or replace with your actual logo path
             alt="Logo"
             className="h-12 w-12 rounded-full"
           />
@@ -29,7 +29,7 @@ const Header = () => {
         <Link to="/ourTeam" className="hover:text-blue-600">Our Team</Link>
       </nav>
 
-      {/* Right Side */}
+      {/* Shop Button + User Avatar + Hamburger */}
       <div className="flex items-center space-x-4">
         <a
           href="#shop"
@@ -38,12 +38,10 @@ const Header = () => {
           Shop
         </a>
         <img
-          src="/User Image.jpeg"
+          src="/User Image.jpeg" // Replace with actual user avatar if needed
           alt="User"
           className="h-10 w-10 rounded-full object-cover border-2 border-amber-700"
         />
-
-        {/* Hamburger Button */}
         <button
           className="md:hidden focus:outline-none"
           onClick={() => setMenuOpen(!menuOpen)}
