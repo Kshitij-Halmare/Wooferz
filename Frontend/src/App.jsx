@@ -8,6 +8,9 @@ import VolunteerPage from './Pages/VolunteerPage'
 import Founder from './Pages/Founder'
 import Register from './Components/Register'
 import Signin from './Components/Signin'
+import Donate from './Pages/Donate'
+import Blog from './Pages/Blog';
+import EditBlogPage from './Editor/EditBlogPage';
 
 function App() {
   return (
@@ -18,9 +21,10 @@ function App() {
         <Route 
           path='/donate' 
           element={
-            <Suspense fallback={<div>Loading...</div>}>
-              <Donate />
-            </Suspense>
+            // <Suspense fallback={<div>Loading...</div>}>
+            //   <Donate />
+            // </Suspense>
+            <Donate />
           } 
         />
         <Route path='/ourTeam' element={<OurTeam />} />
@@ -28,6 +32,8 @@ function App() {
         <Route path='/founder' element={<Founder />} />
         <Route path='/register' element={<Register />} />
         <Route path='/signin' element={<Signin />} />
+        <Route path='/blog' element={<Blog />} />
+        <Route path='/edit-blog' element={<EditBlogPage />} />
         
       </Route>
     </Routes>

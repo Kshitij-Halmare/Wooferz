@@ -28,10 +28,10 @@ export const AuthProvider = ({ children }) => {
     } else {
       setUser(null);
 
-      if (!['/signin', '/register'].includes(location.pathname)) {
-        toast.error('Please sign in or register');
-        navigate('/signin');
-      }
+      // if (!['/signin', '/register'].includes(location.pathname)) {
+      //   toast.error('Please sign in or register');
+      //   navigate('/signin');
+      // }
     }
 
     setLoading(false);
