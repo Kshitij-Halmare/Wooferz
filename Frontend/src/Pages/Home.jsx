@@ -20,17 +20,17 @@ function Home() {
     
     const initiatives = [
         {
-            image: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=400&h=300&fit=crop",
+            image: "/src/assets/img1.jpg" ,
             title: "Street Animal Rescue",
             description: "24/7 emergency rescue operations for injured and abandoned animals"
         },
         {
-            image: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=400&h=300&fit=crop", 
+            image: "/src/assets/img2.jpg",
             title: "Medical Care Program",
             description: "Complete veterinary care including surgery, vaccination, and treatment"
         },
         {
-            image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400&h=300&fit=crop",
+            image: "/src/assets/img3.jpg",
             title: "Adoption Services",
             description: "Finding loving homes for rescued animals through our adoption program"
         }
@@ -93,7 +93,7 @@ function Home() {
                                 <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg">
                                     Donate Now!
                                 </button>
-                                <button className="border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300">
+                                <button className="border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300" onClick={() => window.location.href = '/about'}>
                                     Learn More
                                 </button>
                             </div>
@@ -306,7 +306,7 @@ function Home() {
                         
                         <div className="relative">
                             <img 
-                                src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=600&h=500&fit=crop" 
+                                src="/src/assets/img1.jpg" 
                                 alt="Happy rescued dog" 
                                 className="rounded-3xl shadow-2xl"
                             />
