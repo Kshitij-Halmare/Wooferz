@@ -33,7 +33,7 @@ const Header = () => {
       <div className="flex items-center space-x-4">
         <a
           href="#shop"
-          className="bg-amber-700 text-white px-5 py-2 rounded-full font-bold hover:bg-amber-800 transition"
+          className="bg-blue-700 text-white px-5 py-2 rounded-full font-bold hover:bg-amber-800 transition"
         >
           Shop
         </a>
