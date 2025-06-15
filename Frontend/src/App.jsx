@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { Routes, Route } from "react-router-dom"
 import Layout from './Layout/Layout'
 import Home from './Pages/Home'
@@ -8,6 +8,7 @@ import VolunteerPage from './Pages/VolunteerPage'
 import Founder from './Pages/Founder'
 import Register from './Components/Register'
 import Signin from './Components/Signin'
+import Donate from './Pages/Donate'
 
 function App() {
   return (
