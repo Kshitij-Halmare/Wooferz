@@ -20,21 +20,65 @@ function Home() {
     
     const initiatives = [
         {
-            image: "/src/assets/img1.jpg" ,
-            title: "Street Animal Rescue",
-            description: "24/7 emergency rescue operations for injured and abandoned animals"
+            image: "/src/assets/feedingDrive.jpg",
+            title: "Daily feeding drives",
+            description: "NSD nourish the lives of over 150+ street dogs with love, care, and hope. It's not just a routine; it's a mission to make their world brighter and kinder."
         },
         {
-            image: "/src/assets/img2.jpg",
-            title: "Medical Care Program",
-            description: "Complete veterinary care including surgery, vaccination, and treatment"
+            image: "/src/assets/waterPot.jpg",
+            title: "Free water pots distribution",
+            description: "Every summer, NSD distributes free water pots to ensure no street dog suffers from thirst or dehydration. It's our mission to keep them safe and hydrated, making sure no paws is left behind."
         },
         {
-            image: "/src/assets/img3.jpg",
-            title: "Adoption Services",
-            description: "Finding loving homes for rescued animals through our adoption program"
+            image: "/src/assets/radiumBelt.jpg",
+            title: "Radium belts drive",
+            description: "NSD is transforming street safety by outfitting dogs with reflective radium belts, reducing accidents by 30% in Nagpur. We're brightening the night to protect every street dog and ensure they're seen and safe."
+        },
+        {
+            image: "/src/assets/vaccination.jpg",
+            title: "Rescue and vaccination",
+            description: "NSD is committed to rescuing all animals in need—whether it's dogs, cows, cats, birds, or any other creatures. We believe every life matters and work tirelessly to offer help and hope to every animal, no matter the species."
+        },
+        {
+            image: "/src/assets/adoption.jpg",
+            title: "Adoption camp",
+            description: "From the streets to safe homes — our adoption camps connect abandoned and stray dogs with loving families."
+        },
+        {
+            image: "/src/assets/communityEvent.jpg",
+            title: "Community events",
+            description: "We organize events to bring together the pet community, fostering unity and creating a strong, supportive network for all pet lovers. Our goal is to build a community where everyone can connect, share, and grow together."
         }
     ];
+
+    // --- Initiatives Carousel ---
+    const itemsPerSlide = 3;
+    const maxSlide = Math.max(0, initiatives.length - itemsPerSlide);
+
+    // Auto-slide for initiatives
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentSlide((prev) => {
+                if (prev >= maxSlide) return 0;
+                return prev + 1;
+            });
+        }, 5000);
+        return () => clearInterval(timer);
+    }, [maxSlide]);
+
+    const nextSlide = () => {
+        setCurrentSlide((prev) => {
+            if (prev >= maxSlide) return 0;
+            return prev + 1;
+        });
+    };
+
+    const prevSlide = () => {
+        setCurrentSlide((prev) => {
+            if (prev === 0) return maxSlide;
+            return prev - 1;
+        });
+    };
 
     // Auto-slide for hero section
     useEffect(() => {
@@ -43,14 +87,6 @@ function Home() {
         }, 5000);
         return () => clearInterval(timer);
     }, []);
-
-    const nextSlide = () => {
-        setCurrentSlide((prev) => (prev + 1) % initiatives.length);
-    };
-
-    const prevSlide = () => {
-        setCurrentSlide((prev) => (prev - 1 + initiatives.length) % initiatives.length);
-    };
 
     return (
         <div className="min-h-screen bg-white">
@@ -172,7 +208,7 @@ function Home() {
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <div className="relative">
                             <img 
-                                src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600&h=500&fit=crop" 
+                                src="src/assets/home2.jpg" 
                                 alt="About us" 
                                 className="rounded-3xl shadow-2xl"
                             />
@@ -186,7 +222,9 @@ function Home() {
                             </div>
                             <div className="space-y-6 text-gray-700 text-lg leading-relaxed">
                                 <p>
-                                    Nagpur Street Dogs is a self-funded youth community, founded by an 18-year-old passionate advocate in 2020 with a mission to create meaningful change in our community.
+                                    Nagpur street dogs is a self funded youth community founded by a 16 year old boy in 2020. 
+We focus on providing food , medical care, free water pots every summer, shelter and many more to the animals in need. 
+Through our dedicated efforts, we aim to create a safer and kinder environment for street Animals.
                                 </p>
                                 <p>
                                     We focus on providing comprehensive care including food, water, medical treatment, and shelter. Our dedicated team works tirelessly to make every summer and winter more comfortable for street animals while advocating for better policies to create a stable, nurturing environment for all animals in need.
@@ -222,17 +260,28 @@ function Home() {
                             <div className="flex transition-transform duration-500 ease-in-out"
                                  style={{ transform: `translateX(-${currentSlide * (100 / 3)}%)` }}>
                                 {initiatives.map((initiative, index) => (
-                                    <div key={index} className="w-full md:w-1/3 flex-shrink-0 relative px-2">
+                                    <div
+                                        key={index}
+                                        className="w-full md:w-1/3 flex-shrink-0 relative px-2 group cursor-pointer"
+                                        style={{ zIndex: 1 }}
+                                    >
                                         <img
                                             src={initiative.image}
                                             alt={initiative.title}
-                                            className="w-full h-96 md:h-[500px] object-cover rounded-2xl"
+                                            className="w-full h-96 md:h-[500px] object-cover rounded-2xl transition-all duration-500 group-hover:opacity-60"
                                         />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent rounded-2xl">
-                                            <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                                                <h3 className="text-3xl font-bold mb-3">{initiative.title}</h3>
-                                                <p className="text-lg text-gray-200">{initiative.description}</p>
-                                            </div>
+                                        {/* <div className="absolute inset-0 rounded-2xl flex flex-col justify-end items-start p-8 transition-all duration-500"> */}
+                                        <div className="absolute inset-0 rounded-2xl bg-black/40 flex flex-col justify-end items-start p-8 transition-all duration-500">
+
+
+                                            <h3 className="text-3xl font-bold mb-3 z-10 transition-all duration-500 group-hover:mb-0 text-orange-500 group-hover:text-orange-400 drop-shadow-lg">
+                                                {initiative.title}
+                                            </h3>
+                                            <p
+                                                className="text-lg text-white opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-40 transition-all duration-500 overflow-hidden z-10"
+                                            >
+                                                {initiative.description}
+                                            </p>
                                         </div>
                                     </div>
                                 ))}
