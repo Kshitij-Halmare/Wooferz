@@ -126,34 +126,41 @@ function Home() {
                         <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Impact in Numbers</h2>
                         <p className="text-xl text-gray-600">Making a difference, one life at a time</p>
                     </div>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
                         <div className="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                             <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                                 <Heart className="w-8 h-8 text-orange-500" />
                             </div>
-                            <div className="text-4xl font-bold text-orange-500 mb-2">850+</div>
-                            <div className="text-gray-600 font-medium">Rescued Cases</div>
-                        </div>
-                        <div className="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
-                            <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <Shield className="w-8 h-8 text-orange-500" />
-                            </div>
-                            <div className="text-4xl font-bold text-orange-500 mb-2">150+</div>
-                            <div className="text-gray-600 font-medium">Pets Vaccinated</div>
-                        </div>
-                        <div className="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
-                            <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <Users className="w-8 h-8 text-orange-500" />
-                            </div>
-                            <div className="text-4xl font-bold text-orange-500 mb-2">3000+</div>
-                            <div className="text-gray-600 font-medium">Community Reach</div>
+                            <div className="text-4xl font-bold text-orange-500 mb-2">950+</div>
+                            <div className="text-gray-600 font-medium">Rescue Cases</div>
                         </div>
                         <div className="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                             <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                                 <Award className="w-8 h-8 text-orange-500" />
                             </div>
+                            <div className="text-4xl font-bold text-orange-500 mb-2">500+</div>
+                            <div className="text-gray-600 font-medium">Adoptions</div>
+                        </div>
+                        <div className="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                            <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <Shield className="w-8 h-8 text-orange-500" />
+                            </div>
+                            <div className="text-4xl font-bold text-orange-500 mb-2">3000+</div>
+                            <div className="text-gray-600 font-medium">Radium Belts Distributed</div>
+                        </div>
+                        <div className="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                            <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <Users className="w-8 h-8 text-orange-500" />
+                            </div>
                             <div className="text-4xl font-bold text-orange-500 mb-2">150+</div>
                             <div className="text-gray-600 font-medium">Volunteer Team</div>
+                        </div>
+                        <div className="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                            <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <Globe className="w-8 h-8 text-orange-500" />
+                            </div>
+                            <div className="text-4xl font-bold text-orange-500 mb-2">5k+</div>
+                            <div className="text-gray-600 font-medium">Community Members</div>
                         </div>
                     </div>
                 </div>
@@ -212,16 +219,16 @@ function Home() {
                     
                     <div className="relative">
                         <div className="overflow-hidden rounded-3xl shadow-2xl">
-                            <div className="flex transition-transform duration-500 ease-in-out" 
-                                 style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
+                            <div className="flex transition-transform duration-500 ease-in-out"
+                                 style={{ transform: `translateX(-${currentSlide * (100 / 3)}%)` }}>
                                 {initiatives.map((initiative, index) => (
-                                    <div key={index} className="w-full flex-shrink-0 relative">
-                                        <img 
-                                            src={initiative.image} 
+                                    <div key={index} className="w-full md:w-1/3 flex-shrink-0 relative px-2">
+                                        <img
+                                            src={initiative.image}
                                             alt={initiative.title}
-                                            className="w-full h-96 md:h-[500px] object-cover"
+                                            className="w-full h-96 md:h-[500px] object-cover rounded-2xl"
                                         />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent">
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent rounded-2xl">
                                             <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
                                                 <h3 className="text-3xl font-bold mb-3">{initiative.title}</h3>
                                                 <p className="text-lg text-gray-200">{initiative.description}</p>
@@ -248,14 +255,12 @@ function Home() {
                         
                         {/* Dots Indicator */}
                         <div className="flex justify-center mt-8 space-x-3">
-                            {initiatives.map((_, index) => (
+                            {Array.from({ length: Math.ceil(initiatives.length / 3) }).map((_, index) => (
                                 <button
                                     key={index}
                                     onClick={() => setCurrentSlide(index)}
                                     className={`w-4 h-4 rounded-full transition-all duration-300 ${
-                                        currentSlide === index 
-                                            ? 'bg-orange-500 w-8' 
-                                            : 'bg-gray-300 hover:bg-gray-400'
+                                        currentSlide === index ? 'bg-orange-500 w-8' : 'bg-gray-300 hover:bg-gray-400'
                                     }`}
                                 />
                             ))}
