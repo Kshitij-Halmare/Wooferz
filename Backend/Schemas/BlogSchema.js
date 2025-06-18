@@ -7,6 +7,10 @@ const blogSchema = new Schema(
       required: true,
       unique: true,
     },
+    banner:{
+        type:String,
+        required:true
+    },
     title: {
       type: String,
       required: true,
