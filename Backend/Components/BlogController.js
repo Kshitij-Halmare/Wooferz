@@ -1,9 +1,8 @@
 import { nanoid } from "nanoid";
-import BlogSchema from "../Schemas/BlogSchema.js";
+import BlogSchema from "../Schemas/BlogSchema.js"
 import UserSchema from "../Schemas/UserSchema.js";
-import Notification from "../Schemas/Notification.js";
+import Notification from "../Schemas/NotificationSchema.js";
 import mongoose from "mongoose"
-import Blog from "../Schemas/BlogSchema.js"
 import CommentSchema from "../Schemas/CommentSchema.js";
 const generateBlogId = (userName) => {
   return `${userName}-${nanoid(8)}`;
@@ -15,9 +14,9 @@ export async function trendingBlog(req, res) {
 
     // Fetch the data with filtering, populating, sorting, and limiting
     const data = await BlogSchema.find({ draft: false })
-      .populate("author", "personal_info.full_name personal_info.userName personal_info.profile_img -_id") // Populate only necessary fields
+      .populate("author", "name email avatar") // Populate author with specific fields
+      .select("blog_id title description banner activity tags publishedAt author -_id")
       .sort({ "activity.total_reads": -1, "activity.total_likes": -1, "publishedAt": -1 }) // Sort by multiple fields
-      .select("blog_id title publishedAt -_id") // Select specific fields
       .limit(maxLimit); // Limit the number of blogs retrieved
 
     // Respond with the retrieved data
@@ -106,9 +105,9 @@ export async function getNotification(req, res) {
 
 
 export async function getSpecificTag(req, res) {
-  const maxLimit = 3;
-  const { query, category, page } = req.body;  // Expect 'query' or 'category' in the request body
-  console.log({ query, category, page });
+  //   const maxLimit = 3;
+  const { query, category } = req.body;  // Expect 'query' or 'category' in the request body
+  //   console.log({ query, category, page });
   let findQuery = { draft: false }; // Start by excluding drafts
 
   // Check if category is provided, and ensure it's an array, else fallback to search by query
@@ -136,13 +135,9 @@ export async function getSpecificTag(req, res) {
   try {
     // Fetch the blogs from the database
     const response = await BlogSchema.find(findQuery)
-      .populate("author", "personal_info.full_name personal_info.userName personal_info.profile_img -_id") // Populate author details
+      .populate("author", "name email avatar") // Populate author with specific fields
+      .select("blog_id title description banner activity tags publishedAt author -_id")
       .sort({ publishedAt: -1 }) // Sort by published date
-      .select("blog_id title description banner activity tags publishedAt author -_id") // Select required fields
-      .skip((page - 1) * maxLimit) // Pagination
-      .limit(maxLimit); // Limit results per page
-
-    // If no blogs are found, return a 404 response
     if (response.length === 0) {
       return res.status(404).json({
         message: 'No blogs found with the specified category or query',
@@ -221,7 +216,6 @@ export async function getCountBlog(req, res) {
 export async function updateLike(req, res) {
   const { blog_id, user_id, isLiked } = req.body; // Get blog_id, user_id, and isLiked value from request body
   const incrementalValue = isLiked ? 1 : -1; // Increment or decrement based on the like/dislike action
-  console.log({ blog_id, user_id, isLiked });
   try {
     // Find the blog and update the total_likes count
     const blog = await BlogSchema.findOneAndUpdate(
@@ -237,10 +231,10 @@ export async function updateLike(req, res) {
     if (isLiked) {
       // If the user is liking the blog, create a notification
       const notification = new Notification({
-        type: "like",
-        blog: blog._id,
+        type: "Liked",
+        blogId: blog._id,
         notification_for: blog.author, // Notify the blog's author
-        user: user_id,  // The user who liked the blog
+        userId: user_id,  // The user who liked the blog
       });
 
       await notification.save();
@@ -276,17 +270,10 @@ export async function updateLike(req, res) {
 
 export async function getBlog(req, res) {
   try {
-    const { page } = req.body;
-    const maxLimit = 3;
-    // console.log("page",page);
-    // Fetch blogs with necessary fields populated
     const data = await BlogSchema.find({ draft: false })
-      .populate("author", "personal_info.full_name personal_info.userName personal_info.profile_img -_id") // Populate author with specific fields
+      .populate("author", "name email avatar") // Populate author with specific fields
       .sort({ "publishedAt": -1 })
       .select("blog_id title description banner activity tags publishedAt author -_id")
-      .skip((page - 1) * maxLimit)
-      .limit(maxLimit);
-    // console.log(data);
     return res.status(200).json({
       message: "Successfully Retrieved",
       data: data,
@@ -382,7 +369,8 @@ export async function PublishBlog(req, res) {
     // Check if the author has already published a blog with the same title
     const existingBlog = await BlogSchema.findOne({
       author: resdata.authorId,
-      title: data.title, // Check for duplicate title
+      title: data.title, 
+      draft:false
     });
 
     if (existingBlog) {
@@ -587,7 +575,7 @@ export async function addComment(req, res) {
 
     // Populate the 'commented_by' field with user data
     const populatedComment = await CommentSchema.findById(newComment._id)
-      .populate("commented_by", "personal_info.full_name personal_info.userName personal_info.profile_img");
+      .populate("commented_by", "name email avatar");
 
     console.log(populatedComment);
 
@@ -672,7 +660,7 @@ export async function getBlogData(req, res) {
     incrementalValue = 0;
   }
 
-  console.log("id",id);
+  console.log("id", id);
 
   try {
     const blog = await BlogSchema.findOneAndUpdate(
@@ -680,13 +668,9 @@ export async function getBlogData(req, res) {
       { $inc: { "activity.total_reads": incrementalValue } },
       { new: true }
     )
-      .populate("author", "personal_info.full_name personal_info.userName personal_info.profile_img")
+    .populate("author", "name email avatar") // Populate author with specific fields      
       .select("title description banner content activity publishedAt blog_id tags draft");
     console.log(blog);
-    await UserSchema.findOneAndUpdate(
-      { "personal_info.userName": blog.author.personal_info.userName },
-      { $inc: { "account_info.total_reads": incrementalValue } }  // This line is not needed
-    );
 
     return res.status(200).json({
       message: "Successfully retrieved",
@@ -711,13 +695,13 @@ export async function getBlogData(req, res) {
 export async function isLikedByUser(req, res) {
   try {
     const { blog_id, user_id } = req.body;
-    // console.log({ blog_id, user_id });
+    console.log("res", blog_id, user_id);
     const data = await Notification.findOne({
-      blog: blog_id,
-      type: "like",
-      user: user_id
+      blogId: blog_id,
+      type: "Liked",
+      userId: user_id
     });
-    // console.log(data);
+    console.log(data);
 
     if (data) {
       return res.status(200).json({
@@ -744,14 +728,11 @@ export async function isLikedByUser(req, res) {
 
 
 export async function getCommentData(req, res) {
-  let { blog_id, skip } = req.body;
+  let { blog_id} = req.body;
   // console.log("coomentData", blog_id, skip);
-  let maxLimit = 5;
   try {
     const data = await CommentSchema.find({ blog_id: blog_id, isReply: false })
-      .populate("commented_by", "personal_info.full_name personal_info.userName personal_info.profile_img")
-      .skip(skip)
-      .limit(maxLimit)
+      .populate("commented_by", "name email avatar")
       .sort({ "commentedAt": -1 });
     // console.log(data);
     return res.status(200).json({
@@ -777,7 +758,7 @@ export async function notification(req, res) {
 
   try {
     const maxLimit = 5; // Maximum documents per page
-    let findQuery = { notification_for: user_id, user: { $ne: user_id },seen:false }; // Query to find notifications for the user
+    let findQuery = { notification_for: user_id, user: { $ne: user_id }, seen: false }; // Query to find notifications for the user
     let skipDocs = (page - 1) * maxLimit;
 
     // Apply filter if it's not "All"
@@ -889,18 +870,18 @@ export async function fetchBlog(req, res) {
   }
 }
 
-export async function BlogDelete(req,res){
-  const {blogId}=req.body;
-  if(!blogId){
+export async function BlogDelete(req, res) {
+  const { blogId } = req.body;
+  if (!blogId) {
     return res.status(400).json({ success: false, message: 'Blog ID is required' });
   }
-  try{
-    const blog=await BlogSchema.findByIdAndDelete(blogId);
+  try {
+    const blog = await BlogSchema.findByIdAndDelete(blogId);
     if (!blog) {
       return res.status(404).json({ success: false, message: 'Blog not found' });
     }
     res.status(200).json({ success: true, message: 'Blog deleted successfully' });
-  }catch(err){
+  } catch (err) {
     console.error('Error deleting blog:', error);
     res.status(500).json({ success: false, message: 'Server error' });
   }
