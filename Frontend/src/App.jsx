@@ -9,7 +9,7 @@ import Founder from './Pages/Founder'
 import Register from './Components/Register'
 import Signin from './Components/Signin'
 import Donate from './Pages/Donate'
-
+import EditorPage from './Editor/EditorPage.jsx'
 function App() {
   return (
     <Routes>
@@ -29,6 +29,8 @@ function App() {
         <Route path='/founder' element={<Founder />} />
         <Route path='/register' element={<Register />} />
         <Route path='/signin' element={<Signin />} />
+        <Route path='/signin' element={<Signin />} />
+        <Route path='/editor' element={<EditorPage />} />  
         
       </Route>
     </Routes>
