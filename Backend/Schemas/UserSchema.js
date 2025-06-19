@@ -33,7 +33,17 @@ const UserSchema = new mongoose.Schema({
   image: {
     type: String, // if storing as base64 or URL
     default: null
-  }
+  },
+  blogs: [{
+    title: {
+      type: String,
+      required: true
+    },
+    banner: {
+      type: String,
+      required: true
+    }
+  }]
 }, { timestamps: true });
 
 const User = mongoose.model("User", UserSchema);

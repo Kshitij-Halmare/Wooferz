@@ -59,6 +59,30 @@ const blogSchema = new Schema(
       type: Boolean,
       default: false,
     },
+     blogs: {
+        type:[{
+          title:{
+            type:String,
+            required:true
+          },
+          banner:{
+            type:String,
+            required:true
+          }
+        }]
+      }, 
+      blogs: {
+        type:[{
+          title:{
+            type:String,
+            required:true
+          },
+          banner:{
+            type:String,
+            required:true
+          }
+        }]
+      },
   },
   { timestamps: { createdAt: 'publishedAt' } }
 );

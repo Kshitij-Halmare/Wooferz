@@ -12,15 +12,16 @@ function EditBlogPage() {
   const { user, loading } = useContext(UserContext);
 
   if (loading) {
-    return <div>Loading...</div>; // Return loading state while the user context is being fetched
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-orange-50 to-white">
+        <div className="text-orange-600 text-xl font-serif">Loading...</div>
+      </div>
+    );
   }
 
-  // if (!user) {
-  //   return <div>Please log in to edit the blog.</div>; // Handle the case when the user is not logged in
-  // }
-
   const [imagePreview, setImagePreview] = useState(null);
-  const [imageLoading,setImageLoading]=useState(false);
+  const [imageLoading, setImageLoading] = useState(false);
+  
   useEffect(() => {
     setTextEditor(new EditorJS({
       holder: "textEditor",
@@ -80,29 +81,41 @@ function EditBlogPage() {
       setImageLoading(false);
     }
   };
-console.log(user);
+  
+  console.log(user);
+  
   return (
     <>
       <BlogEditorNavbar />
-      <section className="bg-gradient-to-tr from-pink-200 via-white to-pink-200">
-        <div className="mx-auto max-w-[900px] bg-white shadow-lg p-6 w-full">
-          <div className="relative aspect-video bg-white border-4 border-gray hover:opacity-80">
-            <label htmlFor="uploadImage" className="cursor-pointer">
-              {loading ? (
-                <div className="flex items-center justify-center h-full">
-                  <p className="text-gray-500 font-semibold">Uploading...</p>
+      <section className="bg-gradient-to-br from-orange-50 via-white to-orange-100 min-h-screen">
+        <div className="mx-auto max-w-[900px] bg-white shadow-xl rounded-lg p-6 w-full border border-orange-200">
+          <div className="relative aspect-video bg-white border-4 border-orange-300 hover:border-orange-400 transition-colors duration-200 rounded-lg overflow-hidden">
+            <label htmlFor="uploadImage" className="cursor-pointer block h-full">
+              {imageLoading ? (
+                <div className="flex items-center justify-center h-full bg-orange-50">
+                  <div className="text-center">
+                    <div className="animate-spin inline-block w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full mb-2"></div>
+                    <p className="text-orange-600 font-semibold">Uploading...</p>
+                  </div>
                 </div>
               ) : (
                 <>
                   <img
                     src={imagePreview || blog.banner || blogBannerPlaceholder}
                     alt="Blog Banner"
-                    className="md:min-w-[800px] w-full h-full object-cover rounded-lg"
+                    className="w-full h-full object-cover"
                   />
-                  {!imagePreview && (
-                    <div className="absolute text-gray-600 font-bold font-serif top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-                      <p className="md:text-4xl text-2xl">Upload</p>
-                      <p className="md:text-6xl text-3xl">Blog Banner</p>
+                  {!imagePreview && !blog.banner && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-orange-100 to-white">
+                      <div className="text-center text-orange-600">
+                        <div className="mb-2">
+                          <svg className="w-12 h-12 mx-auto" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                        <p className="md:text-2xl text-lg font-bold font-serif">Upload</p>
+                        <p className="md:text-3xl text-xl font-bold font-serif">Blog Banner</p>
+                      </div>
                     </div>
                   )}
                 </>
@@ -117,7 +130,7 @@ console.log(user);
             </label>
           </div>
 
-          <div className="my-4">
+          <div className="my-6">
             <input
               type="text"
               value={blog.title}
@@ -125,10 +138,11 @@ console.log(user);
                 setBlog((prevBlog) => ({ ...prevBlog, title: e.target.value }))
               }
               placeholder="Enter Blog Title"
-              className="w-full md:px-4 md:py-4 md:text-4xl text-xl px-2 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full md:px-4 md:py-4 md:text-4xl text-xl px-2 py-2 border-2 border-orange-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 font-serif placeholder-orange-300"
             />
           </div>
-          <div className="textEditor" id="textEditor"></div>
+          
+          <div className="textEditor border-2 border-orange-200 rounded-lg p-4 focus-within:border-orange-500 transition-colors duration-200" id="textEditor"></div>
         </div>
       </section>
     </>

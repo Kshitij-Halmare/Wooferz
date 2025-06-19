@@ -10,6 +10,8 @@ import Register from './Components/Register'
 import Signin from './Components/Signin'
 import Donate from './Pages/Donate'
 import EditorPage from './Editor/EditorPage.jsx'
+import CommunityHome from './Editor/CommunityHome.jsx'
+import BlogId from './Editor/BlogId.jsx'
 function App() {
   return (
     <Routes>
@@ -30,9 +32,11 @@ function App() {
         <Route path='/register' element={<Register />} />
         <Route path='/signin' element={<Signin />} />
         <Route path='/signin' element={<Signin />} />
-        <Route path='/editor' element={<EditorPage />} />  
-        
+        <Route path='/community' element={<CommunityHome />} />
+        <Route path='/blog/:id' element={<BlogId />} />
       </Route>
+      <Route path='/editor' element={<EditorPage />} />  
+
     </Routes>
   );
 }

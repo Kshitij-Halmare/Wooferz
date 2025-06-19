@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import BlogSchema from "../Schemas/BlogSchema.js"
 import UserSchema from "../Schemas/UserSchema.js";
-import Notification from "../Schemas/NotificationSchema.js";
+import Notification from "../Schemas/Notification.js";
 import mongoose from "mongoose"
 import CommentSchema from "../Schemas/CommentSchema.js";
 const generateBlogId = (userName) => {
@@ -404,14 +404,25 @@ export async function PublishBlog(req, res) {
 
     // Update the user's blogs array with the new blog reference and title
     const user = await UserSchema.findById(authorId);
+    console.log(user);
+    
     if (user) {
-      // Push both the ObjectId and title of the blog into the blogs array
+      // Initialize blogs array if it doesn't exist (defensive programming)
+      if (!user.blogs) {
+        user.blogs = [];
+      }
+      
+      // Push both the title and banner of the blog into the blogs array
       user.blogs.push({
         title: blog.title,
         banner: blog.banner,
-      });  // Push only the ObjectId
+      });
+      
       await user.save(); // Save the updated user
+    } else {
+      console.error('User not found for ID:', authorId);
     }
+    
     console.log(user);
     return res.status(200).json({
       message: "Blog published successfully",

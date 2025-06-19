@@ -173,7 +173,7 @@ function PublishPage() {
               <p className='text-red-600 text-right'>Only {5 - blog.tags.length} are left that can be added</p>
             </div>
           </div>
-          <button onClick={handleubmit}>Publish</button>
+          <button className='bg-black hover:opacity-80 p-2 px-3 rounded-lg text-white text-center' onClick={handleubmit}>Publish</button>
         </div>
       </div>
     // </AnimationWrapper>

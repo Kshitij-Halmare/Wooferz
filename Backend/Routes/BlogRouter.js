@@ -30,7 +30,7 @@ cloudinaryV2.config({
   
       // Upload image to Cloudinary with timeout settings
       const result = await cloudinaryV2.uploader.upload(base64Image, {
-        folder: "MentalHEalthBlogUpload",
+        folder: "Wooferz",
         timeout: 60000, // Set timeout to 60 seconds (adjust as needed)
       });
   
@@ -40,6 +40,7 @@ cloudinaryV2.config({
         { "blog_data.Banner_image": result.secure_url },
         { new: true }
       );
+      console.log("Updated User:", updatedUser);
   
       if (!updatedUser) {
         return res.status(404).json({ error: "User not found." });
