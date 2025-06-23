@@ -88,116 +88,208 @@ function CommunityHome() {
       getSpecificBlog(selectedCategory).finally(() => setIsLoading(false));
     }
   }, [selectedCategory]);
+  
   useEffect(()=>{
     getBlog();
     getTrendingBlog();
   },[])
+
   return (
     // <AnimationWrapper>
-    <div className="flex flex-col md:flex-row bg-pink-100">
-        <section className="h-cover flex flex-col justify-center gap-10 md:flex-row md:min-w-[60%] border-r-2 border-gray-100">
-            <div className="w-full px-4">
-                <InPageNavigation routes={selectedCategory ? [selectedCategory] : ["Home", "Trending Blogs"]} defaultHidden={["Trending Blogs"]}>
-                    {isLoading ? (
-                        <div className="flex justify-center items-center h-full">
-                            <div className="w-16 h-16 border-t-4 border-blue-500 border-solid rounded-full animate-spin"></div>
-                        </div>
-                    ) : (
-                        <>
-                            {selectedCategory ? (
-                                <>
-                                    {specificBlogs.length > 0 ? (
-                                        <>
-                                            <h1 className="text-2xl font-bold mb-6">{selectedCategory}</h1>
-                                            <div className="flex flex-col md:flex-row md:flex-wrap gap-8">
-                                                {specificBlogs.map((blog, index) => (
-                                                    // <AnimationWrapper key={index} transition={{ duration: 1, delay: index * 0.1 }}>
-                                                        <Blogcard content={blog} author={blog.author} />
-                                                    // </AnimationWrapper>
-                                                ))}
+    <div className="min-h-screen bg-gradient-to-br from-orange-100 via-white to-orange-100">
+        <div className="flex flex-col lg:flex-row max-w-7xl mx-auto">
+            <section className="flex-1 lg:pr-8">
+                <div className="px-6 py-8">
+                    <InPageNavigation 
+                        routes={selectedCategory ? [selectedCategory] : ["Home", "Trending Blogs"]} 
+                        defaultHidden={["Trending Blogs"]}
+                    >
+                        {isLoading ? (
+                            <div className="flex justify-center items-center h-96">
+                                <div className="relative">
+                                    <div className="w-20 h-20 border-4 border-orange-200 border-solid rounded-full animate-spin"></div>
+                                    <div className="absolute top-0 left-0 w-20 h-20 border-t-4 border-orange-500 border-solid rounded-full animate-spin"></div>
+                                </div>
+                            </div>
+                        ) : (
+                            <>
+                                {selectedCategory ? (
+                                    <>
+                                        {specificBlogs.length > 0 ? (
+                                            <>
+                                                <div className="mb-8">
+                                                    <h1 className="text-4xl font-bold text-gray-800 mb-2 relative">
+                                                        {selectedCategory}
+                                                        <div className="absolute -bottom-2 left-0 w-20 h-1 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full"></div>
+                                                    </h1>
+                                                    <p className="text-gray-600 mt-4">Discover amazing stories in {selectedCategory.toLowerCase()}</p>
+                                                </div>
+                                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                                    {specificBlogs.map((blog, index) => (
+                                                        // <AnimationWrapper key={index} transition={{ duration: 1, delay: index * 0.1 }}>
+                                                            <Blogcard content={blog} author={blog.author} />
+                                                        // </AnimationWrapper>
+                                                    ))}
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <div className="text-center py-16">
+                                                <div className="w-24 h-24 mx-auto mb-6 bg-orange-100 rounded-full flex items-center justify-center">
+                                                    <svg className="w-12 h-12 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                                    </svg>
+                                                </div>
+                                                <p className="text-xl text-gray-600">No blogs available in this category yet.</p>
+                                                <p className="text-gray-500 mt-2">Be the first to share your story!</p>
                                             </div>
-                                           
-                                        </>
-                                    ) : (
-                                        <p>No blogs available in this category.</p>
-                                    )}
-                                </>
-                            ) : (
-                                <>
-                                    <h1 className="text-2xl font-bold mb-6">Latest Blogs</h1>
-                                    {blogs.length > 0 ? (
-                                        <>
-                                            <div className="flex flex-col md:flex-row md:flex-wrap gap-8">
+                                        )}
+                                    </>
+                                ) : (
+                                    <>
+                                        <div className="mb-8">
+                                            <h1 className="text-4xl font-bold text-gray-800 mb-2 relative">
+                                                Latest Stories
+                                                <div className="absolute -bottom-2 left-0 w-20 h-1 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full"></div>
+                                            </h1>
+                                            <p className="text-gray-600 mt-4">Fresh perspectives and inspiring stories from our community</p>
+                                        </div>
+                                        {blogs.length > 0 ? (
+                                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                                                 {blogs.map((blog, index) => (
                                                     // <AnimationWrapper key={index} transition={{ duration: 1, delay: index * 0.1 }}>
                                                         <Blogcard content={blog} author={blog.author} />
                                                     // </AnimationWrapper>
                                                 ))}
                                             </div>
-                                        </>
-                                    ) : (
-                                        <p>No blogs available at the moment.</p>
-                                    )}
-                                </>
+                                        ) : (
+                                            <div className="text-center py-16">
+                                                <div className="w-24 h-24 mx-auto mb-6 bg-orange-100 rounded-full flex items-center justify-center">
+                                                    <svg className="w-12 h-12 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                                    </svg>
+                                                </div>
+                                                <p className="text-xl text-gray-600">No blogs available at the moment.</p>
+                                                <p className="text-gray-500 mt-2">Check back soon for new content!</p>
+                                            </div>
+                                        )}
+                                    </>
+                                )}
+                            </>
+                        )}
+                        
+                        {/* Trending Blogs */}
+                        <div className="pt-8">
+                            <div className="mb-8">
+                                <h1 className="text-4xl font-bold text-gray-800 mb-2 relative">
+                                    🔥 Trending Now
+                                    <div className="absolute -bottom-2 left-0 w-20 h-1 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full"></div>
+                                </h1>
+                                <p className="text-gray-600 mt-4">Most popular stories this week</p>
+                            </div>
+                            {trendingBlogs.length > 0 ? (
+                                <div className="space-y-6">
+                                    {trendingBlogs.map((blog, index) => (
+                                        // <AnimationWrapper key={index} transition={{ duration: 1, delay: index * 0.1 }}>
+                                            <TrendingBlogcard content={blog} author={blog.author} index={index} />
+                                        // </AnimationWrapper>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="text-center py-16">
+                                    <div className="w-24 h-24 mx-auto mb-6 bg-orange-100 rounded-full flex items-center justify-center">
+                                        <svg className="w-12 h-12 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                                        </svg>
+                                    </div>
+                                    <p className="text-xl text-gray-600">No trending blogs available at the moment.</p>
+                                </div>
                             )}
-                        </>
-                    )}
-                    {/* Trending Blogs */}
-                   <div>
-                     <h1 className="text-2xl font-bold mb-6">Trending Blogs</h1>
-                    {trendingBlogs.length > 0 ? (
-                        <div className="flex flex-col md:flex-row md:flex-wrap gap-8">
-                            {trendingBlogs.map((blog, index) => (
-                                // <AnimationWrapper key={index} transition={{ duration: 1, delay: index * 0.1 }}>
-                                    <TrendingBlogcard content={blog} author={blog.author} index={index} />
-                                // </AnimationWrapper>
-                            ))}
                         </div>
-                    ) : (
-                        <p>No trending blogs available at the moment.</p>
-                    )}
-                   </div>
-                </InPageNavigation>
-            </div>
-        </section>
-        <aside className="p-4 h-cover w-full md:w-1/3">
-            <div className='hidden md:block'>
-                <h1 className="font-semibold text-lg font-sans mb-4">Stories From All Interests</h1>
-                <hr className="mt-4 mb-6" />
-                <div className="flex flex-wrap gap-3 mb-6">
-                    {categories.map((category, index) => (
-                        <p
-                            key={index}
-                            onClick={() => {
-                                setSelectedCategory(category);
-                                setSpecificBlogs([]);
-                            }}
-                            className="cursor-pointer hover:scale-105 px-3 py-1 rounded-full bg-slate-100 text-gray-700 hover:bg-gray-200 transition duration-300"
-                        >
-                            {category}
-                        </p>
-                    ))}
+                    </InPageNavigation>
                 </div>
-            </div>
-            <div>
-                     <h1 className="text-2xl font-bold mb-6">Trending Blogs</h1>
-                    {trendingBlogs.length > 0 ? (
-                        <div className="flex flex-col md:flex-row md:flex-wrap gap-8">
-                            {trendingBlogs.map((blog, index) => (
-                                // <AnimationWrapper key={index} transition={{ duration: 1, delay: index * 0.1 }}>
-                                    <TrendingBlogcard content={blog} author={blog.author} index={index} />
-                                // </AnimationWrapper>
+            </section>
+            
+            <aside className="lg:w-96 bg-white lg:border-l border-orange-200">
+                <div className="sticky top-0 p-6">
+                    <div className="hidden lg:block mb-8">
+                        <div className="bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 rounded-2xl p-6 text-white mb-6">
+                            <h2 className="text-2xl font-bold mb-2">Explore Topics</h2>
+                            <p className="text-orange-100">Discover stories from all interests</p>
+                        </div>
+                        
+                        <div className="grid grid-cols-2 gap-3">
+                            {categories.map((category, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => {
+                                        setSelectedCategory(category);
+                                        setSpecificBlogs([]);
+                                    }}
+                                    className={`p-3 rounded-xl text-sm font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg ${
+                                        selectedCategory === category
+                                            ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg'
+                                            : 'bg-orange-50 text-orange-700 hover:bg-orange-100 border border-orange-200'
+                                    }`}
+                                >
+                                    {category}
+                                </button>
                             ))}
                         </div>
-                    ) : (
-                        <p>No trending blogs available at the moment.</p>
-                    )}
-                   </div>
-            <hr className="my-5" />
-        </aside>
+                        
+                        {selectedCategory && (
+                            <button
+                                onClick={() => {
+                                    setSelectedCategory("");
+                                    setSpecificBlogs([]);
+                                }}
+                                className="w-full mt-4 p-3 rounded-xl bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all duration-300 font-medium"
+                            >
+                                ← Back to All Stories
+                            </button>
+                        )}
+                    </div>
+                    
+                    <div className="bg-orange-50 rounded-2xl p-6 border border-orange-200">
+                        <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                            <span className="mr-2">🔥</span>
+                            Hot This Week
+                        </h3>
+                        {trendingBlogs.slice(0, 3).length > 0 ? (
+                            <div className="space-y-4">
+                                {trendingBlogs.slice(0, 3).map((blog, index) => (
+                                    <div 
+                                        key={index}
+                                        onClick={() => navigate(`/blog/${blog.blog_id}`)}
+                                        className="cursor-pointer p-4 bg-white rounded-xl hover:shadow-md transition-all duration-300 border border-orange-100"
+                                    >
+                                        <div className="flex items-start gap-3">
+                                            <span className="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                                                {index + 1}
+                                            </span>
+                                            <div className="flex-1 min-w-0">
+                                                <h4 className="font-semibold text-gray-800 text-sm line-clamp-2 mb-1">
+                                                    {blog.title}
+                                                </h4>
+                                                <p className="text-xs text-gray-600 flex items-center">
+                                                    <svg className="w-3 h-3 mr-1 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+                                                    </svg>
+                                                    {blog.activity.total_likes}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <p className="text-gray-600 text-sm">No trending blogs yet.</p>
+                        )}
+                    </div>
+                </div>
+            </aside>
+        </div>
     </div>
-// </AnimationWrapper>
-
+    // </AnimationWrapper>
   );
 }
 

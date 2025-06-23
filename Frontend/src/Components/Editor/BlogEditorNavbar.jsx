@@ -90,7 +90,7 @@ function BlogEditorNavbar() {
           className="md:text-3xl text-xl font-serif font-bold text-orange-600 cursor-pointer hover:text-orange-700 transition-colors duration-200" 
           onClick={() => { navigate("/") }}
         >
-          OPEN HEART
+          Wooferz
         </h1>
         <p className="md:pl-4 px-2 text-lg font-serif whitespace-nowrap text-gray-700">{`${blogTitle}`}</p>
       </div>
