@@ -23,12 +23,20 @@ function VolunteerPage() {
     };
 
     const volunteerPhotos = [
-        "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=300&h=200&fit=crop",
-        "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=300&h=200&fit=crop",
-        "https://images.unsplash.com/photo-1594213952234-58533d925b25?w=300&h=200&fit=crop",
-        "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=300&h=200&fit=crop",
-        "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=300&h=200&fit=crop",
-        "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&h=200&fit=crop"
+        "/New photo/IMG-20250603-WA0046~2.jpg",
+        "/New photo/IMG-20241206-WA0109~2.jpg",
+        "/New photo/IMG-20250603-WA0050~2.jpg",
+        "/New photo/IMG-20250604-WA0012~2.jpg",
+        "/New photo/IMG-20250604-WA0024~2.jpg",
+        "/New photo/IMG-20250604-WA0090.jpg",
+        "/New photo/IMG-20250604-WA0091.jpg",
+        "/New photo/IMG-20250604-WA0101.jpg",
+        "/New photo/IMG-20250604-WA0111(1).jpg",
+        "/New photo/IMG-20250604-WA0124~2.jpg",
+        "/New photo/IMG-20250604-WA0125~2.jpg",
+        "/New photo/IMG-20250604-WA0140.jpg",
+        "/New photo/IMG-20250604-WA0142.jpg",
+        "/New photo/IMG-20250604-WA0148.jpg",
     ];
 
     return (
@@ -281,8 +289,8 @@ function VolunteerPage() {
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
                             <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-700">
-                                <h3 className="text-3xl font-bold text-white mb-3">Community Garden Day</h3>
-                                <p className="text-amber-200 text-lg">50+ volunteers came together to plant hope for the future</p>
+                                <h3 className="text-3xl font-bold text-white mb-3">Making Impact Together</h3>
+                                <p className="text-amber-200 text-lg"></p>
                             </div>
                         </div>
 
@@ -301,7 +309,7 @@ function VolunteerPage() {
                         ))}
 
                         {/* Small photos */}
-                        {volunteerPhotos.slice(3, 6).map((photo, index) => (
+                        {volunteerPhotos.slice(3, 13).map((photo, index) => (
                             <div key={index} className="relative group overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500">
                                 <img
                                     src={photo}
@@ -313,45 +321,6 @@ function VolunteerPage() {
                                 </div>
                             </div>
                         ))}
-
-                        {/* Polaroid-style photo */}
-                        <div className="relative group overflow-hidden rounded-2xl bg-white p-4 shadow-xl hover:shadow-2xl transition-all duration-500 transform rotate-2 hover:rotate-0">
-                            <div className="overflow-hidden rounded-lg">
-                                <img
-                                    src={volunteerPhotos[2]}
-                                    alt="Volunteer moment"
-                                    className="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110"
-                                />
-                            </div>
-                            <div className="pt-4 text-center">
-                                <p className="text-gray-700 font-medium">Summer Camp Magic ✨</p>
-                            </div>
-                        </div>
-                        <div className="relative group overflow-hidden rounded-2xl bg-white p-4 shadow-xl hover:shadow-2xl transition-all duration-500 transform rotate-2 hover:rotate-0">
-                            <div className="overflow-hidden rounded-lg">
-                                <img
-                                    src={volunteerPhotos[2]}
-                                    alt="Volunteer moment"
-                                    className="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110"
-                                />
-                            </div>
-                            <div className="absolute inset-0 bg-black/20 group-hover:bg-orange-600/80 transition-all duration-500 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                                    <span className="text-white font-semibold text-center px-4">Making Impact Together</span>
-                                </div>
-                        </div>
-                        <div className="relative group overflow-hidden rounded-2xl bg-white p-4 shadow-xl hover:shadow-2xl transition-all duration-500 transform rotate-2 hover:rotate-0">
-                            <div className="overflow-hidden rounded-lg">
-                                <img
-                                    src={volunteerPhotos[2]}
-                                    alt="Volunteer moment"
-                                    className="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110"                                    
-                                />
-                            </div>
-                            <div className="pt-4 text-center">
-                                <p className="text-gray-700 font-medium">Summer Camp Magic ✨</p>
-                            </div>
-                        </div>
-                        
                     </div>
                     
                 </div>
