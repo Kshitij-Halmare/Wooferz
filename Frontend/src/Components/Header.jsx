@@ -56,7 +56,7 @@ const Header = () => {
           <Link to="/about" className="block hover:text-blue-600">About Us</Link>
           <Link to="/donate" className="block hover:text-blue-600">Donate</Link>
           <Link to="/adopt" className="block hover:text-blue-600">Adoption</Link>
-          <Link to="/blog" className="block hover:text-blue-600">Blogs</Link>
+          <Link to="/community" className="block hover:text-blue-600">Blogs</Link>
           <Link to="/volunteer" className="block hover:text-blue-600">Volunteering</Link>
           <Link to="/founder" className="block hover:text-blue-600">Founder</Link>
           <Link to="/ourTeam" className="block hover:text-blue-600">Our Team</Link>
