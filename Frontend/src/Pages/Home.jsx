@@ -7,9 +7,9 @@ function Home() {
     
     const heroImages = [
         {
-            image: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=1920&h=1080&fit=crop",
-            title: "Rescuing Lives Every Day",
-            subtitle: "Your support helps us save abandoned street animals"
+            image: "src/assets/home2.jpg",
+            title: "Every Little Help Counts",
+            subtitle: "Together we can create a better future for street animals."
         },
         {
             image: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1920&h=1080&fit=crop",
