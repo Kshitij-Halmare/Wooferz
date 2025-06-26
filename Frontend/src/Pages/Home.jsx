@@ -51,6 +51,23 @@ function Home() {
         }
     ];
 
+    const volunteerPhotos = [
+        "/New photo/IMG-20250603-WA0046~2.jpg",
+        "/New photo/IMG-20241206-WA0109~2.jpg",
+        "/New photo/IMG-20250603-WA0050~2.jpg",
+        "/New photo/IMG-20250604-WA0012~2.jpg",
+        "/New photo/IMG-20250604-WA0024~2.jpg",
+        "/New photo/IMG-20250604-WA0090.jpg",
+        "/New photo/IMG-20250604-WA0091.jpg",
+        "/New photo/IMG-20250604-WA0101.jpg",
+        "/New photo/IMG-20250604-WA0111(1).jpg",
+        "/New photo/IMG-20250604-WA0124~2.jpg",
+        "/New photo/IMG-20250604-WA0125~2.jpg",
+        "/New photo/IMG-20250604-WA0140.jpg",
+        "/New photo/IMG-20250604-WA0142.jpg",
+        "/New photo/IMG-20250604-WA0148.jpg",
+    ];
+
     // --- Initiatives Carousel ---
     const itemsPerSlide = 3;
     const maxSlide = Math.max(0, initiatives.length - itemsPerSlide);
@@ -126,7 +143,7 @@ function Home() {
                                 {heroImages[currentHeroSlide].subtitle}
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4">
-                                <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg">
+                                <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg" onClick={() => window.location.href = '/donate'}>
                                     Donate Now!
                                 </button>
                                 <button className="border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300" onClick={() => window.location.href = '/about'}>
@@ -208,9 +225,8 @@ function Home() {
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <div className="relative">
                             <img 
-                                src="src/assets/home2.jpg" 
+                                src="/Good doggy-amico 3.png" 
                                 alt="About us" 
-                                className="rounded-3xl shadow-2xl"
                             />
                             <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-orange-200 rounded-full opacity-30 -z-10"></div>
                             <div className="absolute -top-8 -left-8 w-24 h-24 bg-orange-300 rounded-full opacity-20 -z-10"></div>
@@ -369,6 +385,51 @@ Through our dedicated efforts, we aim to create a safer and kinder environment f
                     </div>
                 </div>
             </section>
+
+            {/* Enhanced Photo Grid */}
+                                <div className="grid grid-cols-1 md:grid-cols-4 gap-6 p-5 pb-16">
+                                    {/* Large featured photo */}
+                                    <div className="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-700">
+                                        <img
+                                            src={volunteerPhotos[0]}
+                                            alt="Featured volunteer moment"
+                                            className="w-full h-full min-h-[500px] object-cover transition-transform duration-1000 group-hover:scale-110"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+                                        <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-700">
+                                            <h3 className="text-3xl font-bold text-white mb-3">Making Impact Together</h3>
+                                            <p className="text-amber-200 text-lg"></p>
+                                        </div>
+                                    </div>
+            
+                                    {/* Medium photos */}
+                                    {volunteerPhotos.slice(1, 3).map((photo, index) => (
+                                        <div key={index} className="relative group overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500">
+                                            <img
+                                                src={photo}
+                                                alt="Volunteer moment"
+                                                className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-orange-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center pb-6">
+                                                <Heart className="w-10 h-10 text-white fill-current" />
+                                            </div>
+                                        </div>
+                                    ))}
+            
+                                    {/* Small photos */}
+                                    {volunteerPhotos.slice(3, 13).map((photo, index) => (
+                                        <div key={index} className="relative group overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500">
+                                            <img
+                                                src={photo}
+                                                alt="Volunteer moment"
+                                                className="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110"
+                                            />
+                                            <div className="absolute inset-0 bg-black/20 group-hover:bg-orange-600/80 transition-all duration-500 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                                <span className="text-white font-semibold text-center px-4">Making Impact Together</span>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
 
             {/* Enhanced WhatsApp Community Section */}
             <section className="py-20 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900">
