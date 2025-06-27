@@ -12,8 +12,8 @@ cloudinaryV2.config({
 // Upload dog images to Cloudinary
 export const uploadDogImages = async (req, res) => {
   try {
-    const { userId } = req.params;
-    console.log("User ID:", userId);
+    // const { userId } = req.params;
+    // console.log("User ID:", userId);
 
     if (!req.files || req.files.length === 0) {
       return res.status(400).json({ error: "No files uploaded." });
@@ -41,37 +41,114 @@ export const uploadDogImages = async (req, res) => {
     res.status(500).json({ error: "Internal server error." });
   }
 };
-
-// Get all dogs with filters and pagination
 export const getAllDogs = async (req, res) => {
+  console.log("yes");
   try {
-    const { city, breed, size, page = 1, limit = 12 } = req.query;
+    const { page = 1, limit = 12, city, breed, size, urgent } = req.query;
     
-    const query = { isAdopted: false };
+    // Build filter object
+    const filter = { isAdopted: false };
     
-    if (city) query['location.city'] = new RegExp(city, 'i');
-    if (breed) query.breed = new RegExp(breed, 'i');
-    if (size) query.size = size;
+    if (city && city.trim()) {
+      filter['location.city'] = { $regex: city.trim(), $options: 'i' };
+    }
+    
+    if (breed && breed.trim()) {
+      filter.breed = { $regex: breed.trim(), $options: 'i' };
+    }
+    
+    if (size && size.trim()) {
+      filter.size = size.trim();
+    }
+    
+    if (urgent === 'true') {
+      filter.urgent = true;
+    }
 
-    const dogs = await Dog.find(query)
-      .populate('owner', 'name email phone address')
+    // Calculate pagination
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    
+    // Get total count for pagination
+    const totalDogs = await Dog.countDocuments(filter);
+    const totalPages = Math.ceil(totalDogs / parseInt(limit));
+
+    // Fetch dogs with only card-required fields
+    const dogs = await Dog.find(filter)
+      .select('name breed age gender size color images location.city location.state healthStatus.vaccinated healthStatus.neutered urgent views createdAt')
       .sort({ urgent: -1, createdAt: -1 })
-      .limit(limit * 1)
-      .skip((page - 1) * limit);
-
-    const totalDogs = await Dog.countDocuments(query);
+      .skip(skip)
+      .limit(parseInt(limit))
+      .lean();
 
     res.json({
       success: true,
       dogs,
-      totalPages: Math.ceil(totalDogs / limit),
-      currentPage: page,
-      totalDogs
+      pagination: {
+        currentPage: parseInt(page),
+        totalPages,
+        totalDogs,
+        hasNext: parseInt(page) < totalPages,
+        hasPrev: parseInt(page) > 1
+      }
     });
+
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    console.error('Error fetching dogs:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching dogs',
+      error: error.message
+    });
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Get all dogs with filters and pagination
+// export const getAllDogs = async (req, res) => {
+//   try {
+//     const { city, breed, size, page = 1, limit = 12 } = req.query;
+    
+//     const query = { isAdopted: false };
+    
+//     if (city) query['location.city'] = new RegExp(city, 'i');
+//     if (breed) query.breed = new RegExp(breed, 'i');
+//     if (size) query.size = size;
+
+//     const dogs = await Dog.find(query)
+//       .populate('owner', 'name email phone address')
+//       .sort({ urgent: -1, createdAt: -1 })
+//       .limit(limit * 1)
+//       .skip((page - 1) * limit);
+
+//     const totalDogs = await Dog.countDocuments(query);
+
+//     res.json({
+//       success: true,
+//       dogs,
+//       totalPages: Math.ceil(totalDogs / limit),
+//       currentPage: page,
+//       totalDogs
+//     });
+//   } catch (error) {
+//     res.status(500).json({ success: false, message: error.message });
+//   }
+// };
 
 // Get single dog details
 export const getDogById = async (req, res) => {
@@ -92,25 +169,40 @@ export const getDogById = async (req, res) => {
 // Create new dog for adoption
 export const createDog = async (req, res) => {
   try {
+    const { name, owner } = req.body;
+
+    // Check if the owner already has a dog with the same name
+    const existingDog = await Dog.findOne({ name: name.trim(), owner });
+
+    if (existingDog) {
+      return res.status(400).json({
+        success: false,
+        message: 'You have already listed a dog with this name.'
+      });
+    }
+
     const dogData = {
-      ...req.body,
-      owner: req.user.id
+      ...req.body
     };
+
+    console.log('New Dog Data:', dogData);
 
     const dog = new Dog(dogData);
     await dog.save();
 
     // Add dog to user's dogsForAdoption array
     await User.findByIdAndUpdate(
-      req.user.id,
+      dogData.owner,
       { $push: { dogsForAdoption: dog._id } }
     );
 
     res.status(201).json({ success: true, dog });
   } catch (error) {
+    console.error('Error creating dog:', error);
     res.status(400).json({ success: false, message: error.message });
   }
 };
+
 
 // Update dog details
 export const updateDog = async (req, res) => {

@@ -15,7 +15,13 @@ const DogDetailsPage = () => {
 
   const fetchDogDetails = async () => {
     try {
-      const response = await fetch(`/api/dogs/${id}`);
+      console.log(`Fetching dog details for ID: ${id}`);
+      const response = await fetch(`${import.meta.env.VITE_SERVER_DOMAIN}/api/dog/getdogs/${id}`, {
+        method: 'GET',
+        // headers: {
+        //   'Content-Type': 'application/json'
+        // }
+      });
       const data = await response.json();
       
       if (data.success) {

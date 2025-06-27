@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Camera, MapPin, Heart, AlertCircle, Phone, Mail, Upload, X } from 'lucide-react';
-
+import { useContext } from 'react';
+import { UserContext } from '../Authentication/Authentication';
 const AddDogForm = () => {
+  const { user } = useContext(UserContext);
   const [formData, setFormData] = useState({
     name: '',
     breed: '',
@@ -19,7 +21,8 @@ const AddDogForm = () => {
     location: {
       city: '',
       state: '',
-      pincode: ''
+      pincode: '',
+      address: ''
     },
     contactPreference: 'both',
     urgent: false,
@@ -29,7 +32,10 @@ const AddDogForm = () => {
       cats: false,
       dogs: false
     },
-    energyLevel: 'Medium'
+    energyLevel: 'Medium',
+    specialNeeds: '',
+    adoptionFee: 0,
+    owner: ''
   });
 
   const [loading, setLoading] = useState(false);
@@ -89,26 +95,53 @@ const AddDogForm = () => {
     }));
   };
 
-  const handleImageUpload = (e) => {
+  const handleImageUpload = async (e) => {
     const files = Array.from(e.target.files);
-    
+
     if (files.length + formData.images.length > 5) {
       setErrors(prev => ({ ...prev, images: 'Maximum 5 images allowed' }));
       return;
     }
 
+    const formDataForImages = new FormData();
     files.forEach(file => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setFormData(prev => ({
-          ...prev,
-          images: [...prev.images, e.target.result]
-        }));
-      };
-      reader.readAsDataURL(file);
+      formDataForImages.append('images', file);
     });
 
-    setErrors(prev => ({ ...prev, images: '' }));
+    setLoading(true);
+    try {
+      // Check if environment variable exists
+      const serverDomain = import.meta?.env?.VITE_SERVER_DOMAIN;
+      if (!serverDomain) {
+        throw new Error('Server domain not configured');
+      }
+
+      const response = await fetch(`${serverDomain}/api/dog/upload-dog-images`, {
+        method: 'POST',
+        body: formDataForImages
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data.imageUrls && Array.isArray(data.imageUrls)) {
+        setFormData(prev => ({
+          ...prev,
+          images: [...prev.images, ...data.imageUrls]
+        }));
+        setErrors(prev => ({ ...prev, images: '' }));
+      } else {
+        throw new Error('Invalid response format');
+      }
+    } catch (error) {
+      console.error('Image upload error:', error);
+      setErrors(prev => ({ ...prev, images: error.message || 'Failed to upload images' }));
+    } finally {
+      setLoading(false);
+    }
   };
 
   const removeImage = (index) => {
@@ -137,56 +170,110 @@ const AddDogForm = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  const resetForm = () => {
+    setFormData({
+      name: '',
+      breed: '',
+      age: '',
+      gender: '',
+      size: '',
+      color: '',
+      description: '',
+      images: [],
+      healthStatus: {
+        vaccinated: false,
+        neutered: false,
+        medicalHistory: ''
+      },
+      location: {
+        city: '',
+        state: '',
+        pincode: ''
+      },
+      contactPreference: 'both',
+      urgent: false,
+      temperament: [],
+      goodWith: {
+        children: false,
+        cats: false,
+        dogs: false
+      },
+      energyLevel: 'Medium'
+    });
+  };
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(user==null){
+      console.log("Login");
+      return;
+    }
+    formData.owner=user._id;
+    // Clear previous errors
+    setErrors({});
     
     if (!validateForm()) return;
 
     setLoading(true);
+    
     try {
-      // Simulate API call since we can't use localStorage
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Simulate successful response
-      setSuccess(true);
-      setFormData({
-        name: '',
-        breed: '',
-        age: '',
-        gender: '',
-        size: '',
-        color: '',
-        description: '',
-        images: [],
-        healthStatus: {
-          vaccinated: false,
-          neutered: false,
-          medicalHistory: ''
+      // Mock API call - replace with your actual API endpoint
+     console.log(formData);
+      const mockResponse = await fetch(`${import.meta.env.VITE_SERVER_DOMAIN}/api/dog/createdog`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
         },
-        location: {
-          city: '',
-          state: '',
-          pincode: ''
-        },
-        contactPreference: 'both',
-        urgent: false,
-        temperament: [],
-        goodWith: {
-          children: false,
-          cats: false,
-          dogs: false
-        },
-        energyLevel: 'Medium'
+        body: JSON.stringify(formData)
       });
+      console.log(mockResponse);
+
+      if (!mockResponse.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await mockResponse.json();
       
-      setTimeout(() => setSuccess(false), 5000);
+      if (data.success) {
+        setSuccess(true);
+        resetForm();
+        setTimeout(() => setSuccess(false), 5000);
+      } else {
+        // Handle server validation errors
+        if (data.errors) {
+          setErrors(data.errors);
+        } else {
+          setErrors({ submit: data.message || 'Failed to post dog for adoption' });
+        }
+      }
     } catch (error) {
+      console.error('Submit error:', error);
       setErrors({ submit: 'Network error. Please try again.' });
     } finally {
       setLoading(false);
     }
   };
 
+  if (success) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white flex items-center justify-center p-4">
+        <div className="bg-white p-8 rounded-2xl shadow-xl text-center max-w-md w-full border-2 border-orange-100">
+          <div className="text-orange-500 mb-6">
+            <Heart className="w-20 h-20 mx-auto fill-current" />
+          </div>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">Success!</h2>
+          <p className="text-gray-600 mb-6 leading-relaxed">Your dog has been posted for adoption successfully. Thank you for helping find a loving home!</p>
+          <button
+            onClick={() => setSuccess(false)}
+            className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-8 py-3 rounded-xl font-semibold transition-all transform hover:scale-105 shadow-lg"
+          >
+            Post Another Dog
+          </button>
+        </div>
+      </div>
+    );
+  }
   if (success) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white flex items-center justify-center p-4">

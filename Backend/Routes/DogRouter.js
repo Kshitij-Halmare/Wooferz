@@ -20,16 +20,16 @@ const dogRouter = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
 // Upload dog images route
-dogRouter.post("/upload-dog-images/:userId", upload.array("images", 5), uploadDogImages);
+dogRouter.post("/upload-dog-images", upload.array("images", 5), uploadDogImages);
 
 // GET all dogs with filters and pagination
 dogRouter.get('/dogs', getAllDogs);
 
 // GET single dog details
-dogRouter.get('/dogs/:id', getDogById);
+dogRouter.get('/getdogs/:id', getDogById);
 
 // POST new dog for adoption (requires authentication)
-dogRouter.post('/dogs', createDog);
+dogRouter.post('/createdog', createDog);
 
 // PUT update dog details (only owner can update)
 dogRouter.put('/dogs/:id', updateDog);

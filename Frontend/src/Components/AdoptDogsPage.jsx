@@ -16,16 +16,37 @@ const AdoptDogsPage = () => {
   useEffect(() => {
     fetchDogs();
   }, [filters, currentPage]);
-
+ useEffect(() => {
+    fetchDogs();
+  }, []);
   const fetchDogs = async () => {
     try {
       setLoading(true);
-      const queryParams = new URLSearchParams({
-        page: currentPage,
-        ...filters
-      }).toString();
       
-      const response = await fetch(`/api/dogs?${queryParams}`);
+      // Build query parameters only if filters are not empty
+      const queryParams = new URLSearchParams();
+      queryParams.append('page', currentPage);
+      
+      // Only add filter parameters if they have values
+      if (filters.city && filters.city.trim()) {
+        queryParams.append('city', filters.city.trim());
+      }
+      if (filters.breed && filters.breed.trim()) {
+        queryParams.append('breed', filters.breed.trim());
+      }
+      if (filters.size && filters.size.trim()) {
+        queryParams.append('size', filters.size.trim());
+      }
+      
+      const queryString = queryParams.toString();
+      const url = queryString ? `/api/dog/dogs?${queryString}` : `/api/dog/dogs?page=${currentPage}`;
+      
+      const response = await fetch(`${import.meta.env.VITE_SERVER_DOMAIN}${url}`,{
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
       const data = await response.json();
       
       if (data.success) {
@@ -59,7 +80,7 @@ const AdoptDogsPage = () => {
   };
 
   const DogCard = ({ dog }) => (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow border border-orange-100">
       <div className="relative">
         <img
           src={dog.images[0] || '/api/placeholder/300/200'}
@@ -76,22 +97,22 @@ const AdoptDogsPage = () => {
       <div className="p-4">
         <div className="flex justify-between items-start mb-2">
           <h3 className="text-lg font-semibold text-gray-800">{dog.name}</h3>
-          <span className="text-sm text-gray-500">{getAgeString(dog.age)}</span>
+          <span className="text-sm text-orange-600 font-medium">{getAgeString(dog.age)}</span>
         </div>
         
         <div className="flex items-center text-gray-600 mb-2">
-          <MapPin className="w-4 h-4 mr-1" />
+          <MapPin className="w-4 h-4 mr-1 text-orange-500" />
           <span className="text-sm">{dog.location.city}, {dog.location.state}</span>
         </div>
         
         <div className="flex flex-wrap gap-2 mb-3">
-          <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">
+          <span className="bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-xs">
             {dog.breed}
           </span>
-          <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">
+          <span className="bg-orange-50 text-orange-700 px-2 py-1 rounded-full text-xs border border-orange-200">
             {dog.size}
           </span>
-          <span className="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-xs">
+          <span className="bg-orange-200 text-orange-900 px-2 py-1 rounded-full text-xs">
             {dog.gender}
           </span>
         </div>
@@ -101,16 +122,16 @@ const AdoptDogsPage = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             {dog.healthStatus.vaccinated && (
-              <span className="text-green-500 text-xs">✓ Vaccinated</span>
+              <span className="text-orange-600 text-xs">✓ Vaccinated</span>
             )}
             {dog.healthStatus.neutered && (
-              <span className="text-blue-500 text-xs">✓ Neutered</span>
+              <span className="text-orange-500 text-xs">✓ Neutered</span>
             )}
           </div>
           
           <button 
             onClick={() => window.open(`/dog/${dog._id}`, '_blank')}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+            className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
           >
             View Details
           </button>
@@ -120,26 +141,26 @@ const AdoptDogsPage = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-orange-50">
       {/* Header */}
-      <div className="bg-white shadow-sm">
+      <div className="bg-white shadow-sm border-b border-orange-100">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Adopt a Street Dog</h1>
-          <p className="text-gray-600">Give a loving home to a dog in need</p>
+          <p className="text-orange-700">Give a loving home to a dog in need</p>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-6">
         {/* Filters */}
-        <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
+        <div className="bg-white rounded-lg shadow-sm p-4 mb-6 border border-orange-100">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold flex items-center">
-              <Filter className="w-5 h-5 mr-2" />
+            <h2 className="text-lg font-semibold flex items-center text-gray-800">
+              <Filter className="w-5 h-5 mr-2 text-orange-500" />
               Filters
             </h2>
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="lg:hidden bg-blue-500 text-white px-4 py-2 rounded-lg"
+              className="lg:hidden bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors"
             >
               {showFilters ? 'Hide' : 'Show'} Filters
             </button>
@@ -153,7 +174,7 @@ const AdoptDogsPage = () => {
                 placeholder="Enter city"
                 value={filters.city}
                 onChange={(e) => handleFilterChange('city', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-orange-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
               />
             </div>
             
@@ -164,7 +185,7 @@ const AdoptDogsPage = () => {
                 placeholder="Enter breed"
                 value={filters.breed}
                 onChange={(e) => handleFilterChange('breed', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-orange-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
               />
             </div>
             
@@ -173,7 +194,7 @@ const AdoptDogsPage = () => {
               <select
                 value={filters.size}
                 onChange={(e) => handleFilterChange('size', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-orange-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
               >
                 <option value="">All sizes</option>
                 <option value="Small">Small</option>
@@ -185,7 +206,7 @@ const AdoptDogsPage = () => {
             <div className="flex items-end">
               <button
                 onClick={clearFilters}
-                className="w-full bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors"
+                className="w-full bg-orange-300 hover:bg-orange-400 text-orange-800 px-4 py-2 rounded-lg transition-colors font-medium"
               >
                 Clear Filters
               </button>
@@ -197,24 +218,24 @@ const AdoptDogsPage = () => {
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {[...Array(8)].map((_, i) => (
-              <div key={i} className="bg-white rounded-lg shadow-md overflow-hidden animate-pulse">
-                <div className="h-48 bg-gray-300"></div>
+              <div key={i} className="bg-white rounded-lg shadow-md overflow-hidden animate-pulse border border-orange-100">
+                <div className="h-48 bg-orange-100"></div>
                 <div className="p-4">
-                  <div className="h-4 bg-gray-300 rounded mb-2"></div>
-                  <div className="h-3 bg-gray-300 rounded mb-2"></div>
-                  <div className="h-3 bg-gray-300 rounded mb-3"></div>
-                  <div className="h-8 bg-gray-300 rounded"></div>
+                  <div className="h-4 bg-orange-100 rounded mb-2"></div>
+                  <div className="h-3 bg-orange-50 rounded mb-2"></div>
+                  <div className="h-3 bg-orange-50 rounded mb-3"></div>
+                  <div className="h-8 bg-orange-100 rounded"></div>
                 </div>
               </div>
             ))}
           </div>
         ) : dogs.length === 0 ? (
-          <div className="text-center py-12">
-            <div className="text-gray-400 mb-4">
+          <div className="text-center py-12 bg-white rounded-lg border border-orange-100">
+            <div className="text-orange-300 mb-4">
               <Heart className="w-16 h-16 mx-auto" />
             </div>
             <h3 className="text-xl font-semibold text-gray-600 mb-2">No dogs found</h3>
-            <p className="text-gray-500">Try adjusting your filters or check back later</p>
+            <p className="text-orange-600">Try adjusting your filters or check back later</p>
           </div>
         ) : (
           <>
@@ -230,19 +251,19 @@ const AdoptDogsPage = () => {
                 <button
                   onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                   disabled={currentPage === 1}
-                  className="px-4 py-2 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                  className="px-4 py-2 border border-orange-200 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-orange-50 text-gray-700"
                 >
                   Previous
                 </button>
                 
-                <span className="px-4 py-2 text-gray-600">
+                <span className="px-4 py-2 text-orange-700 bg-orange-50 rounded-lg border border-orange-200">
                   Page {currentPage} of {totalPages}
                 </span>
                 
                 <button
                   onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                   disabled={currentPage === totalPages}
-                  className="px-4 py-2 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                  className="px-4 py-2 border border-orange-200 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-orange-50 text-gray-700"
                 >
                   Next
                 </button>
