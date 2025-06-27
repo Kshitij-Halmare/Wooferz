@@ -12,6 +12,8 @@ import Donate from './Pages/Donate'
 import EditorPage from './Editor/EditorPage.jsx'
 import CommunityHome from './Editor/CommunityHome.jsx'
 import BlogId from './Editor/BlogId.jsx'
+import AdoptDogsPage from './Components/AdoptDogsPage.jsx'
+import AddDogForm from './Components/AdoptForm.jsx'
 function App() {
   return (
     <Routes>
@@ -36,7 +38,8 @@ function App() {
         <Route path='/blog/:id' element={<BlogId />} />
       </Route>
       <Route path='/editor' element={<EditorPage />} />  
-
+      <Route path='/adopt' element={<AdoptDogsPage/>}/>
+      <Route path='/adopt-form' element={<AddDogForm/>}/>
     </Routes>
   );
 }

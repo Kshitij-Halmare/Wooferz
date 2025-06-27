@@ -4,6 +4,7 @@ import dotenv from "dotenv"
 import mongoose from "mongoose"
 import userRouter from "./Routes/UserRouter.js";
 import blogRouter from "./Routes/BlogRouter.js";
+import dogRouter from "./Routes/DogRouter.js";
 dotenv.config();
 
 const app=express();
@@ -12,6 +13,8 @@ app.use(express.json());
 const PORT=process.env.PORT || 8000;
 app.use("/api/user",userRouter);
 app.use("/blog",blogRouter);
+app.use("/api/dog",dogRouter);
+
 
 // app.use("/api/problem",ProblemRouter);
 // app.listen(PORT,()=>{

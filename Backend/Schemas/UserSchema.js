@@ -6,9 +6,9 @@ const UserSchema = new mongoose.Schema({
     required: [true, "Provide name"],
     trim: true
   },
-  userId:{
-    type:String,
-    required:true
+  userId: {
+    type: String,
+    required: true
   },
   email: {
     type: String,
@@ -31,8 +31,19 @@ const UserSchema = new mongoose.Schema({
     trim: true
   },
   image: {
-    type: String, // if storing as base64 or URL
+    type: String,
     default: null
+  },
+  phone: {
+    type: String,
+    required: [true, "Provide phone number"],
+    trim: true
+  },
+  address: {
+    street: String,
+    city: String,
+    state: String,
+    pincode: String
   },
   blogs: [{
     title: {
@@ -43,6 +54,11 @@ const UserSchema = new mongoose.Schema({
       type: String,
       required: true
     }
+  }],
+  // Dogs posted for adoption by this user
+  dogsForAdoption: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Dog'
   }]
 }, { timestamps: true });
 
