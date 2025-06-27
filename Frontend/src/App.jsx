@@ -15,6 +15,7 @@ import BlogId from './Editor/BlogId.jsx'
 import AdoptDogsPage from './Components/AdoptDogsPage.jsx'
 import AddDogForm from './Components/AdoptForm.jsx'
 import DogDetailsPage from './Components/DogDetailsPage.jsx'
+import UserProfile from './Pages/UserPage.jsx'
 function App() {
   return (
     <Routes>
@@ -37,6 +38,7 @@ function App() {
         <Route path='/signin' element={<Signin />} />
         <Route path='/community' element={<CommunityHome />} />
         <Route path='/blog/:id' element={<BlogId />} />
+        <Route path="/:userId" element={<UserProfile/>}/>
       </Route>
       <Route path='/editor' element={<EditorPage />} />  
       <Route path='/adopt' element={<AdoptDogsPage/>}/>

@@ -24,7 +24,7 @@ const AddDogForm = () => {
       pincode: '',
       address: ''
     },
-    contactPreference: 'both',
+    contactPreference: 'email',
     urgent: false,
     temperament: [],
     goodWith: {
@@ -502,7 +502,7 @@ const AddDogForm = () => {
                 Good With
               </label>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {['children', 'cats', 'dogs'].map((option) => (
+                {[ 'cats', 'dogs'].map((option) => (
                   <label key={option} className="flex items-center cursor-pointer bg-orange-50 border-2 border-orange-200 rounded-lg p-4 hover:border-orange-300 transition-colors">
                     <input
                       type="checkbox"
@@ -705,7 +705,7 @@ const AddDogForm = () => {
               </div>
             </div>
 
-            {/* Contact Preferences */}
+            {/* Contact Preferences
             <div className="bg-orange-50 rounded-xl p-6">
               <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
                 <div className="w-2 h-6 bg-orange-500 rounded mr-3"></div>
@@ -766,7 +766,10 @@ const AddDogForm = () => {
                   </div>
                 </div>
 
-                <label className="flex items-start cursor-pointer bg-white border-2 border-red-200 rounded-lg p-4 hover:border-red-300 transition-colors">
+                
+              </div>
+            </div> */}
+            <label className="flex items-start cursor-pointer bg-white border-2 border-red-200 rounded-lg p-4 hover:border-red-300 transition-colors">
                   <input
                     type="checkbox"
                     name="urgent"
@@ -782,8 +785,6 @@ const AddDogForm = () => {
                     <p className="text-sm text-red-600">Check this if the dog needs immediate rehoming due to emergency circumstances</p>
                   </div>
                 </label>
-              </div>
-            </div>
 
             {/* Submit Button */}
             <div className="pt-6 border-t border-gray-200">

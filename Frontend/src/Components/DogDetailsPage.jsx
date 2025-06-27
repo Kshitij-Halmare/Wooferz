@@ -75,7 +75,7 @@ const DogDetailsPage = () => {
       </div>
     );
   }
-
+  console.log(dog);
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-6xl mx-auto px-4 py-6">
@@ -211,19 +211,19 @@ const DogDetailsPage = () => {
                         <span className="text-sm">{dog.owner.email}</span>
                       </div>
                       
-                      {dog.owner.phone && (
+                      {/* {dog.owner.phone && (
                         <div className="flex items-center">
                           <Phone className="w-4 h-4 mr-3 text-gray-400" />
                           <span className="text-sm">{dog.owner.phone}</span>
                         </div>
-                      )}
+                      )} */}
                       
-                      <div className="flex items-center">
+                      {/* <div className="flex items-center">
                         <MapPin className="w-4 h-4 mr-3 text-gray-400" />
                         <span className="text-sm">
                           {dog.owner.address?.city || 'City not provided'}, {dog.owner.address?.state || 'State not provided'}
                         </span>
-                      </div>
+                      </div> */}
                       
                       <div className="flex items-center">
                         <Shield className="w-4 h-4 mr-3 text-gray-400" />
@@ -231,14 +231,14 @@ const DogDetailsPage = () => {
                       </div>
                     </div>
 
-                    <div className="mt-4 p-3 bg-blue-50 rounded-lg">
+                    {/* <div className="mt-4 p-3 bg-blue-50 rounded-lg">
                       <p className="text-sm text-blue-800">
                         <strong>Preferred Contact:</strong> {
                           dog.contactPreference === 'both' ? 'Phone or Email' :
                           dog.contactPreference === 'phone' ? 'Phone Only' : 'Email Only'
                         }
                       </p>
-                    </div>
+                    </div> */}
 
                     <div className="mt-4 flex space-x-3">
                       {(dog.contactPreference === 'phone' || dog.contactPreference === 'both') && dog.owner.phone && (

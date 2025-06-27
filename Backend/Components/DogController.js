@@ -154,7 +154,7 @@ export const getAllDogs = async (req, res) => {
 export const getDogById = async (req, res) => {
   try {
     const dog = await Dog.findById(req.params.id)
-      .populate('owner', 'name email phone address occupation');
+      .populate('owner', 'name email occupation');
     
     if (!dog) {
       return res.status(404).json({ success: false, message: 'Dog not found' });

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Search, MapPin, Heart, Filter, Phone, Mail } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const AdoptDogsPage = () => {
   const [dogs, setDogs] = useState([]);
@@ -139,16 +140,35 @@ const AdoptDogsPage = () => {
       </div>
     </div>
   );
-
+  const naviagate=useNavigate();
+  const handleClicknaviageton=()=>{
+    naviagate('/adopt-form');
+  }
   return (
     <div className="min-h-screen bg-orange-50">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b border-orange-100">
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Adopt a Street Dog</h1>
-          <p className="text-orange-700">Give a loving home to a dog in need</p>
-        </div>
-      </div>
+      <div className="bg-white shadow-sm border-b border-orange-100 px-4 py-6">
+  <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
+    
+    {/* Left Section: Title and Subtitle */}
+    <div className="mb-4 md:mb-0">
+      <h1 className="text-3xl font-bold text-gray-900">Adopt a Street Dog</h1>
+      <p className="text-orange-700 mt-1">Give a loving home to a dog in need</p>
+    </div>
+
+    {/* Right Section: Button */}
+    <div>
+      <button
+        onClick={handleClicknaviageton}
+        className="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2.5 rounded-lg text-sm font-medium shadow transition duration-200"
+      >
+        Find a Home for the Needy
+      </button>
+    </div>
+
+  </div>
+</div>
+
 
       <div className="max-w-7xl mx-auto px-4 py-6">
         {/* Filters */}

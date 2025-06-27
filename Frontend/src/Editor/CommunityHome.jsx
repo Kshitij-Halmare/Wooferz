@@ -16,10 +16,20 @@ function CommunityHome() {
   const [specificPage, setSpecificPage] = useState(1); // Pagination state for specific category blogs
   const [totalSpecificDocs, setTotalSpecificDocs] = useState(0); // Total document count for specific category blogs
 
-  const categories = [
-    "Technology", "Health", "Finance", "Sports", "Entertainment",
-    "Education", "Lifestyle", "Business", "Travel", "Food", "Science", "Art"
-  ];
+const categories = [
+  "Dog Breeds", 
+  "Dog Training", 
+  "Dog Health & Nutrition",
+  "Dog Grooming",
+  "Dog Behavior",
+  "Dog Adoption & Rescue",
+  "Service Dogs",
+  "Dog Sports & Activities",
+  "Dog Products & Gear",
+  "Puppy Care",
+  "Senior Dog Care",
+  "Dog-Friendly Travel"
+];
 
   // Fetching blogs with pagination
   const getBlog = async () => {

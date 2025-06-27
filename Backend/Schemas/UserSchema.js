@@ -14,7 +14,8 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, "Provide email"],
     trim: true,
-    unique: true
+    unique: true,
+    lowercase: true
   },
   occupation: {
     type: String,
@@ -46,21 +47,35 @@ const UserSchema = new mongoose.Schema({
     pincode: String
   },
   blogs: [{
-    title: {
-      type: String,
-      required: true
-    },
-    banner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Blog'
+  }],
+  dogsForAdoption: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Dog'
+  }],
+  tokens: [{
+    token: {
       type: String,
       required: true
     }
   }],
-  // Dogs posted for adoption by this user
-  dogsForAdoption: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Dog'
-  }]
-}, { timestamps: true });
+  favorites: {
+    blogs: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Blog'
+    }],
+    dogs: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Dog'
+    }]
+  }
+}, { 
+  timestamps: true,
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true }
+});
+
 
 const User = mongoose.model("User", UserSchema);
 export default User;
