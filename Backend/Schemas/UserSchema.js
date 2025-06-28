@@ -6,15 +6,16 @@ const UserSchema = new mongoose.Schema({
     required: [true, "Provide name"],
     trim: true
   },
-  userId:{
-    type:String,
-    required:true
+  userId: {
+    type: String,
+    required: true
   },
   email: {
     type: String,
     required: [true, "Provide email"],
     trim: true,
-    unique: true
+    unique: true,
+    lowercase: true
   },
   occupation: {
     type: String,
@@ -31,20 +32,50 @@ const UserSchema = new mongoose.Schema({
     trim: true
   },
   image: {
-    type: String, // if storing as base64 or URL
+    type: String,
     default: null
   },
+  phone: {
+    type: String,
+    required: [true, "Provide phone number"],
+    trim: true
+  },
+  address: {
+    street: String,
+    city: String,
+    state: String,
+    pincode: String
+  },
   blogs: [{
-    title: {
-      type: String,
-      required: true
-    },
-    banner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Blog'
+  }],
+  dogsForAdoption: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Dog'
+  }],
+  tokens: [{
+    token: {
       type: String,
       required: true
     }
-  }]
-}, { timestamps: true });
+  }],
+  favorites: {
+    blogs: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Blog'
+    }],
+    dogs: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Dog'
+    }]
+  }
+}, { 
+  timestamps: true,
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true }
+});
+
 
 const User = mongoose.model("User", UserSchema);
 export default User;
