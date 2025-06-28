@@ -12,6 +12,7 @@ import Donate from './Pages/Donate'
 import EditorPage from './Editor/EditorPage.jsx'
 import CommunityHome from './Editor/CommunityHome.jsx'
 import BlogId from './Editor/BlogId.jsx'
+import Profile from './Pages/Profile'
 function App() {
   return (
     <Routes>
@@ -34,6 +35,7 @@ function App() {
         <Route path='/signin' element={<Signin />} />
         <Route path='/community' element={<CommunityHome />} />
         <Route path='/blog/:id' element={<BlogId />} />
+        <Route path='/profile' element={<Profile />} />
       </Route>
       <Route path='/editor' element={<EditorPage />} />  
 
