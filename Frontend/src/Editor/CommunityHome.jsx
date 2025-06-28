@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 // import AnimationWrapper from '../Animation/AnimationWrapper';
 import InPageNavigation from '../Components/Editor/InPageNavigation';
 import Blogcard from '../Components/Editor/BlogCard.jsx';
@@ -16,6 +17,14 @@ function CommunityHome() {
   const [specificPage, setSpecificPage] = useState(1); // Pagination state for specific category blogs
   const [totalSpecificDocs, setTotalSpecificDocs] = useState(0); // Total document count for specific category blogs
 
+<<<<<<< HEAD
+  const navigate = useNavigate();
+
+  const categories = [
+    "Technology", "Health", "Finance", "Sports", "Entertainment",
+    "Education", "Lifestyle", "Business", "Travel", "Food", "Science", "Art"
+  ];
+=======
 const categories = [
   "Dog Breeds", 
   "Dog Training", 
@@ -30,6 +39,7 @@ const categories = [
   "Senior Dog Care",
   "Dog-Friendly Travel"
 ];
+>>>>>>> main
 
   // Fetching blogs with pagination
   const getBlog = async () => {
@@ -110,6 +120,14 @@ const categories = [
         <div className="flex flex-col lg:flex-row max-w-7xl mx-auto">
             <section className="flex-1 lg:pr-8">
                 <div className="px-6 py-8">
+                    <div className="flex justify-end mb-6">
+                      <button
+                        onClick={() => navigate('/editor')}
+                        className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded-full shadow transition-all duration-300"
+                      >
+                        Write a Blog
+                      </button>
+                    </div>
                     <InPageNavigation 
                         routes={selectedCategory ? [selectedCategory] : ["Home", "Trending Blogs"]} 
                         defaultHidden={["Trending Blogs"]}

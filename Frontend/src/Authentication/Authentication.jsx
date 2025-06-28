@@ -16,21 +16,23 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const storedToken = localStorage.getItem('blog_user_token');
+    const allProfiles = JSON.parse(localStorage.getItem('blog_user_profiles') || '{}');
 
     if (storedToken) {
       try {
         setToken(storedToken);
         const decoded = jwtDecode(storedToken);
-        
-        // Set user with all necessary properties for your blog component
-        setUser({
+        let userObj = {
           _id: decoded._id || decoded.id || decoded.userId,
           name: decoded.name || decoded.username,
           email: decoded.email,
           avatar: decoded.avatar || decoded.profileImage || '/default-avatar.png',
-          ...decoded // Spread all other properties from token
-        });
-        
+          ...decoded
+        };
+        if (userObj.email && allProfiles[userObj.email]) {
+          userObj = { ...userObj, ...allProfiles[userObj.email] };
+        }
+        setUser(userObj);
         console.log('User authenticated:', decoded);
       } catch (error) {
         console.error('Invalid token', error);
@@ -41,33 +43,28 @@ export const AuthProvider = ({ children }) => {
     } else {
       setUser(null);
       setToken(null);
-
-      // Uncomment if you want to redirect unauthenticated users
-      // if (!['/signin', '/register', '/'].includes(location.pathname)) {
-      //   toast.error('Please sign in or register');
-      //   navigate('/signin');
-      // }
     }
-
     setLoading(false);
   }, [navigate, location]);
 
   const login = (token) => {
     try {
       const decoded = jwtDecode(token);
-      
       // Set user with proper structure for your blog component
-      const userData = {
+      let userData = {
         _id: decoded._id || decoded.id || decoded.userId,
         name: decoded.name || decoded.username,
         email: decoded.email,
         avatar: decoded.avatar || decoded.profileImage || '/default-avatar.png',
         ...decoded
       };
-      
+      // Merge with any saved profile edits for this email
+      const allProfiles = JSON.parse(localStorage.getItem('blog_user_profiles') || '{}');
+      if (userData.email && allProfiles[userData.email]) {
+        userData = { ...userData, ...allProfiles[userData.email] };
+      }
       setUser(userData);
       setToken(token);
-      console.log('Login successful:', userData);
       localStorage.setItem('blog_user_token', token);
       toast.success('Login successful!');
     } catch (error) {
@@ -76,19 +73,31 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Update user and persist by email
+  const updateUser = (userData) => {
+    setUser(prevUser => {
+      const updatedUser = {
+        ...prevUser,
+        ...userData
+      };
+      // Save updated user to localStorage by email
+      if (updatedUser.email) {
+        const allProfiles = JSON.parse(localStorage.getItem('blog_user_profiles') || '{}');
+        allProfiles[updatedUser.email] = updatedUser;
+        localStorage.setItem('blog_user_profiles', JSON.stringify(allProfiles));
+      }
+      return updatedUser;
+    });
+  };
+
+  // Add signOut function (was missing in previous patch)
   const signOut = () => {
     setUser(null);
     setToken(null);
     localStorage.removeItem('blog_user_token');
+    // Do NOT remove blog_user_profiles, so user edits persist for next login
     toast.success('Signed out successfully');
     navigate('/signin');
-  };
-
-  const updateUser = (userData) => {
-    setUser(prevUser => ({
-      ...prevUser,
-      ...userData
-    }));
   };
 
   // Check if user is authenticated
