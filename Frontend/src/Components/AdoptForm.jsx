@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Camera, MapPin, Heart, AlertCircle, Phone, Mail, Upload, X } from 'lucide-react';
 import { useContext } from 'react';
 import { UserContext } from '../Authentication/Authentication';
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+
 const AddDogForm = () => {
+  const navigate=useNavigate();
   const { user } = useContext(UserContext);
   const [formData, setFormData] = useState({
     name: '',
@@ -201,12 +205,17 @@ const AddDogForm = () => {
       energyLevel: 'Medium'
     });
   };
-  
-
+  useEffect(() => {
+    if (!user) {
+      navigate('/signin');
+      return;
+    }
+  }, [user]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(user==null){
-      console.log("Login");
+      toast.error('Please sign in to post a dog for adoption');
+      navigate('/signin'); 
       return;
     }
     formData.owner=user._id;

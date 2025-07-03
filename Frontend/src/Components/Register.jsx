@@ -4,6 +4,7 @@ import { AuthProvider } from '../Authentication/Authentication';
 import { useAuth } from '../Authentication/Authentication';
 import { useNavigate } from 'react-router-dom';
 import toast from "react-hot-toast"
+
 // Mock components for demonstration
 const FadeInWrapper = ({ children }) => (
   <div className="animate-fadeIn">
@@ -18,6 +19,7 @@ function Register() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     occupation: '',
     dob: '',
     password: '',
@@ -50,14 +52,26 @@ function Register() {
     }
   };
 
+  const validatePhoneNumber = (phone) => {
+    // Basic phone number validation - adjust regex as needed
+    const phoneRegex = /^[+]?[\d\s\-\(\)]{10,}$/;
+    return phoneRegex.test(phone);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const { name, email, password, confirmPassword, occupation, dob, imageFile } = formData;
+    const { name, email, phone, password, confirmPassword, occupation, dob, imageFile } = formData;
 
-    if (!name || !email || !password || !confirmPassword || !occupation || !dob) {
+    if (!name || !email || !phone || !password || !confirmPassword || !occupation || !dob) {
       toast.error('All fields are required');
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (!validatePhoneNumber(phone)) {
+      toast.error('Please enter a valid phone number');
       setIsSubmitting(false);
       return;
     }
@@ -71,6 +85,7 @@ function Register() {
     const formDataToSend = new FormData();
     formDataToSend.append('name', name);
     formDataToSend.append('email', email);
+    formDataToSend.append('phone', phone);
     formDataToSend.append('password', password);
     formDataToSend.append('confirmPassword', confirmPassword);
     formDataToSend.append('occupation', occupation);
@@ -101,7 +116,6 @@ function Register() {
       setIsSubmitting(false);
     }
   };
-
 
   return (
     <FadeInWrapper>
@@ -206,6 +220,26 @@ function Register() {
                 />
                 <svg className="absolute left-3 top-3.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                </svg>
+              </div>
+            </div>
+
+            {/* Phone Number */}
+            <div>
+              <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                Phone Number
+              </label>
+              <div className="relative">
+                <input
+                  type="tel"
+                  id="phone"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  className="w-full px-4 py-3 pl-11 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-gray-800 placeholder-gray-400 transition-all duration-300 hover:border-orange-300"
+                  placeholder="+1 (555) 123-4567"
+                />
+                <svg className="absolute left-3 top-3.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
               </div>
             </div>

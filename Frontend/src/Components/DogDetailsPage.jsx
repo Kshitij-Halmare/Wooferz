@@ -211,12 +211,12 @@ const DogDetailsPage = () => {
                         <span className="text-sm">{dog.owner.email}</span>
                       </div>
                       
-                      {/* {dog.owner.phone && (
+                      {dog.owner.phone && (
                         <div className="flex items-center">
                           <Phone className="w-4 h-4 mr-3 text-gray-400" />
                           <span className="text-sm">{dog.owner.phone}</span>
                         </div>
-                      )} */}
+                      )}
                       
                       {/* <div className="flex items-center">
                         <MapPin className="w-4 h-4 mr-3 text-gray-400" />

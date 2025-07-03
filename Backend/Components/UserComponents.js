@@ -5,11 +5,11 @@ import jwt from "jsonwebtoken";
 import { userIdCreation } from "../Utils/UserIdCreation.js";
 
 export async function Register(req, res) {
-  const { name, email, password, confirmPassword, occupation, dob } = req.body;
+  const { name, email, password, confirmPassword, occupation, dob, phone } = req.body;
   const file = req.file;
 
   // Validation
-  if (!name || !email || !password || !confirmPassword || !occupation || !dob) {
+  if (!name || !email || !password || !confirmPassword || !occupation || !dob || !phone) {
     return res.status(400).json({
       success: false,
       message: "All fields are required",
@@ -50,6 +50,7 @@ export async function Register(req, res) {
       email,
       occupation,
       dob,
+      phone,
       userId: userIdCreation(), // Removed await since it's synchronous
       password: hashedPassword,
       image: imageUrl,
@@ -69,6 +70,7 @@ console.log("JWT Secret is:", process.env.JWT_SECRET);
       email: newUser.email,
       occupation: newUser.occupation,
       dob: newUser.dob,
+      phone: newUser.phone,
       image: newUser.image,
       createdAt: newUser.createdAt,
     };
