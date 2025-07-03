@@ -14,29 +14,93 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Helper function to process avatar URL
+  const processAvatarUrl = (imageUrl) => {
+    if (!imageUrl || imageUrl === '/default-avatar.png' || imageUrl === 'null' || imageUrl === 'undefined') {
+      return null;
+    }
+    
+    // Handle base64 images (common for uploaded images)
+    if (imageUrl.startsWith('data:image')) {
+      return imageUrl;
+    }
+    
+    // Handle relative URLs by making them absolute
+    if (imageUrl.startsWith('/')) {
+      return `${window.location.origin}${imageUrl}`;
+    }
+    
+    // Handle URLs that might need a protocol
+    if (imageUrl.startsWith('//')) {
+      return `https:${imageUrl}`;
+    }
+    
+    // Return as-is if it's already a full URL
+    if (imageUrl.startsWith('http')) {
+      return imageUrl;
+    }
+    
+    // Default case - assume it's a relative path from uploads folder
+    return `${window.location.origin}/uploads/${imageUrl}`;
+  };
+
+  // Helper function to check if token is expired
+  const isTokenExpired = (token) => {
+    try {
+      const decoded = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+      return decoded.exp < currentTime;
+    } catch (error) {
+      return true;
+    }
+  };
+
   useEffect(() => {
     const storedToken = localStorage.getItem('blog_user_token');
 
     if (storedToken) {
       try {
-        setToken(storedToken);
-        const decoded = jwtDecode(storedToken);
-        
-        // Set user with all necessary properties for your blog component
-        setUser({
-          _id: decoded._id || decoded.id || decoded.userId,
-          name: decoded.name || decoded.username,
-          email: decoded.email,
-          avatar: decoded.avatar || decoded.profileImage || '/default-avatar.png',
-          ...decoded // Spread all other properties from token
-        });
-        
-        console.log('User authenticated:', decoded);
+        // Check if token is expired
+        if (isTokenExpired(storedToken)) {
+          console.log('Token expired, removing from storage');
+          localStorage.removeItem('blog_user_token');
+          setUser(null);
+          setToken(null);
+          toast.error('Your session has expired. Please sign in again.');
+          if (!['/signin', '/register', '/'].includes(location.pathname)) {
+            navigate('/signin');
+          }
+        } else {
+          setToken(storedToken);
+          const decoded = jwtDecode(storedToken);
+          
+          // Set user with all necessary properties matching your User schema
+          const userData = {
+            _id: decoded._id || decoded.id || decoded.userId,
+            userId: decoded.userId,
+            name: decoded.name,
+            email: decoded.email,
+            avatar: processAvatarUrl(decoded.image), // Your schema uses 'image' field
+            image: decoded.image, // Keep original image field
+            occupation: decoded.occupation,
+            dob: decoded.dob,
+            phone: decoded.phone,
+            address: decoded.address,
+            blogs: decoded.blogs || [],
+            dogsForAdoption: decoded.dogsForAdoption || [],
+            favorites: decoded.favorites || { blogs: [], dogs: [] },
+            ...decoded // Spread all other properties from token
+          };
+          
+          setUser(userData);
+          console.log('User authenticated:', userData);
+        }
       } catch (error) {
         console.error('Invalid token', error);
         localStorage.removeItem('blog_user_token');
         setUser(null);
         setToken(null);
+        toast.error('Invalid session. Please sign in again.');
       }
     } else {
       setUser(null);
@@ -54,14 +118,29 @@ export const AuthProvider = ({ children }) => {
 
   const login = (token) => {
     try {
+      // Check if token is expired before setting it
+      if (isTokenExpired(token)) {
+        toast.error('Token has expired. Please sign in again.');
+        return false;
+      }
+
       const decoded = jwtDecode(token);
       
-      // Set user with proper structure for your blog component
+      // Set user with proper structure matching your User schema
       const userData = {
         _id: decoded._id || decoded.id || decoded.userId,
-        name: decoded.name || decoded.username,
+        userId: decoded.userId,
+        name: decoded.name,
         email: decoded.email,
-        avatar: decoded.avatar || decoded.profileImage || '/default-avatar.png',
+        avatar: processAvatarUrl(decoded.image), // Your schema uses 'image' field
+        image: decoded.image, // Keep original image field
+        occupation: decoded.occupation,
+        dob: decoded.dob,
+        phone: decoded.phone,
+        address: decoded.address,
+        blogs: decoded.blogs || [],
+        dogsForAdoption: decoded.dogsForAdoption || [],
+        favorites: decoded.favorites || { blogs: [], dogs: [] },
         ...decoded
       };
       
@@ -69,10 +148,12 @@ export const AuthProvider = ({ children }) => {
       setToken(token);
       console.log('Login successful:', userData);
       localStorage.setItem('blog_user_token', token);
-      toast.success('Login successful!');
+      toast.success(`Welcome back, ${userData.name}!`);
+      return true;
     } catch (error) {
       console.error('Login failed: invalid token', error);
       toast.error('Login failed: Invalid token');
+      return false;
     }
   };
 
@@ -85,20 +166,41 @@ export const AuthProvider = ({ children }) => {
   };
 
   const updateUser = (userData) => {
-    setUser(prevUser => ({
-      ...prevUser,
-      ...userData
-    }));
+    setUser(prevUser => {
+      const updatedUser = {
+        ...prevUser,
+        ...userData
+      };
+      
+      // Process avatar URL if it's being updated
+      if (userData.image) {
+        updatedUser.avatar = processAvatarUrl(userData.image);
+        updatedUser.image = userData.image;
+      } else if (userData.avatar) {
+        updatedUser.avatar = processAvatarUrl(userData.avatar);
+      }
+      
+      return updatedUser;
+    });
   };
 
-  // Check if user is authenticated
+  // Check if user is authenticated and token is valid
   const isAuthenticated = () => {
-    return user !== null && token !== null;
+    if (!user || !token) return false;
+    
+    // Check if token is expired
+    if (isTokenExpired(token)) {
+      // Auto-logout if token is expired
+      signOut();
+      return false;
+    }
+    
+    return true;
   };
 
   // Get authorization headers for API calls
   const getAuthHeaders = () => {
-    if (!token) {
+    if (!token || isTokenExpired(token)) {
       return {};
     }
     return {
@@ -107,10 +209,51 @@ export const AuthProvider = ({ children }) => {
     };
   };
 
+  // Function to refresh user data
+  const refreshUser = async () => {
+    if (!token || isTokenExpired(token)) {
+      signOut();
+      return;
+    }
+
+    try {
+      // You can implement an API call here to refresh user data
+      // For now, we'll just re-decode the token
+      const decoded = jwtDecode(token);
+      
+      // Refresh user data to match your User schema
+      const userData = {
+        _id: decoded._id || decoded.id || decoded.userId,
+        userId: decoded.userId,
+        name: decoded.name,
+        email: decoded.email,
+        avatar: processAvatarUrl(decoded.image), // Your schema uses 'image' field
+        image: decoded.image,
+        occupation: decoded.occupation,
+        dob: decoded.dob,
+        phone: decoded.phone,
+        address: decoded.address,
+        blogs: decoded.blogs || [],
+        dogsForAdoption: decoded.dogsForAdoption || [],
+        favorites: decoded.favorites || { blogs: [], dogs: [] },
+        ...decoded
+      };
+      
+      setUser(userData);
+      console.log('User data refreshed:', userData);
+    } catch (error) {
+      console.error('Error refreshing user data:', error);
+      signOut();
+    }
+  };
+
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin inline-block w-16 h-16 border-4 border-t-blue-500 border-gray-200 rounded-full"></div>
+      <div className="flex justify-center items-center min-h-screen bg-gray-50">
+        <div className="text-center">
+          <div className="animate-spin inline-block w-16 h-16 border-4 border-t-blue-500 border-gray-200 rounded-full"></div>
+          <p className="mt-4 text-gray-600">Loading...</p>
+        </div>
       </div>
     );
   }
@@ -122,6 +265,7 @@ export const AuthProvider = ({ children }) => {
     signOut,
     setUser,
     updateUser,
+    refreshUser,
     loading,
     isAuthenticated,
     getAuthHeaders

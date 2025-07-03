@@ -200,10 +200,28 @@ const DogDetailsPage = () => {
 
                 {showContact && (
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <h4 className="font-semibold mb-3 flex items-center">
-                      <User className="w-5 h-5 mr-2" />
-                      Contact {dog.owner.name}
-                    </h4>
+                    {/* Owner Header with Image */}
+                    <div className="flex items-center mb-4">
+                      <div className="w-12 h-12 rounded-full overflow-hidden mr-4 bg-gray-200">
+                        {dog.owner.image ? (
+                          <img
+                            src={dog.owner.image}
+                            alt={dog.owner.name}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center bg-gray-300">
+                            <User className="w-6 h-6 text-gray-600" />
+                          </div>
+                        )}
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-lg">
+                          Contact {dog.owner.name}
+                        </h4>
+                        <p className="text-sm text-gray-600">{dog.owner.occupation}</p>
+                      </div>
+                    </div>
                     
                     <div className="space-y-3">
                       <div className="flex items-center">
@@ -218,30 +236,32 @@ const DogDetailsPage = () => {
                         </div>
                       )}
                       
-                      {/* <div className="flex items-center">
-                        <MapPin className="w-4 h-4 mr-3 text-gray-400" />
-                        <span className="text-sm">
-                          {dog.owner.address?.city || 'City not provided'}, {dog.owner.address?.state || 'State not provided'}
-                        </span>
-                      </div> */}
-                      
-                      <div className="flex items-center">
-                        <Shield className="w-4 h-4 mr-3 text-gray-400" />
-                        <span className="text-sm">Occupation: {dog.owner.occupation}</span>
-                      </div>
+                      {dog.owner.address && (
+                        <div className="flex items-center">
+                          <MapPin className="w-4 h-4 mr-3 text-gray-400" />
+                          <span className="text-sm">
+                            {typeof dog.owner.address === 'string' 
+                              ? dog.owner.address 
+                              : `${dog.owner.address?.city || 'City not provided'}, ${dog.owner.address?.state || 'State not provided'}`
+                            }
+                          </span>
+                        </div>
+                      )}
                     </div>
 
-                    {/* <div className="mt-4 p-3 bg-blue-50 rounded-lg">
-                      <p className="text-sm text-blue-800">
-                        <strong>Preferred Contact:</strong> {
-                          dog.contactPreference === 'both' ? 'Phone or Email' :
-                          dog.contactPreference === 'phone' ? 'Phone Only' : 'Email Only'
-                        }
-                      </p>
-                    </div> */}
+                    {dog.contactPreference && (
+                      <div className="mt-4 p-3 bg-blue-50 rounded-lg">
+                        <p className="text-sm text-blue-800">
+                          <strong>Preferred Contact:</strong> {
+                            dog.contactPreference === 'both' ? 'Phone or Email' :
+                            dog.contactPreference === 'phone' ? 'Phone Only' : 'Email Only'
+                          }
+                        </p>
+                      </div>
+                    )}
 
                     <div className="mt-4 flex space-x-3">
-                      {(dog.contactPreference === 'phone' || dog.contactPreference === 'both') && dog.owner.phone && (
+                      {(dog.contactPreference === 'phone' || dog.contactPreference === 'both' || !dog.contactPreference) && dog.owner.phone && (
                         <a
                           href={`tel:${dog.owner.phone}`}
                           className="flex-1 bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg text-center font-medium transition-colors"
@@ -250,7 +270,7 @@ const DogDetailsPage = () => {
                         </a>
                       )}
                       
-                      {(dog.contactPreference === 'email' || dog.contactPreference === 'both') && (
+                      {(dog.contactPreference === 'email' || dog.contactPreference === 'both' || !dog.contactPreference) && (
                         <a
                           href={`mailto:${dog.owner.email}?subject=Interested in adopting ${dog.name}&body=Hi ${dog.owner.name},%0D%0A%0D%0AI'm interested in adopting ${dog.name}. Could we please discuss the adoption process?%0D%0A%0D%0AThank you!`}
                           className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg text-center font-medium transition-colors"

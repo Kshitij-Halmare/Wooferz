@@ -156,22 +156,27 @@ const AddDogForm = () => {
   };
 
   const validateForm = () => {
-    const newErrors = {};
+    const errors = [];
 
-    if (!formData.name.trim()) newErrors.name = 'Dog name is required';
-    if (!formData.breed.trim()) newErrors.breed = 'Breed is required';
-    if (!formData.age || formData.age < 1) newErrors.age = 'Valid age is required';
-    if (!formData.gender) newErrors.gender = 'Gender is required';
-    if (!formData.size) newErrors.size = 'Size is required';
-    if (!formData.color.trim()) newErrors.color = 'Color is required';
-    if (!formData.description.trim()) newErrors.description = 'Description is required';
-    if (formData.images.length === 0) newErrors.images = 'At least one image is required';
-    if (!formData.location.city.trim()) newErrors['location.city'] = 'City is required';
-    if (!formData.location.state.trim()) newErrors['location.state'] = 'State is required';
-    if (!formData.location.pincode.trim()) newErrors['location.pincode'] = 'Pincode is required';
+    if (!formData.name.trim()) errors.push('Dog name is required');
+    if (!formData.breed.trim()) errors.push('Breed is required');
+    if (!formData.age || formData.age < 1) errors.push('Valid age is required');
+    if (!formData.gender) errors.push('Gender is required');
+    if (!formData.size) errors.push('Size is required');
+    if (!formData.color.trim()) errors.push('Color is required');
+    if (!formData.description.trim()) errors.push('Description is required');
+    if (formData.images.length === 0) errors.push('At least one image is required');
+    if (!formData.location.city.trim()) errors.push('City is required');
+    if (!formData.location.state.trim()) errors.push('State is required');
+    if (!formData.location.pincode.trim()) errors.push('Pincode is required');
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    // Show all validation errors as toast messages
+    if (errors.length > 0) {
+      errors.forEach(error => toast.error(error));
+      return false;
+    }
+
+    return true;
   };
 
   const resetForm = () => {

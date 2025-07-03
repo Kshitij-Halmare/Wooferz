@@ -4,8 +4,31 @@ import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { userIdCreation } from "../Utils/UserIdCreation.js";
 
+// Helper function to create comprehensive JWT tokens
+const createUserToken = (user) => {
+  const tokenPayload = {
+    _id: user._id,
+    userId: user.userId,
+    name: user.name,
+    email: user.email,
+    image: user.image,
+    occupation: user.occupation,
+    dob: user.dob,
+    phone: user.phone,
+    address: user.address,
+    blogs: user.blogs,
+    dogsForAdoption: user.dogsForAdoption,
+    favorites: user.favorites,
+    // Add token expiration (7 days)
+    exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 7)
+  };
+
+  const token = jwt.sign(tokenPayload, process.env.JWT_SECRET);
+  return token;
+};
+
 export async function Register(req, res) {
-  const { name, email, password, confirmPassword, occupation, dob, phone } = req.body;
+  const { name, email, password, confirmPassword, occupation, dob, phone, address } = req.body;
   const file = req.file;
 
   // Validation
@@ -51,26 +74,27 @@ export async function Register(req, res) {
       occupation,
       dob,
       phone,
-      userId: userIdCreation(), // Removed await since it's synchronous
+      address: address || null, // Handle optional address
+      userId: userIdCreation(),
       password: hashedPassword,
       image: imageUrl,
     });
-console.log("JWT Secret is:", process.env.JWT_SECRET);
-    // Generate JWT token
-    const token = jwt.sign(
-      { userId: newUser._id, email: newUser.email },
-      process.env.JWT_SECRET,
-      { expiresIn: '1h' }
-    );
+
+    console.log("JWT Secret is:", process.env.JWT_SECRET);
+    
+    // Generate comprehensive JWT token
+    const token = createUserToken(newUser);
 
     // Return response without sensitive data
     const userResponse = {
       _id: newUser._id,
+      userId: newUser.userId,
       name: newUser.name,
       email: newUser.email,
       occupation: newUser.occupation,
       dob: newUser.dob,
       phone: newUser.phone,
+      address: newUser.address,
       image: newUser.image,
       createdAt: newUser.createdAt,
     };
@@ -79,7 +103,7 @@ console.log("JWT Secret is:", process.env.JWT_SECRET);
       success: true,
       message: "User registered successfully",
       user: userResponse,
-      token: token // Send token to client
+      token: token
     });
 
   } catch (error) {
@@ -95,7 +119,8 @@ export async function Signin(req, res) {
   const { email, password } = req.body;
   
   try {
-    const user = await User.findOne({ email });
+    // Find user and populate related data
+    const user = await User.findOne({ email }).populate('blogs dogsForAdoption favorites');
     if (!user) {
       return res.status(400).json({
         success: false,
@@ -103,7 +128,7 @@ export async function Signin(req, res) {
       });
     }
 
-    // Fixed: Added await for password comparison
+    // Check password
     const isPasswordValid = await bcryptjs.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(400).json({
@@ -112,12 +137,8 @@ export async function Signin(req, res) {
       });
     }
 
-    // Generate JWT token
-    const token = jwt.sign(
-      { userId: user._id, email: user.email },
-      process.env.JWT_SECRET,
-      { expiresIn: '1h' }
-    );
+    // Generate comprehensive JWT token
+    const token = createUserToken(user);
 
     return res.status(200).json({
       success: true,
@@ -125,9 +146,16 @@ export async function Signin(req, res) {
       token: token,
       user: {
         _id: user._id,
+        userId: user.userId,
         name: user.name,
         email: user.email,
-        image: user.image
+        image: user.image,
+        occupation: user.occupation,
+        phone: user.phone,
+        address: user.address,
+        blogs: user.blogs,
+        dogsForAdoption: user.dogsForAdoption,
+        favorites: user.favorites
       }
     });
 
@@ -138,3 +166,24 @@ export async function Signin(req, res) {
     });
   }
 }
+
+// Optional: Function to verify token without middleware (for manual verification)
+export const verifyUserToken = (token) => {
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    return { success: true, user: decoded };
+  } catch (error) {
+    return { success: false, message: 'Token invalid or expired' };
+  }
+};
+
+// Optional: Function to get user data from token
+export const getUserFromToken = async (token) => {
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(decoded._id).populate('blogs dogsForAdoption favorites');
+    return { success: true, user };
+  } catch (error) {
+    return { success: false, message: 'Token invalid or user not found' };
+  }
+};
