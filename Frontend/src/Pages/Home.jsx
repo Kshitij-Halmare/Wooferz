@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, Users, Globe, Menu, X, ArrowRight, ArrowLeft, Phone, MessageCircle, Award, Shield } from 'lucide-react';
+import { Heart, Users, Globe, Menu, X, ArrowRight, ArrowLeft, Phone, MessageCircle, Award, Shield, PawPrint } from 'lucide-react';
 
 function Home() {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [currentHeroSlide, setCurrentHeroSlide] = useState(0);
-    
+
     const heroImages = [
         {
             image: "src/assets/home2.jpg",
@@ -17,7 +17,7 @@ function Home() {
             subtitle: "Professional veterinary treatment for every rescued animal"
         }
     ];
-    
+
     const initiatives = [
         {
             image: "/src/assets/feedingDrive.jpg",
@@ -113,9 +113,8 @@ function Home() {
                     {heroImages.map((hero, index) => (
                         <div
                             key={index}
-                            className={`absolute inset-0 transition-opacity duration-1000 ${
-                                currentHeroSlide === index ? 'opacity-100' : 'opacity-0'
-                            }`}
+                            className={`absolute inset-0 transition-opacity duration-1000 ${currentHeroSlide === index ? 'opacity-100' : 'opacity-0'
+                                }`}
                             style={{
                                 backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${hero.image}')`,
                                 backgroundSize: 'cover',
@@ -125,7 +124,7 @@ function Home() {
                         />
                     ))}
                 </div>
-                
+
                 {/* Hero Content */}
                 <div className="relative z-10 flex items-center min-h-screen pt-16">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -161,11 +160,10 @@ function Home() {
                             <button
                                 key={index}
                                 onClick={() => setCurrentHeroSlide(index)}
-                                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                                    currentHeroSlide === index 
-                                        ? 'bg-orange-500 w-8' 
+                                className={`w-3 h-3 rounded-full transition-all duration-300 ${currentHeroSlide === index
+                                        ? 'bg-orange-500 w-8'
                                         : 'bg-white/50 hover:bg-white/70'
-                                }`}
+                                    }`}
                             />
                         ))}
                     </div>
@@ -224,9 +222,9 @@ function Home() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <div className="relative">
-                            <img 
-                                src="/Good doggy-amico 3.png" 
-                                alt="About us" 
+                            <img
+                                src="/Good doggy-amico 3.png"
+                                alt="About us"
                             />
                             <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-orange-200 rounded-full opacity-30 -z-10"></div>
                             <div className="absolute -top-8 -left-8 w-24 h-24 bg-orange-300 rounded-full opacity-20 -z-10"></div>
@@ -238,9 +236,9 @@ function Home() {
                             </div>
                             <div className="space-y-6 text-gray-700 text-lg leading-relaxed">
                                 <p>
-                                    Nagpur street dogs is a self funded youth community founded by a 16 year old boy in 2020. 
-We focus on providing food , medical care, free water pots every summer, shelter and many more to the animals in need. 
-Through our dedicated efforts, we aim to create a safer and kinder environment for street Animals.
+                                    Nagpur street dogs is a self funded youth community founded by a 16 year old boy in 2020.
+                                    We focus on providing food , medical care, free water pots every summer, shelter and many more to the animals in need.
+                                    Through our dedicated efforts, we aim to create a safer and kinder environment for street Animals.
                                 </p>
                                 <p>
                                     We focus on providing comprehensive care including food, water, medical treatment, and shelter. Our dedicated team works tirelessly to make every summer and winter more comfortable for street animals while advocating for better policies to create a stable, nurturing environment for all animals in need.
@@ -270,11 +268,11 @@ Through our dedicated efforts, we aim to create a safer and kinder environment f
                             Comprehensive programs designed to rescue, rehabilitate, and rehome street animals
                         </p>
                     </div>
-                    
+
                     <div className="relative">
                         <div className="overflow-hidden rounded-3xl shadow-2xl">
                             <div className="flex transition-transform duration-500 ease-in-out"
-                                 style={{ transform: `translateX(-${currentSlide * (100 / 3)}%)` }}>
+                                style={{ transform: `translateX(-${currentSlide * (100 / 3)}%)` }}>
                                 {initiatives.map((initiative, index) => (
                                     <div
                                         key={index}
@@ -303,30 +301,29 @@ Through our dedicated efforts, we aim to create a safer and kinder environment f
                                 ))}
                             </div>
                         </div>
-                        
+
                         {/* Navigation Arrows */}
-                        <button 
+                        <button
                             onClick={prevSlide}
                             className="absolute left-6 top-1/2 transform -translate-y-1/2 bg-white/90 text-orange-500 p-4 rounded-full hover:bg-white transition-all duration-300 shadow-lg"
                         >
                             <ArrowLeft className="w-6 h-6" />
                         </button>
-                        <button 
+                        <button
                             onClick={nextSlide}
                             className="absolute right-6 top-1/2 transform -translate-y-1/2 bg-white/90 text-orange-500 p-4 rounded-full hover:bg-white transition-all duration-300 shadow-lg"
                         >
                             <ArrowRight className="w-6 h-6" />
                         </button>
-                        
+
                         {/* Dots Indicator */}
                         <div className="flex justify-center mt-8 space-x-3">
                             {Array.from({ length: Math.ceil(initiatives.length / 3) }).map((_, index) => (
                                 <button
                                     key={index}
                                     onClick={() => setCurrentSlide(index)}
-                                    className={`w-4 h-4 rounded-full transition-all duration-300 ${
-                                        currentSlide === index ? 'bg-orange-500 w-8' : 'bg-gray-300 hover:bg-gray-400'
-                                    }`}
+                                    className={`w-4 h-4 rounded-full transition-all duration-300 ${currentSlide === index ? 'bg-orange-500 w-8' : 'bg-gray-300 hover:bg-gray-400'
+                                        }`}
                                 />
                             ))}
                         </div>
@@ -348,7 +345,7 @@ Through our dedicated efforts, we aim to create a safer and kinder environment f
                                     Be The Reason Someone Smiles Today
                                 </p>
                             </div>
-                            
+
                             <div className="grid grid-cols-2 gap-4 mb-8">
                                 <button className="bg-orange-500 text-white px-6 py-4 rounded-xl font-semibold hover:bg-orange-600 transition-all duration-300 transform hover:scale-105 shadow-lg">
                                     ₹150
@@ -363,7 +360,7 @@ Through our dedicated efforts, we aim to create a safer and kinder environment f
                                     ₹5000
                                 </button>
                             </div>
-                            
+
                             <div className="bg-orange-100 p-6 rounded-2xl">
                                 <p className="text-gray-700 text-lg font-medium">
                                     💝 "Want To Know Where Your Donation Goes? Just Ask!"
@@ -373,11 +370,11 @@ Through our dedicated efforts, we aim to create a safer and kinder environment f
                                 </p>
                             </div>
                         </div>
-                        
+
                         <div className="relative">
-                            <img 
-                                src="/src/assets/img1.jpg" 
-                                alt="Happy rescued dog" 
+                            <img
+                                src="/src/assets/img1.jpg"
+                                alt="Happy rescued dog"
                                 className="rounded-3xl shadow-2xl"
                             />
                             <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-orange-200 rounded-full opacity-30 -z-10"></div>
@@ -385,51 +382,6 @@ Through our dedicated efforts, we aim to create a safer and kinder environment f
                     </div>
                 </div>
             </section>
-
-            {/* Enhanced Photo Grid */}
-                                <div className="grid grid-cols-1 md:grid-cols-4 gap-6 p-5 pb-16">
-                                    {/* Large featured photo */}
-                                    <div className="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-700">
-                                        <img
-                                            src={volunteerPhotos[0]}
-                                            alt="Featured volunteer moment"
-                                            className="w-full h-full min-h-[500px] object-cover transition-transform duration-1000 group-hover:scale-110"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
-                                        <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-700">
-                                            <h3 className="text-3xl font-bold text-white mb-3">Making Impact Together</h3>
-                                            <p className="text-amber-200 text-lg"></p>
-                                        </div>
-                                    </div>
-            
-                                    {/* Medium photos */}
-                                    {volunteerPhotos.slice(1, 3).map((photo, index) => (
-                                        <div key={index} className="relative group overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500">
-                                            <img
-                                                src={photo}
-                                                alt="Volunteer moment"
-                                                className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110"
-                                            />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-orange-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center pb-6">
-                                                <Heart className="w-10 h-10 text-white fill-current" />
-                                            </div>
-                                        </div>
-                                    ))}
-            
-                                    {/* Small photos */}
-                                    {volunteerPhotos.slice(3, 13).map((photo, index) => (
-                                        <div key={index} className="relative group overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500">
-                                            <img
-                                                src={photo}
-                                                alt="Volunteer moment"
-                                                className="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110"
-                                            />
-                                            <div className="absolute inset-0 bg-black/20 group-hover:bg-orange-600/80 transition-all duration-500 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                                                <span className="text-white font-semibold text-center px-4">Making Impact Together</span>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
 
             {/* Enhanced WhatsApp Community Section */}
             <section className="py-20 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900">
@@ -453,6 +405,106 @@ Through our dedicated efforts, we aim to create a safer and kinder environment f
                     </div>
                 </div>
             </section>
+            {/* Call to Action */}
+            <div className="mt-20 text-center bg-gradient-to-r from-orange-500 to-amber-500 text-white p-12 rounded-3xl shadow-2xl relative overflow-hidden">
+                <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-white/10 rounded-full"></div>
+                <div className="absolute -top-20 -left-20 w-64 h-64 bg-white/10 rounded-full"></div>
+                <div className="relative z-10">
+                    <h3 className="text-3xl md:text-4xl font-bold mb-6">Ready to Make a Difference?</h3>
+                    <p className="text-xl md:text-2xl mb-8 opacity-95 max-w-3xl mx-auto">
+                        Join our mission to save lives and create happy endings for dogs in need.
+                    </p>
+                    <div className="flex flex-wrap gap-4 justify-center">
+                        <button className="bg-white text-orange-600 px-8 py-4 rounded-full font-semibold hover:bg-orange-50 transition-all transform hover:scale-105 shadow-lg flex items-center gap-2">
+                            <Heart className="w-5 h-5" />
+                            Adopt a Dog
+                        </button>
+                        <button className="bg-amber-400 text-white px-8 py-4 rounded-full font-semibold hover:bg-amber-500 transition-all transform hover:scale-105 shadow-lg flex items-center gap-2">
+                            <Users className="w-5 h-5" />
+                            Become a Volunteer
+                        </button>
+                        <button className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-orange-600 transition-all transform hover:scale-105 flex items-center gap-2">
+                            <PawPrint className="w-5 h-5" />
+                            Donate Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+
+            {/* Gallery Section */}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
+                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 text-center">Gallery</h2>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6 p-5 pb-16">
+                    {/* Large featured photo */}
+                    <div className="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-700">
+                        <img
+                            src={volunteerPhotos[0]}
+                            alt="Featured volunteer moment"
+                            className="w-full h-full min-h-[500px] object-cover transition-transform duration-1000 group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+                        <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-700">
+                            <h3 className="text-3xl font-bold text-white mb-3">Making Impact Together</h3>
+                            <p className="text-amber-200 text-lg"></p>
+                        </div>
+                    </div>
+
+                    {/* Medium photos */}
+                    {volunteerPhotos.slice(1, 3).map((photo, index) => (
+                        <div key={index} className="relative group overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500">
+                            <img
+                                src={photo}
+                                alt="Volunteer moment"
+                                className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-orange-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center pb-6">
+                                <Heart className="w-10 h-10 text-white fill-current" />
+                            </div>
+                        </div>
+                    ))}
+
+                    {/* Small photos */}
+                    {volunteerPhotos.slice(3, 13).map((photo, index) => (
+                        <div key={index} className="relative group overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500">
+                            <img
+                                src={photo}
+                                alt="Volunteer moment"
+                                className="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110"
+                            />
+                            <div className="absolute inset-0 bg-black/20 group-hover:bg-orange-600/80 transition-all duration-500 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                <span className="text-white font-semibold text-center px-4">Making Impact Together</span>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+
+
+            {/* Our Partners Section */}
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 mb-24">
+                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-10 text-center">Our Partners</h2>
+                <div className="flex flex-wrap justify-center gap-8 md:gap-16 items-center">
+                    {/* Example partner logos, replace src with your actual brand logo paths */}
+                    <div className="bg-white rounded-full shadow-lg p-4 flex items-center justify-center w-32 h-32">
+                        <img src="/src/assets/partner1.png" alt="Partner 1" className="object-contain w-20 h-20 rounded-full" />
+                    </div>
+                    <div className="bg-white rounded-full shadow-lg p-4 flex items-center justify-center w-32 h-32">
+                        <img src="/src/assets/partner2.png" alt="Partner 2" className="object-contain w-20 h-20 rounded-full" />
+                    </div>
+                    <div className="bg-white rounded-full shadow-lg p-4 flex items-center justify-center w-32 h-32">
+                        <img src="/src/assets/partner3.png" alt="Partner 3" className="object-contain w-20 h-20 rounded-full" />
+                    </div>
+                    <div className="bg-white rounded-full shadow-lg p-4 flex items-center justify-center w-32 h-32">
+                        <img src="/src/assets/partner4.png" alt="Partner 4" className="object-contain w-20 h-20 rounded-full" />
+                    </div>
+                    {/* Add more partner logos as needed */}
+                </div>
+            </section>
+
+
         </div>
     );
 }

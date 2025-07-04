@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ChevronDown, 
   Heart, 
@@ -12,48 +13,44 @@ import {
   PlusCircle, 
 } from 'lucide-react';
 
-const initiatives = [
+
+// Timeline data for each year with images and updated content
+const journeyTimeline = [
   {
-    img: 'https://images.unsplash.com/photo-1583511655826-05700442b31b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80',
-    title: 'Rescue Operations',
-    text: 'Our dedicated rescue team works around the clock to save dogs from dangerous situations, providing immediate medical care and emergency shelter to those in need.',
-    icon: <Shield className="w-6 h-6 text-orange-500" />,
-    details: 'We operate a 24/7 emergency rescue hotline and maintain a fleet of rescue vehicles equipped with medical supplies. Our trained responders handle everything from highway rescues to hoarding situations, ensuring every dog receives immediate care and assessment.'
+    year: '2020',
+    title: 'Where It All Began',
+    img: 'https://images.unsplash.com/photo-1583511655826-05700442b31b?auto=format&fit=crop&w=1074&q=80',
+    text: `At just 16 years old, a young animal lover from Nagpur took the first step toward a bigger vision—ensuring care for the voiceless. With only ₹200-₹300 a month from his pocket money, he began feeding and rescuing 10–15 street dogs in his neighborhood. What started as a small act of compassion soon planted the seeds of a movement.`
   },
   {
-    img: 'https://images.unsplash.com/photo-1601758003122-53c40e686a19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-    title: 'Medical Rehabilitation',
-    text: 'Professional veterinary care and rehabilitation programs help injured and sick dogs recover their health and prepare for their new lives.',
-    icon: <PlusCircle className="w-6 h-6 text-orange-500" />,
-    details: 'Our in-house veterinary clinic provides comprehensive medical care including surgery, dental work, and specialized treatments. We also offer physical therapy and behavioral rehabilitation to help dogs overcome trauma and prepare for adoption.'
+    year: '2021',
+    title: 'Community Over Individual',
+    img: 'https://images.unsplash.com/photo-1601758003122-53c40e686a19?auto=format&fit=crop&w=1170&q=80',
+    text: `Encouraged by a friend, he created an Instagram page to build a like-minded community of young animal lovers. Slowly, passionate students joined the mission. This year marked our first public impact initiative—Radium Belt Distribution for street dogs to prevent night-time accidents, a first-of-its-kind in Nagpur. This initiative became the turning point for our growing presence.`
   },
   {
-    img: 'https://images.unsplash.com/photo-1601758003831-27d52b2350b8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-    title: 'Foster Network',
-    text: 'Our loving foster families provide temporary homes where dogs can heal, learn to trust, and develop the social skills needed for adoption.',
-    icon: <Home className="w-6 h-6 text-orange-500" />,
-    details: 'With over 150 active foster families across three states, we provide specialized care for puppies, senior dogs, and those with special needs. Our foster coordinators provide ongoing support and training to ensure every placement is successful.'
+    year: '2022',
+    title: 'Expanding Care Beyond Food',
+    img: 'https://images.unsplash.com/photo-1601758003831-27d52b2350b8?auto=format&fit=crop&w=1170&q=80',
+    text: `With more volunteers joining the cause, we realized that food and rescue alone weren’t enough—access to clean drinking water during Nagpur’s scorching summers was a major issue. With a self-funded team of 10 members, we launched our first Free Water Pot Distribution Drive, placing over 100+ pots across the city. The number may have been small, but the impact was immense.`
   },
   {
-    img: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80',
-    title: 'Adoption Programs',
-    text: 'Comprehensive adoption services ensure perfect matches between rescued dogs and their forever families through careful screening and support.',
-    icon: <Heart className="w-6 h-6 text-orange-500" />,
-    details: 'Our adoption process includes home visits, meet-and-greets, and post-adoption support. We provide lifetime guidance to adopters and maintain a 98% success rate by focusing on compatibility and preparation rather than speed.'
+    year: '2023',
+    title: 'Building a Street + Pet Dog Community',
+    img: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=1064&q=80',
+    text: `This year, our vision expanded beyond street dogs. We dreamed of building a bridge between pet owners and street animal welfare. While we continued our key initiatives like radium belt and water pot distribution, we also introduced Dog Yoga Sessions, Sunday Community Feeding, and Team Radium Drives. With over 50 active volunteers, we began conducting regular team meetings to brainstorm and plan bigger initiatives.`
   },
   {
-    img: 'https://images.unsplash.com/photo-1450778869180-41d0601e046e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1158&q=80',
-    title: 'Community Outreach',
-    text: 'Educational programs and awareness campaigns help communities understand the importance of animal welfare and responsible pet ownership.',
-    icon: <Users className="w-6 h-6 text-orange-500" />,
-    details: 'We visit schools, community centers, and events to educate the public about animal welfare. Our programs include spay/neuter awareness, responsible breeding practices, and how to recognize and report animal abuse.'
+    year: '2024',
+    title: 'A City-Wide Impact',
+    img: 'https://images.unsplash.com/photo-1450778869180-41d0601e046e?auto=format&fit=crop&w=1158&q=80',
+    text: `This was our breakthrough year. We led Nagpur’s largest self-funded water pot drive, distributing 500+ water pots and installing 3000+ radium belts, directly saving countless lives. We also organized Vidarbha’s First-Ever Dog Holi Party, celebrating our community of pet and street dog lovers alike. Our vision became a city-wide movement.`
   },
   {
-    img: 'https://images.unsplash.com/photo-1583512603806-077998240c7a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1109&q=80',
-    title: 'Volunteer Training',
-    text: 'Specialized training programs equip our volunteers with the skills and knowledge needed to effectively care for and advocate for rescued animals.',
-    icon: <BookOpen className="w-6 h-6 text-orange-500" />,
-    details: 'Our comprehensive training program covers animal handling, basic medical care, behavioral assessment, and emergency procedures. We offer monthly workshops and annual certification programs to keep our volunteers updated on best practices.'
+    year: '2025',
+    title: 'The Mission Continues...',
+    img: 'https://images.unsplash.com/photo-1583512603806-077998240c7a?auto=format&fit=crop&w=1109&q=80',
+    text: `We're only getting started. With many more innovative, inclusive, and impactful initiatives in the pipeline, Nagpur Street Dogs continues to stand as a youth-led force of compassion, creating a city where every paw matters.`
   },
 ];
 
@@ -70,17 +67,8 @@ const AboutUs = () => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
+  // Only keep volunteers in sectionData for the expandable section
   const sectionData = {
-    vision: {
-      icon: <Target className="w-5 h-5" />,
-      title: 'Our Vision',
-      content: 'A city where every street animal is safe, respected, and cared for—living in harmony with the community'
-    },
-    mission: {
-      icon: <Heart className="w-5 h-5" />,
-      title: 'Our Mission',
-      content: 'To protect, rescue, and care for street animals in Nagpur through community-driven efforts, promoting compassion, responsible ownership, and sustainable welfare initiatives.'
-    },
     volunteers: {
       icon: <Users className="w-5 h-5" />,
       title: 'Our Volunteers',
@@ -119,38 +107,41 @@ const AboutUs = () => {
                 <p className="text-gray-700 text-lg leading-relaxed">
                   {showFullStory ? (
                     <>
-
-Nagpur Street Dogs was founded by 16 year boy in 2020 it is a self-funded youth-driven community dedicated to the welfare, protection, and dignity of street animals across Nagpur. Founded with compassion and driven by action, our mission is to give a voice to the voiceless and build a more humane world—one paw at a time.
-
-We work actively on the streets to rescue, rehabilitate, and care for injured, abandoned, and sick dogs. Beyond rescue, we focus on long-term impact through sterilization, vaccination drives, feeding programs, and awareness campaigns.
-NSD is the 1st group in Nagpur city to distribute free water pots every summer.Every summer, we run free water pot distribution drives across Nagpur to ensure that animals have access to clean drinking water during scorching heatwaves-a life-saving initiative supported by our incredible team and community collaborators.
-
-NSD is the only group to provide Radium belts to the street dogs to reduce the accident cases in Nagpur.
-
-Our strength lies in our passionate volunteers, everyday heroes who believe in kindness without conditions. We proudly collaborate with local cafés, small businesses, influencers, educational institutions, and socially conscious brands to build a better environment for our furry friends.
-
- At Nagpur Street Dogs, we believe that street animals are not a problem to be solved but lives to be protected. Join us in making Nagpur a safer, kinder place for all beings.</>
+                      <p>
+                        Nagpur Street Dogs was founded by a 16-year-old boy in 2020. It is a self-funded youth-driven community dedicated to the welfare, protection, and dignity of street animals across Nagpur. Founded with compassion and driven by action, our mission is to give a voice to the voiceless and build a more humane world—one paw at a time.
+                      </p>
+                      <p className="mt-4">
+                        We work actively on the streets to rescue, rehabilitate, and care for injured, abandoned, and sick dogs. Beyond rescue, we focus on long-term impact through sterilization, vaccination drives, feeding programs, and awareness campaigns.<br/>
+                        NSD is the 1st group in Nagpur city to distribute free water pots every summer. Every summer, we run free water pot distribution drives across Nagpur to ensure that animals have access to clean drinking water during scorching heatwaves—a life-saving initiative supported by our incredible team and community collaborators.<br/>
+                        NSD is the only group to provide Radium belts to the street dogs to reduce the accident cases in Nagpur.
+                      </p>
+                      <p className="mt-4">
+                        Our strength lies in our passionate volunteers, everyday heroes who believe in kindness without conditions. We proudly collaborate with local cafés, small businesses, influencers, educational institutions, and socially conscious brands to build a better environment for our furry friends.
+                      </p>
+                      <p className="mt-4">
+                        At Nagpur Street Dogs, we believe that street animals are not a problem to be solved but lives to be protected. Join us in making Nagpur a safer, kinder place for all beings.
+                      </p>
+                    </>
                   ) : (
                     <>
-
-Nagpur Street Dogs was founded by 16 year boy in 2020 it is a self-funded youth-driven community dedicated to the welfare, protection, and dignity of street animals across Nagpur. Founded with compassion and driven by action, our mission is to give a voice to the voiceless and build a more humane world—one paw at a time.
-
-<button onClick={() => setShowFullStory(true)} className="ml-2 text-orange-600 underline hover:text-orange-800 font-semibold">Read more</button></>
+                      Nagpur Street Dogs was founded by 16 year boy in 2020 it is a self-funded youth-driven community dedicated to the welfare, protection, and dignity of street animals across Nagpur. Founded with compassion and driven by action, our mission is to give a voice to the voiceless and build a more humane world—one paw at a time.
+                      <button onClick={() => setShowFullStory(true)} className="ml-2 text-orange-600 underline hover:text-orange-800 font-semibold">Read more</button>
+                    </>
                   )}
                 </p>
                 <p className="text-gray-600 leading-relaxed">
-                  What started as a small group of animal lovers has blossomed into a professional operation with veterinary partners, foster networks across 3 states, and an adoption success rate of 98%.
+                  
                 </p>
                 <p className="text-gray-600 leading-relaxed">
-                  Every day, we're inspired by the resilience of the animals we help and the generosity of the community that supports our mission.
+                  
                 </p>
               </div>
               <div className="mt-8 flex flex-wrap gap-4">
                 <div className="bg-orange-50 px-4 py-2 rounded-lg">
-                  <span className="font-bold text-orange-600">5,000+</span> Dogs Rescued
+                  <span className="font-bold text-orange-600">950+</span> Dogs Rescued
                 </div>
                 <div className="bg-orange-50 px-4 py-2 rounded-lg">
-                  <span className="font-bold text-orange-600">200+</span> Active Volunteers
+                  <span className="font-bold text-orange-600">150+</span> Active Volunteers
                 </div>
                 <div className="bg-orange-50 px-4 py-2 rounded-lg">
                   <span className="font-bold text-orange-600">98%</span> Adoption Success
@@ -179,43 +170,8 @@ Nagpur Street Dogs was founded by 16 year boy in 2020 it is a self-funded youth-
           </div>
         </div>
 
-        {/* Interactive Buttons */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12 md:mb-16">
-          {Object.entries(sectionData).map(([key, data]) => (
-            <button
-              key={key}
-              onClick={() => toggleSection(key)}
-              className={`flex items-center gap-3 px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 ${
-                expandedSection === key
-                  ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-lg'
-                  : 'bg-white text-orange-600 border-2 border-orange-200 hover:border-orange-400 hover:bg-orange-50'
-              }`}
-            >
-              {data.icon}
-              {data.title}
-              <ChevronDown className={`w-4 h-4 transition-transform ${expandedSection === key ? 'rotate-180' : ''}`} />
-            </button>
-          ))}
-        </div>
 
-        {/* Expanded Content */}
-        {expandedSection && (
-          <div className="mb-12 md:mb-16 animate-fadeIn transition-all duration-200">
-            <div className="bg-white p-8 rounded-3xl shadow-xl border-l-4 border-orange-500 hover:shadow-2xl transition-shadow">
-              <h3 className="text-2xl font-bold text-orange-600 mb-4 flex items-center gap-3">
-                <div className="bg-orange-100 p-2 rounded-full">
-                  {sectionData[expandedSection].icon}
-                </div>
-                {sectionData[expandedSection].title}
-              </h3>
-              <p className="text-gray-700 text-lg leading-relaxed">
-                {sectionData[expandedSection].content}
-              </p>
-            </div>
-          </div>
-        )}
-
-        {/* Vision & Mission Cards */}
+        {/* Our Vision & Mission - always visible */}
         <div className="grid md:grid-cols-2 gap-8 mb-20">
           <div className="bg-gradient-to-br from-orange-50 to-white p-8 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 border border-orange-100 hover:border-orange-200">
             <div className="flex items-center gap-4 mb-6">
@@ -224,28 +180,19 @@ Nagpur Street Dogs was founded by 16 year boy in 2020 it is a self-funded youth-
               </div>
               <h3 className="text-2xl font-bold text-gray-800">Our Vision</h3>
             </div>
-            <p className="text-gray-700 leading-relaxed">
-              A city where every street animal is safe, respected, and cared for—living in harmony with the community
-
-            </p>
-            <div className="mt-6 pt-6 border-t border-orange-100">
-              <ul className="space-y-2 text-gray-600">
-                <li className="flex items-start gap-2">
-                  <PawPrint className="w-4 h-4 mt-1 text-orange-500 flex-shrink-0" />
-                  <span>A world without animal suffering</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <PawPrint className="w-4 h-4 mt-1 text-orange-500 flex-shrink-0" />
-                  <span>Compassionate communities nationwide</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <PawPrint className="w-4 h-4 mt-1 text-orange-500 flex-shrink-0" />
-                  <span>Sustainable solutions for animal welfare</span>
-                </li>
+            <div className="text-gray-700 leading-relaxed text-lg">
+              Our vision is to make Nagpur a model city for street animal welfare—a place where humans and animals coexist in harmony, safety, and mutual respect.<br/>
+              We envision a future where:
+              <ul className="list-disc ml-6 mt-2">
+                <li>No stray animal goes hungry, untreated, or ignored.</li>
+                <li>Every citizen is aware and involved in animal welfare.</li>
+                <li>Rescues, treatments, and sterilizations are supported by strong community and volunteer networks.</li>
+                <li>Street animal deaths due to accidents and neglect are drastically reduced through sustainable, preventive solutions.</li>
               </ul>
+              <br/>
+              We believe real change starts at the grassroots—with empathy, education, and action. Through Nagpur Street Dogs, we aspire to ignite that change and set an example for other cities to follow.
             </div>
           </div>
-          
           <div className="bg-gradient-to-br from-orange-50 to-white p-8 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 border border-orange-100 hover:border-orange-200">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-amber-500 rounded-full flex items-center justify-center shadow-md">
@@ -253,103 +200,92 @@ Nagpur Street Dogs was founded by 16 year boy in 2020 it is a self-funded youth-
               </div>
               <h3 className="text-2xl font-bold text-gray-800">Our Mission</h3>
             </div>
-            <p className="text-gray-700 leading-relaxed">
-              To protect, rescue, and care for street animals in Nagpur through community-driven efforts, promoting compassion, responsible ownership, and sustainable welfare initiatives.
-            </p>
-            <div className="mt-6 pt-6 border-t border-orange-100">
-              <ul className="space-y-2 text-gray-600">
-                <li className="flex items-start gap-2">
-                  <PawPrint className="w-4 h-4 mt-1 text-orange-500 flex-shrink-0" />
-                  <span>24/7 emergency rescue operations</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <PawPrint className="w-4 h-4 mt-1 text-orange-500 flex-shrink-0" />
-                  <span>Full veterinary rehabilitation</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <PawPrint className="w-4 h-4 mt-1 text-orange-500 flex-shrink-0" />
-                  <span>Community education programs</span>
-                </li>
-              </ul>
+            <div className="text-gray-700 leading-relaxed text-lg">
+              At Nagpur Street Dogs, our mission is to create a compassionate and safe environment for street animals by focusing on rescue, rehabilitation, feeding, medical care, sterilization, and awareness. We are committed to being the voice for the voiceless by ensuring that every stray animal in Nagpur gets the right to live with dignity and care.<br/>
+              <br/>
+              Through community-driven efforts, we aim to reduce suffering, prevent cruelty, and inspire responsible action among citizens. Our initiatives—like feeding drives, vaccination camps, radium belt installations, and water pot distributions—are designed not just to help animals survive, but to thrive. We believe in education, collaboration, and action as key tools to build a more inclusive and humane society.
             </div>
           </div>
         </div>
 
-        {/* Group Initiatives */}
+        {/* Volunteers - still expandable */}
+        {/**
+        <div className="flex flex-wrap justify-center gap-4 mb-12 md:mb-16">
+          <button
+            onClick={() => toggleSection('volunteers')}
+            className={`flex items-center gap-3 px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 ${
+              expandedSection === 'volunteers'
+                ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-lg'
+                : 'bg-white text-orange-600 border-2 border-orange-200 hover:border-orange-400 hover:bg-orange-50'
+            }`}
+          >
+            <Users className="w-5 h-5" />
+            Our Volunteers
+            <ChevronDown className={`w-4 h-4 transition-transform ${expandedSection === 'volunteers' ? 'rotate-180' : ''}`} />
+          </button>
+        </div>
+        **/}
+
+        {/* {expandedSection === 'volunteers' && (
+          <div className="mb-12 md:mb-16 animate-fadeIn transition-all duration-200">
+            <div className="bg-white p-8 rounded-3xl shadow-xl border-l-4 border-orange-500 hover:shadow-2xl transition-shadow">
+              <h3 className="text-2xl font-bold text-orange-600 mb-4 flex items-center gap-3">
+                <div className="bg-orange-100 p-2 rounded-full">
+                  <Users className="w-5 h-5" />
+                </div>
+                Our Volunteers
+              </h3>
+              <p className="text-gray-700 text-lg leading-relaxed">
+                Our incredible team of dedicated volunteers is the heart of our organization. From veterinarians and foster families to fundraisers and advocates, each volunteer brings unique skills and unwavering commitment to our cause.
+              </p>
+            </div>
+          </div>
+        )} */}
+
+
+        {/* Animated Timeline: Our Journey – Nagpur Street Dogs */}
         <div className="relative mb-24">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-              Our <span className="text-orange-500">Comprehensive</span> Programs
+              Our Journey – <span className="text-orange-500">Nagpur Street Dogs</span>
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              From rescue to rehabilitation to forever homes, we provide complete care at every stage of a dog's journey.
-            </p>
           </div>
-          
-          {/* Timeline line */}
-          <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-orange-300 to-orange-500 rounded-full"></div>
-
-          <div className="space-y-16 md:space-y-24 relative z-10">
-            {initiatives.map((item, index) => (
-              <div
-                key={index}
-                className={`relative flex ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} flex-col gap-8 items-center group`}
-              >
-                {/* Timeline dot */}
-                {/* <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-gradient-to-br from-orange-500 to-amber-500 rounded-full border-4 border-white shadow-lg z-20 group-hover:scale-125 transition-transform"></div> */}
-                
-                <div className={`md:w-5/12 ${index % 2 === 0 ? 'md:pr-8' : 'md:pl-8'}`}>
-                  <div 
-                    className="relative overflow-hidden rounded-2xl shadow-xl group-hover:shadow-2xl transition-all duration-500 cursor-pointer"
-                    onClick={() => toggleInitiative(index)}
-                  >
-                    <img
+          <div className="max-w-4xl mx-auto">
+            <div className="border-l-4 border-orange-300 pl-8 relative">
+              {journeyTimeline.map((item, idx) => (
+                <motion.div
+                  key={item.year}
+                  initial={{ opacity: 0, x: idx % 2 === 0 ? -80 : 80 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.7, delay: idx * 0.1 }}
+                  className={`mb-16 flex flex-col md:flex-row ${idx % 2 === 0 ? '' : 'md:flex-row-reverse'}`}
+                >
+                  <div className="md:w-1/2 flex-shrink-0 flex items-center justify-center mb-6 md:mb-0">
+                    <motion.img
                       src={item.img}
                       alt={item.title}
-                      className="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-700"
+                      className="w-full max-w-xs h-56 object-cover rounded-2xl shadow-xl border-4 border-white"
+                      initial={{ scale: 0.9, opacity: 0 }}
+                      whileInView={{ scale: 1, opacity: 1 }}
+                      transition={{ duration: 0.7, delay: idx * 0.12 }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex flex-col justify-end p-6">
-                      <div className="flex items-center gap-3">
-                        <div className="bg-orange-500 p-2 rounded-lg">
-                          {item.icon}
-                        </div>
-                        <h4 className="text-xl font-bold text-white">{item.title}</h4>
-                      </div>
-                      <div className="mt-2 text-orange-200 text-sm flex items-center gap-1">
-                        Click to learn more
-                        <ChevronDown className={`w-4 h-4 transition-transform ${activeIndex === index ? 'rotate-180' : ''}`} />
-                      </div>
-                    </div>
                   </div>
-                </div>
-
-                <div className={`md:w-5/12`}>
-                  <div className="bg-white p-6 rounded-2xl shadow-lg border border-orange-100">
-                    <h4 className="text-xl font-bold text-orange-600 mb-3 flex items-center gap-2">
-                      {item.icon}
-                      {item.title}
-                    </h4>
-                    <p className="text-gray-700 leading-relaxed mb-4">{item.text}</p>
-                    
-                    {/* Expandable detailed content */}
-                    {activeIndex === index && (
-                      <div className="animate-fadeIn border-t border-orange-100 pt-4">
-                        <h5 className="font-semibold text-gray-800 mb-2">Program Details:</h5>
-                        <p className="text-gray-600 leading-relaxed">{item.details}</p>
-                      </div>
-                    )}
-                    
-                    <button 
-                      onClick={() => toggleInitiative(index)}
-                      className="mt-4 text-orange-500 hover:text-orange-600 font-medium flex items-center gap-1 transition-colors"
+                  <div className="md:w-1/2 flex flex-col justify-center relative">
+                    <div className="absolute -left-12 top-2 w-8 h-8 bg-gradient-to-br from-orange-500 to-amber-500 rounded-full border-4 border-white shadow-lg hidden md:block"></div>
+                    <h3 className="text-2xl font-bold text-orange-600 mb-2">{item.year}: {item.title}</h3>
+                    <motion.p
+                      className="text-gray-700 text-lg leading-relaxed"
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.7, delay: idx * 0.15 + 0.2 }}
                     >
-                      {activeIndex === index ? 'Show less' : 'Learn more'}
-                      <ChevronDown className={`w-4 h-4 transition-transform ${activeIndex === index ? 'rotate-180' : ''}`} />
-                    </button>
+                      {item.text}
+                    </motion.p>
                   </div>
-                </div>
-              </div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -363,18 +299,22 @@ Nagpur Street Dogs was founded by 16 year boy in 2020 it is a self-funded youth-
               Join our mission to save lives and create happy endings for dogs in need.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <button className="bg-white text-orange-600 px-8 py-4 rounded-full font-semibold hover:bg-orange-50 transition-all transform hover:scale-105 shadow-lg flex items-center gap-2">
+              {/* <button className="bg-white text-orange-600 px-8 py-4 rounded-full font-semibold hover:bg-orange-50 transition-all transform hover:scale-105 shadow-lg flex items-center gap-2">
                 <Heart className="w-5 h-5" />
                 Adopt a Dog
+              </button> */}
+              <button
+                className="bg-amber-400 text-white px-8 md:px-10 py-4 md:py-5 rounded-full font-semibold hover:bg-amber-500 transition-all transform hover:scale-105 shadow-lg flex items-center gap-2 text-xl md:text-2xl drop-shadow-lg border-2 border-amber-300 hover:border-amber-400"
+                style={{ minWidth: '180px', letterSpacing: '0.03em' }}
+                onClick={() => window.location.href = '/donate'}
+              >
+                <Users className="w-5 h-5 md:w-6 md:h-6" />
+                <span className="font-bold tracking-wide">Donate Now</span>
               </button>
-              <button className="bg-amber-400 text-white px-8 py-4 rounded-full font-semibold hover:bg-amber-500 transition-all transform hover:scale-105 shadow-lg flex items-center gap-2">
-                <Users className="w-5 h-5" />
-                Become a Volunteer
-              </button>
-              <button className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-orange-600 transition-all transform hover:scale-105 flex items-center gap-2">
+              {/* <button className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-orange-600 transition-all transform hover:scale-105 flex items-center gap-2">
                 <PawPrint className="w-5 h-5" />
                 Donate Now
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
