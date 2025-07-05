@@ -2,44 +2,27 @@ import React from 'react';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import { Link } from 'react-router-dom';
+import { Heart } from 'lucide-react';
 
-// Individual impact image paths for easy editing
-const impactImg1 = '/DONATION PAGE/IMG-20250604-WA0119.jpg';
-const impactImg2 = '';
-const impactImg3 = '';
-const impactImg4 = '';
-const impactImg5 = '/DONATION PAGE/IMG-20250304-WA0025.jpg';
-const impactImg6 = '/DONATION PAGE/IMG-20241208-WA0207(1).jpg';
-const impactImg7 = '';
-const impactImg8 = '/DONATION PAGE/IMG-20250603-WA0050~2.jpg';
-const impactImg9 = '/DONATION PAGE/IMG-20250604-WA0024~2.jpg';
-const impactImg10 = '/DONATION PAGE/IMG-20250316-WA0015.jpg';
-const impactImg11 = '/DONATION PAGE/IMG-20250604-WA0012~2.jpg';
-const impactImg12 = 'DONATION PAGE/IMG-20241203-WA0058.jpg';
-const impactImg13 = '/DONATION PAGE/IMG-20250604-WA0006~2.jpg';
-const impactImg14 = '/DONATION PAGE/IMG-20250304-WA0028.jpg';
-const impactImg15 = '/DONATION PAGE/IMG-20250604-WA0025.jpg';
-const impactImg16 = '/DONATION PAGE/IMG-20250604-WA0023.jpg';
-const impactImg17 = '/DONATION PAGE/IMG-20250604-WA0010~2.jpg';
-const impactImg18 = '';
-const impactImg19 = '/DONATION PAGE/IMG-20250604-WA0130.jpg';
-const impactImg20 = '/DONATION PAGE/IMG-20250604-WA0120.jpg';
 
-const impactImages = [
-  impactImg1, impactImg2, impactImg3, impactImg4, impactImg5,
-  impactImg6, impactImg7, impactImg8, impactImg9, impactImg10,
-  impactImg11, impactImg12, impactImg13, impactImg14, impactImg15,
-  impactImg16, impactImg17, impactImg18, impactImg19, impactImg20
+const volunteerPhotos = [
+  "/DONATION PAGE/IMG-20250604-WA0012~2.jpg",
+  "/DONATION PAGE/IMG-20250304-WA0025.jpg",
+  "/DONATION PAGE/IMG-20250604-WA0119.jpg",
+  "/DONATION PAGE/IMG-20241208-WA0207(1).jpg",
+  "/DONATION PAGE/IMG-20250603-WA0050~2.jpg",
+  "/DONATION PAGE/IMG-20250604-WA0024~2.jpg",
+  "/DONATION PAGE/IMG-20250316-WA0015.jpg",
+  "/DONATION PAGE/IMG-20241203-WA0058.jpg",
+  "/DONATION PAGE/IMG-20250604-WA0006~2.jpg",
+  "/DONATION PAGE/IMG-20250304-WA0028.jpg",
+  "/DONATION PAGE/IMG-20250604-WA0025.jpg",
+  "/DONATION PAGE/IMG-20250604-WA0023.jpg",
+  "/DONATION PAGE/IMG-20250604-WA0010~2.jpg",
+  "/DONATION PAGE/IMG-20250604-WA0130.jpg",
+  "/DONATION PAGE/IMG-20250604-WA0120.jpg",
 ];
 
-// Mark which images are 'big' for layout variation
-const bentoLayout = [
-  'big', 'small', 'tall', 'wide',
-  'small', 'big', 'small', 'tall',
-  'wide', 'small', 'big', 'wide',
-  'tall', 'small', 'big', 'tall',
-  'tall', 'wide', 'tall', 'wide'
-];
 
 
 const Donate = () => {
@@ -113,46 +96,75 @@ const Donate = () => {
         </div>
       </section>
 
-      {/* Donation Impact Section */}
-<section id="donation-impact" className="max-w-7xl mx-auto py-14 px-4">
-  <h2 className="text-2xl md:text-3xl font-bold text-center mb-10 text-[#E15519]">Where your Donations go</h2>
+            {/* Enhanced Photo Gallery Section */}
+            <section className="py-24 bg-gradient-to-br from-slate-50 via-orange-50 to-amber-50 relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-full">
+                    <div className="absolute top-20 left-10 w-32 h-32 bg-orange-200 rounded-full opacity-10 blur-2xl"></div>
+                    <div className="absolute bottom-20 right-10 w-40 h-40 bg-amber-200 rounded-full opacity-10 blur-2xl"></div>
+                </div>
 
-  <div
-    className="grid gap-4"
-    style={{
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
-      gridAutoRows: '150px',
-      gridAutoFlow: 'dense',
-    }}
-  >
-    {impactImages.map((img, idx) => {
-      const layoutType = bentoLayout[idx];
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+                    <div className="text-center mb-20">
+                        <div className="inline-flex items-center bg-white rounded-full px-6 py-2 mb-6 shadow-lg">
+                            <span className="text-orange-600 font-semibold">📸 GALLERY</span>
+                        </div>
+                        <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+                            Memories That
+                            <span className="block text-transparent bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text">
+                                Matter
+                            </span>
+                        </h2>
+                        <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                            Capturing the joy and impact our volunteers create through shared moments of kindness and community
+                        </p>
+                    </div>
 
-      let className = '';
-      if (layoutType === 'big') className = 'col-span-2 row-span-2';
-      else if (layoutType === 'tall') className = 'row-span-2';
-      else if (layoutType === 'wide') className = 'col-span-2';
-      else className = '';
+                    {/* Enhanced Photo Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        {/* Large featured photo */}
+                        <div className="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-700">
+                            <img
+                                src={volunteerPhotos[0]}
+                                alt="Featured volunteer moment"
+                                className="w-full h-full min-h-[500px] object-cover transition-transform duration-1000 group-hover:scale-110"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+                            <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-700">
+                                <h3 className="text-3xl font-bold text-white mb-3">Making Impact Together</h3>
+                                <p className="text-amber-200 text-lg">Love for every Stray</p>
+                            </div>
+                        </div>
 
-      return (
-        <div
-          key={idx}
-          className={`relative overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-all bg-white border border-[#eee] ${className}`}
-          style={{
-            display: img ? 'block' : 'none',
-          }}
-        >
-          <img
-            src={img}
-            alt={`Impact ${idx + 1}`}
-            className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-          />
-        </div>
-      );
-    })}
-  </div>
-</section>
+                        {/* Medium photos */}
+                        {volunteerPhotos.slice(1, 3).map((photo, index) => (
+                            <div key={index} className="relative group overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500">
+                                <img
+                                    src={photo}
+                                    alt={`Volunteer moment ${index + 1}`}
+                                    className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-orange-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center pb-6">
+                                    <Heart className="w-10 h-10 text-white fill-current" />
+                                </div>
+                            </div>
+                        ))}
+
+                        {/* Small photos */}
+                        {volunteerPhotos.slice(3, 13).map((photo, index) => (
+                            <div key={index} className="relative group overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500">
+                                <img
+                                    src={photo}
+                                    alt={`Volunteer moment ${index + 4}`}
+                                    className="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110"
+                                />
+                                <div className="absolute inset-0 bg-black/20 group-hover:bg-orange-600/80 transition-all duration-500 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                    <span className="text-white font-semibold text-center px-4">Making Impact Together</span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
 
     </div>
   );
