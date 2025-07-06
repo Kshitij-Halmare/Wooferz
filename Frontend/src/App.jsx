@@ -39,10 +39,11 @@ function App() {
         <Route path='/community' element={<CommunityHome />} />
         <Route path='/blog/:id' element={<BlogId />} />
         <Route path="/:userId" element={<UserProfile/>}/>
+        <Route path='/adopt' element={<AdoptDogsPage/>}/>
+      <Route path='/adopt-form' element={<AddDogForm/>}/>
       </Route>
       <Route path='/editor' element={<EditorPage />} />  
-      <Route path='/adopt' element={<AdoptDogsPage/>}/>
-      <Route path='/adopt-form' element={<AddDogForm/>}/>
+      
       <Route path="/dog/:id" element={<DogDetailsPage />} />
     </Routes>
   );

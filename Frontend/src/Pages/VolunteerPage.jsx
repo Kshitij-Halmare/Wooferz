@@ -485,7 +485,7 @@ function VolunteerPage() {
             </section>
 
             {/* Footer Section */}
-            <footer className="bg-gradient-to-br from-orange-900 to-amber-900 text-white py-16">
+            {/* <footer className="bg-gradient-to-br from-orange-900 to-amber-900 text-white py-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
                         <div className="md:col-span-2">
@@ -539,7 +539,7 @@ function VolunteerPage() {
                         <p>© {new Date().getFullYear()} Volunteer Connect. All rights reserved.</p>
                     </div>
                 </div>
-            </footer>
+            </footer> */}
         </div>
     );
 }

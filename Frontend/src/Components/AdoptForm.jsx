@@ -556,7 +556,8 @@ const AddDogForm = () => {
             {/* Images */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-3">
-                Photos * (Max 5)
+                Photos * (Max 5)  
+                <p>(Please upload clear images**)</p>
               </label>
               <div className="border-2 border-dashed border-orange-300 rounded-xl p-8 text-center bg-orange-50 hover:border-orange-400 transition-colors">
                 <Upload className="mx-auto h-12 w-12 text-orange-400 mb-4" />
