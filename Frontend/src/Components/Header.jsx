@@ -44,13 +44,13 @@ const Header = () => {
 
       {/* Desktop Navigation */}
       <nav className="hidden md:flex items-center space-x-8 text-lg font-semibold text-black">
-        <Link to="/about" className="hover:text-blue-600">About Us</Link>
-        <Link to="/donate" className="hover:text-blue-600">Donate</Link>
-        <Link to="/adopt" className="hover:text-blue-600">Adoption</Link>
-        <Link to="/community" className="hover:text-blue-600">Blogs</Link>
-        <Link to="/volunteer" className="hover:text-blue-600">Volunteer</Link>
-        <Link to="/founder" className="hover:text-blue-600">Founder</Link>
-        <Link to="/ourTeam" className="hover:text-blue-600">Our Team</Link>
+        <Link to="/about" className="hover:text-orange-500">About Us</Link>
+        <Link to="/donate" className="hover:text-orange-500">Donate</Link>
+        <Link to="/adopt" className="hover:text-orange-500">Adoption</Link>
+        <Link to="/community" className="hover:text-orange-500">Blogs</Link>
+        <Link to="/volunteer" className="hover:text-orange-500">Volunteer</Link>
+        <Link to="/founder" className="hover:text-orange-500">Founder</Link>
+        <Link to="/ourTeam" className="hover:text-orange-500">Our Team</Link>
       </nav>
 
       {/* Shop Button + User Avatar + Hamburger */}
