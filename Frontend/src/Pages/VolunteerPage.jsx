@@ -139,15 +139,15 @@ function VolunteerPage() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-amber-50">
             {/* Hero Section with Background Image */}
-            <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+            <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-10 pb-10">
                 {/* Background Image with Overlay */}
                 <div className="absolute inset-0 z-0">
                     <img
-                        src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1920&h=1080&fit=crop"
+                        src="/New photo/IMG-20250604-WA0043.jpg"
                         alt="Volunteers helping community"
                         className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-br from-orange-900/80 via-orange-800/70 to-amber-900/80"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-orange-900/50 to-amber-900/50"></div>
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
                 </div>
 
@@ -444,7 +444,7 @@ function VolunteerPage() {
                             <img
                                 src={volunteerPhotos[0]}
                                 alt="Featured volunteer moment"
-                                className="w-full h-full min-h-[500px] object-cover transition-transform duration-1000 group-hover:scale-110"
+                                className="w-full h-full min-h-[450px] object-cover transition-transform duration-1000 group-hover:scale-110"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
                             <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-700">
