@@ -373,7 +373,7 @@ function Home() {
 
                         <div className="relative">
                             <img
-                                src="/src/assets/img1.jpg"
+                                src="donate_intro_img.png"
                                 alt="Happy rescued dog"
                                 className="rounded-3xl shadow-2xl"
                             />
