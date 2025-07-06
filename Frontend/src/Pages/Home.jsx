@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Heart, Users, Globe, Menu, X, ArrowRight, ArrowLeft, Phone, MessageCircle, Award, Shield, PawPrint } from 'lucide-react';
-
+import {useNavigate} from "react-router-dom";
 function Home() {
+    const navigate=useNavigate();
     const [currentSlide, setCurrentSlide] = useState(0);
     const [currentHeroSlide, setCurrentHeroSlide] = useState(0);
 
@@ -415,15 +416,15 @@ function Home() {
                         Join our mission to save lives and create happy endings for dogs in need.
                     </p>
                     <div className="flex flex-wrap gap-4 justify-center">
-                        <button className="bg-white text-orange-600 px-8 py-4 rounded-full font-semibold hover:bg-orange-50 transition-all transform hover:scale-105 shadow-lg flex items-center gap-2">
+                        <button onClick={()=>{navigate("/adopt")}} className="bg-white text-orange-600 px-8 py-4 rounded-full font-semibold hover:bg-orange-50 transition-all transform hover:scale-105 shadow-lg flex items-center gap-2">
                             <Heart className="w-5 h-5" />
                             Adopt a Dog
                         </button>
-                        <button className="bg-amber-400 text-white px-8 py-4 rounded-full font-semibold hover:bg-amber-500 transition-all transform hover:scale-105 shadow-lg flex items-center gap-2">
+                        <button onClick={()=>{navigate("/volunteer")}} className="bg-amber-400 text-white px-8 py-4 rounded-full font-semibold hover:bg-amber-500 transition-all transform hover:scale-105 shadow-lg flex items-center gap-2">
                             <Users className="w-5 h-5" />
                             Become a Volunteer
                         </button>
-                        <button className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-orange-600 transition-all transform hover:scale-105 flex items-center gap-2">
+                        <button onClick={()=>{navigate("/donate")}} className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-orange-600 transition-all transform hover:scale-105 flex items-center gap-2">
                             <PawPrint className="w-5 h-5" />
                             Donate Now
                         </button>
