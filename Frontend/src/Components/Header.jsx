@@ -130,13 +130,13 @@ const Header = () => {
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="absolute top-full left-0 w-full bg-white shadow-md md:hidden z-50 px-6 py-4 space-y-4 font-medium text-black">
-          <Link to="/about" className="block hover:text-blue-600" onClick={() => setMenuOpen(false)}>About Us</Link>
-          <Link to="/donate" className="block hover:text-blue-600" onClick={() => setMenuOpen(false)}>Donate</Link>
-          <Link to="/adopt" className="block hover:text-blue-600" onClick={() => setMenuOpen(false)}>Adoption</Link>
-          <Link to="/community" className="block hover:text-blue-600" onClick={() => setMenuOpen(false)}>Blogs</Link>
-          <Link to="/volunteer" className="block hover:text-blue-600" onClick={() => setMenuOpen(false)}>Volunteer</Link>
-          <Link to="/founder" className="block hover:text-blue-600" onClick={() => setMenuOpen(false)}>Founder</Link>
-          <Link to="/ourTeam" className="block hover:text-blue-600" onClick={() => setMenuOpen(false)}>Our Team</Link>
+          <Link to="/about" className="block hover:text-orange-500" onClick={() => setMenuOpen(false)}>About Us</Link>
+          <Link to="/donate" className="block hover:text-orange-500" onClick={() => setMenuOpen(false)}>Donate</Link>
+          <Link to="/adopt" className="block hover:text-orange-500" onClick={() => setMenuOpen(false)}>Adoption</Link>
+          <Link to="/community" className="block hover:text-orange-500" onClick={() => setMenuOpen(false)}>Blogs</Link>
+          <Link to="/volunteer" className="block hover:text-orange-500" onClick={() => setMenuOpen(false)}>Volunteer</Link>
+          <Link to="/founder" className="block hover:text-orange-500" onClick={() => setMenuOpen(false)}>Founder</Link>
+          <Link to="/ourTeam" className="block hover:text-orange-500" onClick={() => setMenuOpen(false)}>Our Team</Link>
           
           {/* Mobile User Section */}
           {isAuthenticated() ? (
