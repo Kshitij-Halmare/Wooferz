@@ -374,7 +374,7 @@ function Home() {
 
                         <div className="relative">
                             <img
-                                src="/src/assets/img1.jpg"
+                                src="donate_intro_img.png"
                                 alt="Happy rescued dog"
                                 className="rounded-3xl shadow-2xl"
                             />
@@ -443,7 +443,7 @@ function Home() {
                         <img
                             src={volunteerPhotos[0]}
                             alt="Featured volunteer moment"
-                            className="w-full h-full min-h-[500px] object-cover transition-transform duration-1000 group-hover:scale-110"
+                            className="w-full h-full min-h-[450px] object-cover transition-transform duration-1000 group-hover:scale-110"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
                         <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-700">
