@@ -9,6 +9,7 @@ import volunteerRouter from "./Routes/VolunteerRouter.js";
 import User from "./Schemas/UserSchema.js";
 import Blog from "./Schemas/BlogSchema.js";
 import Dog from "./Schemas/DogSchema.js";
+import Donationrouter from "./Routes/DonationRouter.js";
 dotenv.config();
 
 const app=express();
@@ -19,6 +20,7 @@ app.use("/api/user",userRouter);
 app.use("/blog",blogRouter);
 app.use("/api/dog",dogRouter);
 app.use("/api/volunteer",volunteerRouter);
+app.use("/api/donation",Donationrouter)
 
 
 // Get user profile
