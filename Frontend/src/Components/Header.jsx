@@ -35,7 +35,7 @@ const Header = () => {
       <div className="flex items-center">
         <Link to="/">
           <img
-            src="/src/assets/nsd-logo.jpg" // Or replace with your actual logo path
+            src="../assets/nsd-logo.jpg" // Or replace with your actual logo path
             alt="Logo"
             className="h-12 w-12 rounded-full"
           />
