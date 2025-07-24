@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const defaultAvatar = 'src/assets/home2.jpg';
+const defaultAvatar = '../assets/home2.jpg';
 
 export default function Founder() {
   return (
