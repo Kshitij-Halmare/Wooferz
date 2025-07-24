@@ -13,7 +13,7 @@ function Home() {
             subtitle: "Together we can create a better future for street animals."
         },
         {
-            image: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1920&h=1080&fit=crop",
+            image: "/src/assets/feedingDrive.jpg",
             title: "Providing Medical Care",
             subtitle: "Professional veterinary treatment for every rescued animal"
         }
