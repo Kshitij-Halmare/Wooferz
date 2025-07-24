@@ -160,7 +160,7 @@ const AddDogForm = () => {
 
     if (!formData.name.trim()) errors.push('Dog name is required');
     if (!formData.breed.trim()) errors.push('Breed is required');
-    if (!formData.age || formData.age < 1) errors.push('Valid age is required');
+    if (!formData.age || formData.age < 1) errors.push('Valid age is required ');
     if (!formData.gender) errors.push('Gender is required');
     if (!formData.size) errors.push('Size is required');
     if (!formData.color.trim()) errors.push('Color is required');
