@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Menu, X, User } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../Authentication/Authentication.jsx'; 
-import logo from "../assets/nsd-logo.jpg"; // Update with your actual logo path
+import logo from "../assets/nsdlogo.jpg"; // Update with your actual logo path
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
