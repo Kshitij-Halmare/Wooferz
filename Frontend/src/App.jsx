@@ -24,11 +24,7 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route 
           path='/donate' 
-          element={
-            <Suspense fallback={<div>Loading...</div>}>
-              <Donate />
-            </Suspense>
-          } 
+          element={<Donate />} 
         />
         <Route path='/ourTeam' element={<OurTeam />} />
         <Route path='/volunteer' element={<VolunteerPage />} />
