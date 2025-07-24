@@ -1,19 +1,57 @@
 import React, { useState, useEffect } from 'react';
 import { Heart, Users, Globe, Menu, X, ArrowRight, ArrowLeft, Phone, MessageCircle, Award, Shield, PawPrint } from 'lucide-react';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+// Hero Images
+import home2 from "src/assets/home2.jpg";
+import feedingDrive from "/src/assets/feedingDrive.jpg";
+
+// Initiative Images
+import waterPot from "/src/assets/waterPot.jpg";
+import radiumBelt from "/src/assets/radiumBelt.jpg";
+import vaccination from "/src/assets/vaccination.jpg";
+import adoption from "/src/assets/adoption.jpg";
+import communityEvent from "/src/assets/communityEvent.jpg";
+
+// Other Images
+import goodDoggy from "/Good doggy-amico 3.png";
+import donateIntro from "donate_intro_img.png";
+
+// Volunteer Photos
+import volunteer1 from "/New photo/IMG-20250603-WA0046~2.jpg";
+import volunteer2 from "/New photo/IMG-20241206-WA0109~2.jpg";
+import volunteer3 from "/New photo/IMG-20250603-WA0050~2.jpg";
+import volunteer4 from "/New photo/IMG-20250604-WA0012~2.jpg";
+import volunteer5 from "/New photo/IMG-20250604-WA0024~2.jpg";
+import volunteer6 from "/New photo/IMG-20250604-WA0090.jpg";
+import volunteer7 from "/New photo/IMG-20250604-WA0091.jpg";
+import volunteer8 from "/New photo/IMG-20250604-WA0101.jpg";
+import volunteer9 from "/New photo/IMG-20250604-WA0111(1).jpg";
+import volunteer10 from "/New photo/IMG-20250604-WA0124~2.jpg";
+import volunteer11 from "/New photo/IMG-20250604-WA0125~2.jpg";
+import volunteer12 from "/New photo/IMG-20250604-WA0140.jpg";
+import volunteer13 from "/New photo/IMG-20250604-WA0142.jpg";
+import volunteer14 from "/New photo/IMG-20250604-WA0148.jpg";
+
+// Partner Images
+import partner1 from "/src/assets/partner1.png";
+import partner2 from "/src/assets/partner2.png";
+import partner3 from "/src/assets/partner3.png";
+import partner4 from "/src/assets/partner4.png";
+
 function Home() {
-    const navigate=useNavigate();
+    const navigate = useNavigate();
     const [currentSlide, setCurrentSlide] = useState(0);
     const [currentHeroSlide, setCurrentHeroSlide] = useState(0);
 
     const heroImages = [
         {
-            image: "src/assets/home2.jpg",
+            image: home2,
             title: "Every Little Help Counts",
             subtitle: "Together we can create a better future for street animals."
         },
         {
-            image: "/src/assets/feedingDrive.jpg",
+            image: feedingDrive,
             title: "Providing Medical Care",
             subtitle: "Professional veterinary treatment for every rescued animal"
         }
@@ -21,52 +59,52 @@ function Home() {
 
     const initiatives = [
         {
-            image: "/src/assets/feedingDrive.jpg",
+            image: feedingDrive,
             title: "Daily feeding drives",
             description: "NSD nourish the lives of over 150+ street dogs with love, care, and hope. It's not just a routine; it's a mission to make their world brighter and kinder."
         },
         {
-            image: "/src/assets/waterPot.jpg",
+            image: waterPot,
             title: "Free water pots distribution",
             description: "Every summer, NSD distributes free water pots to ensure no street dog suffers from thirst or dehydration. It's our mission to keep them safe and hydrated, making sure no paws is left behind."
         },
         {
-            image: "/src/assets/radiumBelt.jpg",
+            image: radiumBelt,
             title: "Radium belts drive",
             description: "NSD is transforming street safety by outfitting dogs with reflective radium belts, reducing accidents by 30% in Nagpur. We're brightening the night to protect every street dog and ensure they're seen and safe."
         },
         {
-            image: "/src/assets/vaccination.jpg",
+            image: vaccination,
             title: "Rescue and vaccination",
             description: "NSD is committed to rescuing all animals in need—whether it's dogs, cows, cats, birds, or any other creatures. We believe every life matters and work tirelessly to offer help and hope to every animal, no matter the species."
         },
         {
-            image: "/src/assets/adoption.jpg",
+            image: adoption,
             title: "Adoption camp",
             description: "From the streets to safe homes — our adoption camps connect abandoned and stray dogs with loving families."
         },
         {
-            image: "/src/assets/communityEvent.jpg",
+            image: communityEvent,
             title: "Community events",
             description: "We organize events to bring together the pet community, fostering unity and creating a strong, supportive network for all pet lovers. Our goal is to build a community where everyone can connect, share, and grow together."
         }
     ];
 
     const volunteerPhotos = [
-        "/New photo/IMG-20250603-WA0046~2.jpg",
-        "/New photo/IMG-20241206-WA0109~2.jpg",
-        "/New photo/IMG-20250603-WA0050~2.jpg",
-        "/New photo/IMG-20250604-WA0012~2.jpg",
-        "/New photo/IMG-20250604-WA0024~2.jpg",
-        "/New photo/IMG-20250604-WA0090.jpg",
-        "/New photo/IMG-20250604-WA0091.jpg",
-        "/New photo/IMG-20250604-WA0101.jpg",
-        "/New photo/IMG-20250604-WA0111(1).jpg",
-        "/New photo/IMG-20250604-WA0124~2.jpg",
-        "/New photo/IMG-20250604-WA0125~2.jpg",
-        "/New photo/IMG-20250604-WA0140.jpg",
-        "/New photo/IMG-20250604-WA0142.jpg",
-        "/New photo/IMG-20250604-WA0148.jpg",
+        volunteer1,
+        volunteer2,
+        volunteer3,
+        volunteer4,
+        volunteer5,
+        volunteer6,
+        volunteer7,
+        volunteer8,
+        volunteer9,
+        volunteer10,
+        volunteer11,
+        volunteer12,
+        volunteer13,
+        volunteer14,
     ];
 
     // --- Initiatives Carousel ---
@@ -224,7 +262,7 @@ function Home() {
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <div className="relative">
                             <img
-                                src="/Good doggy-amico 3.png"
+                                src={goodDoggy}
                                 alt="About us"
                             />
                             <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-orange-200 rounded-full opacity-30 -z-10"></div>
@@ -239,7 +277,7 @@ function Home() {
                                 <p>
                                     Nagpur street dogs is a self funded youth community founded by a 16 year old boy in 2020.
                                     We focus on providing food , medical care, free water pots every summer, shelter and many more to the animals in need.
-                                    Through our dedicated efforts, we aim to create a safer and kinder environment for street Animals.
+                                    Through our dedicated efforts, we aim to create a safer and kinder environment for street Animals.
                                 </p>
                                 <p>
                                     We focus on providing comprehensive care including food, water, medical treatment, and shelter. Our dedicated team works tirelessly to make every summer and winter more comfortable for street animals while advocating for better policies to create a stable, nurturing environment for all animals in need.
@@ -285,10 +323,7 @@ function Home() {
                                             alt={initiative.title}
                                             className="w-full h-96 md:h-[500px] object-cover rounded-2xl transition-all duration-500 group-hover:opacity-60"
                                         />
-                                        {/* <div className="absolute inset-0 rounded-2xl flex flex-col justify-end items-start p-8 transition-all duration-500"> */}
                                         <div className="absolute inset-0 rounded-2xl bg-black/40 flex flex-col justify-end items-start p-8 transition-all duration-500">
-
-
                                             <h3 className="text-3xl font-bold mb-3 z-10 transition-all duration-500 group-hover:mb-0 text-orange-500 group-hover:text-orange-400 drop-shadow-lg">
                                                 {initiative.title}
                                             </h3>
@@ -374,7 +409,7 @@ function Home() {
 
                         <div className="relative">
                             <img
-                                src="donate_intro_img.png"
+                                src={donateIntro}
                                 alt="Happy rescued dog"
                                 className="rounded-3xl shadow-2xl"
                             />
@@ -406,6 +441,7 @@ function Home() {
                     </div>
                 </div>
             </section>
+            
             {/* Call to Action */}
             <div className="mt-20 text-center bg-gradient-to-r from-orange-500 to-amber-500 text-white p-12 rounded-3xl shadow-2xl relative overflow-hidden">
                 <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-white/10 rounded-full"></div>
@@ -416,23 +452,21 @@ function Home() {
                         Join our mission to save lives and create happy endings for dogs in need.
                     </p>
                     <div className="flex flex-wrap gap-4 justify-center">
-                        <button onClick={()=>{navigate("/adopt")}} className="bg-white text-orange-600 px-8 py-4 rounded-full font-semibold hover:bg-orange-50 transition-all transform hover:scale-105 shadow-lg flex items-center gap-2">
+                        <button onClick={() => { navigate("/adopt") }} className="bg-white text-orange-600 px-8 py-4 rounded-full font-semibold hover:bg-orange-50 transition-all transform hover:scale-105 shadow-lg flex items-center gap-2">
                             <Heart className="w-5 h-5" />
                             Adopt a Dog
                         </button>
-                        <button onClick={()=>{navigate("/volunteer")}} className="bg-amber-400 text-white px-8 py-4 rounded-full font-semibold hover:bg-amber-500 transition-all transform hover:scale-105 shadow-lg flex items-center gap-2">
+                        <button onClick={() => { navigate("/volunteer") }} className="bg-amber-400 text-white px-8 py-4 rounded-full font-semibold hover:bg-amber-500 transition-all transform hover:scale-105 shadow-lg flex items-center gap-2">
                             <Users className="w-5 h-5" />
                             Become a Volunteer
                         </button>
-                        <button onClick={()=>{navigate("/donate")}} className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-orange-600 transition-all transform hover:scale-105 flex items-center gap-2">
+                        <button onClick={() => { navigate("/donate") }} className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-orange-600 transition-all transform hover:scale-105 flex items-center gap-2">
                             <PawPrint className="w-5 h-5" />
                             Donate Now
                         </button>
                     </div>
                 </div>
             </div>
-
-
 
             {/* Gallery Section */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
@@ -482,29 +516,25 @@ function Home() {
                 </div>
             </div>
 
-
-
             {/* Our Partners Section */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 mb-24">
                 <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-10 text-center">Our Partners</h2>
                 <div className="flex flex-wrap justify-center gap-8 md:gap-16 items-center">
-                    {/* Example partner logos, replace src with your actual brand logo paths */}
+                    {/* Partner logos using imported variables */}
                     <div className="bg-white rounded-full shadow-lg p-4 flex items-center justify-center w-32 h-32">
-                        <img src="/src/assets/partner1.png" alt="Partner 1" className="object-contain w-20 h-20 rounded-full" />
+                        <img src={partner1} alt="Partner 1" className="object-contain w-20 h-20 rounded-full" />
                     </div>
                     <div className="bg-white rounded-full shadow-lg p-4 flex items-center justify-center w-32 h-32">
-                        <img src="/src/assets/partner2.png" alt="Partner 2" className="object-contain w-20 h-20 rounded-full" />
+                        <img src={partner2} alt="Partner 2" className="object-contain w-20 h-20 rounded-full" />
                     </div>
                     <div className="bg-white rounded-full shadow-lg p-4 flex items-center justify-center w-32 h-32">
-                        <img src="/src/assets/partner3.png" alt="Partner 3" className="object-contain w-20 h-20 rounded-full" />
+                        <img src={partner3} alt="Partner 3" className="object-contain w-20 h-20 rounded-full" />
                     </div>
                     <div className="bg-white rounded-full shadow-lg p-4 flex items-center justify-center w-32 h-32">
-                        <img src="/src/assets/partner4.png" alt="Partner 4" className="object-contain w-20 h-20 rounded-full" />
+                        <img src={partner4} alt="Partner 4" className="object-contain w-20 h-20 rounded-full" />
                     </div>
-                    {/* Add more partner logos as needed */}
                 </div>
             </section>
-
 
         </div>
     );
