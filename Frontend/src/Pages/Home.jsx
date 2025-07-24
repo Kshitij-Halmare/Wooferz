@@ -2,22 +2,41 @@ import React, { useState, useEffect } from 'react';
 import { Heart, Users, Globe, Menu, X, ArrowRight, ArrowLeft, Phone, MessageCircle, Award, Shield, PawPrint } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
 
-// Hero Images
-import home2 from "src/assets/home2.jpg";
-import feedingDrive from "/src/assets/feedingDrive.jpg";
+// Hero Imagessrc/assets/home2.jpg
+import home2 from "../assets/home2.jpg";
+import feedingDrive from "../assets/feedingDrive.jpg";
 
 // Initiative Images
-import waterPot from "/src/assets/waterPot.jpg";
-import radiumBelt from "/src/assets/radiumBelt.jpg";
-import vaccination from "/src/assets/vaccination.jpg";
-import adoption from "/src/assets/adoption.jpg";
-import communityEvent from "/src/assets/communityEvent.jpg";
+import waterPot from "../assets/waterPot.jpg";
+import radiumBelt from "../assets/radiumBelt.jpg";
+import vaccination from "../assets/vaccination.jpg";
+import adoption from "../assets/adoption.jpg";
+import communityEvent from "../assets/communityEvent.jpg";
+
+import goodDoggy from "/home1.png";
+import donateIntro from "/home2.png";
+
 
 // Other Images
-import goodDoggy from "/Good doggy-amico 3.png";
-import donateIntro from "donate_intro_img.png";
+// import goodDoggy from "../../public/home1.png"; // Updated path to match the new structure
+// import donateIntro from "../../public/home2.png"; // Updated path to match the new structure
+// ../../public/New photo/New photo/IMG-20250603-WA0046~2.jpg
+// Volunteer Photos C:\Users\RBU\Desktop\Wooferz1\Frontend\public\New photo\IMG-20240918-WA0039(1).jpg
+// import volunteer1 from "../../public/New photo/IMG-20250603-WA0046~2.jpg"; // Updated path to match the new structure
+// import volunteer2 from "../../public/New photo/IMG-20241206-WA0109~2.jpg";
+// import volunteer3 from "../../public/New photo/IMG-20250603-WA0050~2.jpg";
+// import volunteer4 from "../../public/New photo/IMG-20250604-WA0012~2.jpg";
+// import volunteer5 from "../../public/New photo/IMG-20250604-WA0024~2.jpg";
+// import volunteer6 from "../../public/New photo/IMG-20250604-WA0090.jpg";
+// import volunteer7 from "../../public/New photo/IMG-20250604-WA0091.jpg";
+// import volunteer8 from "../../public/New photo/IMG-20250604-WA0101.jpg";
+// import volunteer9 from "../../public/New photo/IMG-20250604-WA0111(1).jpg";
+// import volunteer10 from "../../public/New photo/IMG-20250604-WA0124~2.jpg";
+// import volunteer11 from "../../public/New photo/IMG-20250604-WA0125~2.jpg";
+// import volunteer12 from "../../public/New photo/IMG-20250604-WA0140.jpg";
+// import volunteer13 from "../../public/New photo/IMG-20250604-WA0142.jpg";
+// import volunteer14 from "../../public/New photo/IMG-20250604-WA0148.jpg";
 
-// Volunteer Photos
 import volunteer1 from "/New photo/IMG-20250603-WA0046~2.jpg";
 import volunteer2 from "/New photo/IMG-20241206-WA0109~2.jpg";
 import volunteer3 from "/New photo/IMG-20250603-WA0050~2.jpg";
@@ -34,10 +53,10 @@ import volunteer13 from "/New photo/IMG-20250604-WA0142.jpg";
 import volunteer14 from "/New photo/IMG-20250604-WA0148.jpg";
 
 // Partner Images
-import partner1 from "/src/assets/partner1.png";
-import partner2 from "/src/assets/partner2.png";
-import partner3 from "/src/assets/partner3.png";
-import partner4 from "/src/assets/partner4.png";
+import partner1 from "../assets/1.jpg";
+import partner2 from "../assets/2.jpg";
+import partner3 from "../assets/3.jpg";
+import partner4 from "../assets/4.jpg";
 
 function Home() {
     const navigate = useNavigate();
