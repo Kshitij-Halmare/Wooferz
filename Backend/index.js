@@ -10,7 +10,13 @@ import User from "./Schemas/UserSchema.js";
 import Blog from "./Schemas/BlogSchema.js";
 import Dog from "./Schemas/DogSchema.js";
 import Donationrouter from "./Routes/DonationRouter.js";
+import path from "path";
+import { fileURLToPath } from 'url';
+import { dirname } from 'path'
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app=express();
 app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
