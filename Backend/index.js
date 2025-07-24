@@ -13,24 +13,22 @@ import Donationrouter from "./Routes/DonationRouter.js";
 dotenv.config();
 
 const app=express();
+app.use(cors());
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://wooferz-frontend.onrender.com"
+  "https://wooferz.onrender.com"
 ];
 
 app.use(cors({
   origin: function (origin, callback) {
-    // allow requests with no origin (like mobile apps, curl, Postman)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
     } else {
-      return callback(new Error("Not allowed by CORS"));
+      callback(new Error("Not allowed by CORS"));
     }
   },
-  credentials: true,
+  credentials: true, // Only if using cookies or auth
 }));
-
 app.use(express.json());
 const PORT=process.env.PORT || 8000;
 app.use("/api/user",userRouter);
