@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Menu, X, User } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../Authentication/Authentication.jsx'; 
-
+import logo from "../assets/nsd-logo.jpg"; // Update with your actual logo path
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
@@ -35,7 +35,7 @@ const Header = () => {
       <div className="flex items-center">
         <Link to="/">
           <img
-            src="../assets/nsd-logo.jpg" // Or replace with your actual logo path
+            src={logo} // Or replace with your actual logo path
             alt="Logo"
             className="h-12 w-12 rounded-full"
           />
