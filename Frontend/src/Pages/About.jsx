@@ -13,7 +13,7 @@ import {
   BookOpen,
   PlusCircle, 
 } from 'lucide-react';
-
+import { useNavigate } from 'react-router-dom';
 
 // Timeline data for each year with images and updated content
 const journeyTimeline = [
@@ -59,6 +59,7 @@ const AboutUs = () => {
   const [activeIndex, setActiveIndex] = useState(null);
   const [expandedSection, setExpandedSection] = useState(null);
   const [showFullStory, setShowFullStory] = useState(false);
+  const navigate = useNavigate();
 
   const toggleSection = (section) => {
     setExpandedSection(expandedSection === section ? "null" : section);
@@ -300,7 +301,7 @@ const AboutUs = () => {
               <button
                 className="bg-amber-400 text-white px-8 md:px-10 py-4 md:py-5 rounded-full font-semibold hover:bg-amber-500 transition-all transform hover:scale-105 shadow-lg flex items-center gap-2 text-xl md:text-2xl drop-shadow-lg border-2 border-amber-300 hover:border-amber-400"
                 style={{ minWidth: '180px', letterSpacing: '0.03em' }}
-                onClick={() => window.location.href = '/donate'}
+                onClick={() => navigate('/donate')}
               >
                 <Users className="w-5 h-5 md:w-6 md:h-6" />
                 <span className="font-bold tracking-wide">Donate Now</span>
