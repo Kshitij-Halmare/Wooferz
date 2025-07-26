@@ -20,37 +20,37 @@ const journeyTimeline = [
   {
     year: '2020',
     title: 'Where It All Began',
-    img: 'https://images.unsplash.com/photo-1583511655826-05700442b31b?auto=format&fit=crop&w=1074&q=80',
+    img: 'src/assets/2020.jpg',
     text: `At just 16 years old, a young animal lover from Nagpur took the first step toward a bigger vision—ensuring care for the voiceless. With only ₹200-₹300 a month from his pocket money, he began feeding and rescuing 10–15 street dogs in his neighborhood. What started as a small act of compassion soon planted the seeds of a movement.`
   },
   {
     year: '2021',
     title: 'Community Over Individual',
-    img: 'https://images.unsplash.com/photo-1601758003122-53c40e686a19?auto=format&fit=crop&w=1170&q=80',
+    img: 'src/assets/2021.jpg',
     text: `Encouraged by a friend, he created an Instagram page to build a like-minded community of young animal lovers. Slowly, passionate students joined the mission. This year marked our first public impact initiative—Radium Belt Distribution for street dogs to prevent night-time accidents, a first-of-its-kind in Nagpur. This initiative became the turning point for our growing presence.`
   },
   {
     year: '2022',
     title: 'Expanding Care Beyond Food',
-    img: 'https://images.unsplash.com/photo-1601758003831-27d52b2350b8?auto=format&fit=crop&w=1170&q=80',
+    img: 'src/assets/2022.jpg',
     text: `With more volunteers joining the cause, we realized that food and rescue alone weren’t enough—access to clean drinking water during Nagpur’s scorching summers was a major issue. With a self-funded team of 10 members, we launched our first Free Water Pot Distribution Drive, placing over 100+ pots across the city. The number may have been small, but the impact was immense.`
   },
   {
     year: '2023',
     title: 'Building a Street + Pet Dog Community',
-    img: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=1064&q=80',
+    img: 'src/assets/2023.jpg',
     text: `This year, our vision expanded beyond street dogs. We dreamed of building a bridge between pet owners and street animal welfare. While we continued our key initiatives like radium belt and water pot distribution, we also introduced Dog Yoga Sessions, Sunday Community Feeding, and Team Radium Drives. With over 50 active volunteers, we began conducting regular team meetings to brainstorm and plan bigger initiatives.`
   },
   {
     year: '2024',
     title: 'A City-Wide Impact',
-    img: 'https://images.unsplash.com/photo-1450778869180-41d0601e046e?auto=format&fit=crop&w=1158&q=80',
+    img: 'src/assets/2024.jpg',
     text: `This was our breakthrough year. We led Nagpur’s largest self-funded water pot drive, distributing 500+ water pots and installing 3000+ radium belts, directly saving countless lives. We also organized Vidarbha’s First-Ever Dog Holi Party, celebrating our community of pet and street dog lovers alike. Our vision became a city-wide movement.`
   },
   {
     year: '2025',
     title: 'The Mission Continues...',
-    img: 'https://images.unsplash.com/photo-1583512603806-077998240c7a?auto=format&fit=crop&w=1109&q=80',
+    img: 'src/assets/2025.jpg',
     text: `We're only getting started. With many more innovative, inclusive, and impactful initiatives in the pipeline, Nagpur Street Dogs continues to stand as a youth-led force of compassion, creating a city where every paw matters.`
   },
 ];
@@ -113,14 +113,14 @@ const AboutUs = () => {
                       </p>
                       <p className="mt-4">
                         We work actively on the streets to rescue, rehabilitate, and care for injured, abandoned, and sick dogs. Beyond rescue, we focus on long-term impact through sterilization, vaccination drives, feeding programs, and awareness campaigns.<br/>
-                        NSD is the 1st group in Nagpur city to distribute free water pots every summer. Every summer, we run free water pot distribution drives across Nagpur to ensure that animals have access to clean drinking water during scorching heatwaves—a life-saving initiative supported by our incredible team and community collaborators.<br/>
-                        NSD is the only group to provide Radium belts to the street dogs to reduce the accident cases in Nagpur.
+                        NSD is the 1st group in Nagpur city to distribute free water pots every summer. Every summer, we run <b>free water pot distribution</b> drives across Nagpur to ensure that animals have access to clean drinking water during scorching heatwaves—a life-saving initiative supported by our incredible team and community collaborators.<br/>
+                        NSD is the only group to provide <b>Radium belts</b> to the street dogs to reduce the accident cases in Nagpur.
                       </p>
                       <p className="mt-4">
                         Our strength lies in our passionate volunteers, everyday heroes who believe in kindness without conditions. We proudly collaborate with local cafés, small businesses, influencers, educational institutions, and socially conscious brands to build a better environment for our furry friends.
                       </p>
                       <p className="mt-4">
-                        At Nagpur Street Dogs, we believe that street animals are not a problem to be solved but lives to be protected. Join us in making Nagpur a safer, kinder place for all beings.
+                        At Nagpur Street Dogs, we believe that street animals are not a problem to be solved but lives to be protected. <b>Join us</b> in making Nagpur a safer, kinder place for all beings.
                       </p>
                     </>
                   ) : (
