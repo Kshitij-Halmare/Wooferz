@@ -151,21 +151,13 @@ const AboutUs = () => {
           </div>
           
           <div className="order-1 lg:order-2">
-            <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-200 to-amber-200 rounded-3xl transform rotate-2 group-hover:rotate-3 transition-transform duration-500"></div>
-              <div className="relative overflow-hidden rounded-3xl shadow-xl group-hover:shadow-2xl transition-all duration-500">
-                <img 
-                  src="https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1198&q=80" 
-                  alt="Happy rescued dogs" 
-                  className="w-full h-80 md:h-96 object-cover transform group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent flex items-end p-8">
-                  <div className="text-white">
-                    <Dog className="w-10 h-10 mb-2" />
-                    <p className="text-xl font-medium">Every rescue story begins with hope and ends with love.</p>
-                  </div>
-                </div>
-              </div>
+            <div className="flex items-center justify-center h-80 md:h-96 bg-transparent">
+              <img
+                src="/Good doggy-amico 3.png"
+                alt="About us"
+                className="w-full h-full object-contain"
+                style={{ maxWidth: '90%', maxHeight: '90%' }}
+              />
             </div>
           </div>
         </div>
