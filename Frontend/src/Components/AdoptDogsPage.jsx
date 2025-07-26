@@ -14,6 +14,11 @@ const AdoptDogsPage = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [showFilters, setShowFilters] = useState(false);
 
+  const naviagate=useNavigate();
+  const handleClicknaviageton=()=>{
+    naviagate('/adopt-form');
+  }
+  
   useEffect(() => {
     fetchDogs();
   }, [filters, currentPage]);
@@ -131,7 +136,7 @@ const AdoptDogsPage = () => {
           </div>
           
           <button 
-            onClick={() => window.open(`/dog/${dog._id}`, '_blank')}
+            onClick={() => naviagate('/adopt-form')}
             className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
           >
             View Details
@@ -140,10 +145,7 @@ const AdoptDogsPage = () => {
       </div>
     </div>
   );
-  const naviagate=useNavigate();
-  const handleClicknaviageton=()=>{
-    naviagate('/adopt-form');
-  }
+
   return (
     <div className="min-h-screen bg-orange-50">
       {/* Header */}
