@@ -200,10 +200,10 @@ function Home() {
                                 {heroImages[currentHeroSlide].subtitle}
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4">
-                                <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg" onClick={() => window.location.href = '/donate'}>
+                                <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg" onClick={() => navigate('/donate')}>
                                     Donate Now!
                                 </button>
-                                <button className="border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300" onClick={() => window.location.href = '/about'}>
+                                <button className="border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300" onClick={() => navigate('/about')}>
                                     Learn More
                                 </button>
                             </div>

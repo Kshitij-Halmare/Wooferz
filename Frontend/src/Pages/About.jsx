@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import goodDoggy from "/home1.png";
 import { 
   ChevronDown, 
   Heart, 
@@ -153,7 +154,8 @@ const AboutUs = () => {
           <div className="order-1 lg:order-2">
             <div className="flex items-center justify-center h-80 md:h-96 bg-transparent">
               <img
-                src="/Good doggy-amico 3.png"
+                // src="/Good doggy-amico 3.png"
+                src={goodDoggy}
                 alt="About us"
                 className="w-full h-full object-contain"
                 style={{ maxWidth: '90%', maxHeight: '90%' }}
