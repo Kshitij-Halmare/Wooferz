@@ -20,7 +20,7 @@ const journeyTimeline = [
   {
     year: '2020',
     title: 'Where It All Began',
-    img: 'src/assets/2020.jpg',
+    img: '/New photo/IMG-20241209-WA0115~2.jpg',
     text: `At just 16 years old, a young animal lover from Nagpur took the first step toward a bigger vision—ensuring care for the voiceless. With only ₹200-₹300 a month from his pocket money, he began feeding and rescuing 10–15 street dogs in his neighborhood. What started as a small act of compassion soon planted the seeds of a movement.`
   },
   {
