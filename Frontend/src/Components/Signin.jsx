@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import FadeInWrapper from "../Animation/FadeinWrapper.jsx"
 import { useAuth } from '../Authentication/Authentication';
 function Signin() {
@@ -157,9 +157,9 @@ function Signin() {
             <div className="mt-6">
               <p className="text-gray-600">
                 Don't have an account?{' '}
-                <a href="/register" className="text-orange-600 hover:text-orange-700 font-medium transition-colors duration-300 hover:underline">
+                <Link to="/register" className="text-orange-600 hover:text-orange-700 font-medium transition-colors duration-300 hover:underline">
                   Create one now
-                </a>
+                </Link>
               </p>
             </div>
           </div>
