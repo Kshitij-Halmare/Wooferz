@@ -14,43 +14,49 @@ import {
   PlusCircle, 
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import img2020 from '../assets/2020.jpg';
+import img2021 from '../assets/2021.jpg';
+import img2022 from '../assets/2022.jpg';
+import img2023 from '../assets/2023.jpg';
+import img2024 from '../assets/2024.jpg';
+import img2025 from '../assets/2025.jpg';
 
 // Timeline data for each year with images and updated content
 const journeyTimeline = [
   {
     year: '2020',
     title: 'Where It All Began',
-    img: '/New photo/IMG-20241209-WA0115~2.jpg',
+    img: img2020,
     text: `At just 16 years old, a young animal lover from Nagpur took the first step toward a bigger vision—ensuring care for the voiceless. With only ₹200-₹300 a month from his pocket money, he began feeding and rescuing 10–15 street dogs in his neighborhood. What started as a small act of compassion soon planted the seeds of a movement.`
   },
   {
     year: '2021',
     title: 'Community Over Individual',
-    img: 'src/assets/2021.jpg',
+    img: img2021,
     text: `Encouraged by a friend, he created an Instagram page to build a like-minded community of young animal lovers. Slowly, passionate students joined the mission. This year marked our first public impact initiative—Radium Belt Distribution for street dogs to prevent night-time accidents, a first-of-its-kind in Nagpur. This initiative became the turning point for our growing presence.`
   },
   {
     year: '2022',
     title: 'Expanding Care Beyond Food',
-    img: 'src/assets/2022.jpg',
+    img: img2022,
     text: `With more volunteers joining the cause, we realized that food and rescue alone weren’t enough—access to clean drinking water during Nagpur’s scorching summers was a major issue. With a self-funded team of 10 members, we launched our first Free Water Pot Distribution Drive, placing over 100+ pots across the city. The number may have been small, but the impact was immense.`
   },
   {
     year: '2023',
     title: 'Building a Street + Pet Dog Community',
-    img: 'src/assets/2023.jpg',
+    img: img2023,
     text: `This year, our vision expanded beyond street dogs. We dreamed of building a bridge between pet owners and street animal welfare. While we continued our key initiatives like radium belt and water pot distribution, we also introduced Dog Yoga Sessions, Sunday Community Feeding, and Team Radium Drives. With over 50 active volunteers, we began conducting regular team meetings to brainstorm and plan bigger initiatives.`
   },
   {
     year: '2024',
     title: 'A City-Wide Impact',
-    img: 'src/assets/2024.jpg',
+    img: img2024,
     text: `This was our breakthrough year. We led Nagpur’s largest self-funded water pot drive, distributing 500+ water pots and installing 3000+ radium belts, directly saving countless lives. We also organized Vidarbha’s First-Ever Dog Holi Party, celebrating our community of pet and street dog lovers alike. Our vision became a city-wide movement.`
   },
   {
     year: '2025',
     title: 'The Mission Continues...',
-    img: 'src/assets/2025.jpg',
+    img: img2025,
     text: `We're only getting started. With many more innovative, inclusive, and impactful initiatives in the pipeline, Nagpur Street Dogs continues to stand as a youth-led force of compassion, creating a city where every paw matters.`
   },
 ];
