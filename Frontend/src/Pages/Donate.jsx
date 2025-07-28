@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Heart, Check, X, Loader2, CreditCard, Shield, Users } from 'lucide-react';
-
+import donateIntro from "/home2.png";
 const volunteerPhotos = [
   "/DONATION PAGE/IMG-20250604-WA0012~2.jpg",
   "/DONATION PAGE/IMG-20250304-WA0025.jpg",
@@ -354,7 +354,7 @@ const Donate = () => {
         <h2 className="text-2xl md:text-3xl text-center font-bold mb-10 text-[#E15519]">Together we can make a difference</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           <div className="flex justify-center">
-            <img src="/DONATION PAGE/IMG-20250603-WA0050~2.jpg" alt="Charity Work" className="rounded-2xl shadow-lg w-full max-w-[370px] object-cover" />
+            <img src={donateIntro} alt="Charity Work" className="rounded-2xl shadow-lg w-full max-w-[370px] object-cover" />
           </div>
           <div className="flex flex-col items-center md:items-start">
             <h3 className="text-xl md:text-2xl font-bold mb-6 text-[#000000]">Be the reason of someone's smile</h3>
